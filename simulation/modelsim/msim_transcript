@@ -1,0 +1,67 @@
+# Reading L:/Programmering/Quartus_prime/modelsim_ase/tcl/vsim/pref.tcl
+# do Digital_clock_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying L:/Programmering/Quartus_prime/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:15:26 on Jun 03,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package Digital_clock_pkg
+# End time: 14:15:26 on Jun 03,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:15:26 on Jun 03,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package Digital_clock_pkg
+# -- Compiling entity Digital_clock
+# -- Compiling architecture Behaviour of Digital_clock
+# End time: 14:15:26 on Jun 03,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:15:26 on Jun 03,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package Digital_clock_pkg
+# -- Compiling entity Digital_clock_tb
+# -- Compiling architecture TB of Digital_clock_tb
+# End time: 14:15:26 on Jun 03,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  Digital_clock_tb
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs=""+acc"" Digital_clock_tb 
+# Start time: 14:15:26 on Jun 03,2022
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading work.digital_clock_pkg
+# Loading work.digital_clock_tb(tb)
+# Loading work.digital_clock(behaviour)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+add wave -position insertpoint sim:/digital_clock_tb/uut/*
+restart 
+run -all
