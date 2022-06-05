@@ -3,18 +3,18 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 library work;
-use work.Digital_clock_pkg.all;
+use work.definitions_pkg.all;
 
-entity Sevenseg is
+entity segment is
     port
     (
-    digit  : in natural range 0 to 9;
+    digit  : in natural range 0 to 9 := 0;
     output : out std_logic_vector ( 6 downto 0)
     );
-end Sevenseg;
+end segment;
 
 
-architecture gate of Sevenseg is
+architecture gate of segment is
 begin
     
     process(digit) is

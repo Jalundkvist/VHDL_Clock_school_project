@@ -1,7 +1,7 @@
 Library IEEE;
 use IEEE.std_logic_1164.all;
 library work;
-use work.Digital_clock_pkg.all;
+use work.definitions_pkg.all;
 
 entity Digital_clock_tb is
 end entity;
@@ -14,14 +14,14 @@ component Digital_clock is
    clk   : in std_logic;
    rst_n : in std_logic;
    key_n : in std_logic;
-   display : out std_logic_vector(5 downto 0)
+   hex     : out hex_t
    );
 end component;
 
 signal clk_s     : std_logic := '0';
 signal rst_n_s   : std_logic := '0';
 signal key_n_s   : std_logic := '0';
-signal display_s : std_logic_vector(5 downto 0);
+signal display_s : hex_t;
 
 begin
 
@@ -30,7 +30,7 @@ uut : Digital_clock port map
         clk     => clk_s,
         rst_n   => rst_n_s, 
         key_n   => key_n_s,
-        display => display_s
+        hex => display_s
     );
 
 

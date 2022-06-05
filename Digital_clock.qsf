@@ -49,10 +49,6 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
-set_global_assignment -name VHDL_FILE segment.vhd
-set_global_assignment -name VHDL_FILE Digital_clock.vhd
-set_global_assignment -name VHDL_TEST_BENCH_FILE Digital_clock_tb.vht
-set_global_assignment -name VHDL_FILE Digital_clock_pkg.vhd
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
@@ -65,4 +61,9 @@ set_global_assignment -name EDA_TEST_BENCH_NAME Digital_clock_tb -section_id eda
 set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id Digital_clock_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME Digital_clock_tb -section_id Digital_clock_tb
 set_global_assignment -name EDA_TEST_BENCH_FILE Digital_clock_tb.vht -section_id Digital_clock_tb
+set_global_assignment -name VHDL_FILE definitions_pkg.vhd
+set_global_assignment -name VHDL_FILE segment.vhd
+set_global_assignment -name VHDL_FILE Digital_clock.vhd
+set_global_assignment -name VHDL_TEST_BENCH_FILE Digital_clock_tb.vht
+set_global_assignment -name VHDL_FILE SlowClock.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
