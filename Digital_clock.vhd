@@ -56,12 +56,12 @@ Sec_Clock : SlowClock port map
 
 
 -----------------------------------------------------------------
-   state_mach : process (clk, q1, q2) is
+   state_mach : process (clk, rst_n, key_n, q1, q2) is
 
    begin
  
       if(rising_edge(clk)) then
-         if rst_n = '0' then
+         if rst_n = '1' then
             clk_state_s <= off;
          else
 				q1 <= key_n;
