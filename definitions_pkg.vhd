@@ -6,7 +6,7 @@ use IEEE.std_logic_1164.all;
 package definitions_pkg is
 
 	 constant COUNTER_MAX : natural := 5;
-	 subtype counter_t is natural range 0 to COUNTER_MAX;
+	 subtype counter_t is natural range 0 to 50000000;
 	 type clk_state_t is (off, counting, paused);
 	 
 -- constanter för simulering och klocka
@@ -37,6 +37,17 @@ component segment is
     output : out std_logic_vector ( 6 downto 0)
     );
 end component;
+
+component SlowClock is
+   port
+   (
+      clk       : in std_logic;   
+      reset_n   : in std_logic;   
+      frequency : in counter_t; 
+      slow_clk  : out std_logic
+   );
+end component;
+
 
 
 
