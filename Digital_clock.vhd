@@ -63,7 +63,7 @@ slow_clk => slow_clk_s
 
    state_mach : process (clk, rst_n) is
    begin
-	   if (rst_n = '1') then
+	   if (rst_n = '0') then
          clk_state_s <= off;
 			q1 <= '1'; 
       elsif(rising_edge(clk)) then
@@ -91,7 +91,7 @@ slow_clk => slow_clk_s
    counter24h : process (clk, rst_n) is
    begin
 	 
-	   if (rst_n = '1') then
+	   if (rst_n = '0') then
 		   second_s <= 0;
 			deci_second_s <= 0;
 			minute_s <= 0;

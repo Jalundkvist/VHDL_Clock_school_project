@@ -3,7 +3,7 @@ use IEEE.std_logic_1164.all;
 
 package definitions_pkg is
 
-	 constant COUNTER_MAX : natural := 5;
+	 constant COUNTER_MAX : natural := 5000000;
 	 subtype counter_t is natural range 0 to 50000000;
 	 type clk_state_t is (off, counting, paused);
 	 

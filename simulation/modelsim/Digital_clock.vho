@@ -16,7 +16,7 @@
 -- PROGRAM "Quartus Prime"
 -- VERSION "Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition"
 
--- DATE "06/06/2022 14:52:13"
+-- DATE "06/06/2022 15:27:25"
 
 -- 
 -- Device: Altera 5CEBA4F23C7 Package FBGA484
@@ -25,17 +25,6 @@
 -- 
 -- This VHDL file should be used for ModelSim-Altera (VHDL) only
 -- 
-
-LIBRARY IEEE;
-USE IEEE.std_logic_1164.all;
-
-PACKAGE ClockTop_data_type IS
-
-TYPE hex_6_0_type IS ARRAY (6 DOWNTO 0) OF std_logic;
-TYPE hex_6_0_0_5_type IS ARRAY (0 TO 5) OF hex_6_0_type;
-SUBTYPE hex_type IS hex_6_0_0_5_type;
-
-END ClockTop_data_type;
 
 LIBRARY ALTERA;
 LIBRARY ALTERA_LNSIM;
@@ -46,14 +35,14 @@ USE ALTERA.ALTERA_PRIMITIVES_COMPONENTS.ALL;
 USE ALTERA_LNSIM.ALTERA_LNSIM_COMPONENTS.ALL;
 USE CYCLONEV.CYCLONEV_COMPONENTS.ALL;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE WORK.CLOCKTOP_DATA_TYPE.ALL;
+USE WORK.DEFINITIONS_PKG.ALL;
 
 ENTITY 	ClockTop IS
     PORT (
 	clk : IN std_logic;
 	rst_n : IN std_logic;
 	key_n : IN std_logic;
-	hex : BUFFER hex_type
+	hex : OUT WORK.DEFINITIONS_PKG.hex_t
 	);
 END ClockTop;
 
@@ -118,18 +107,14 @@ SIGNAL ww_devpor : std_logic;
 SIGNAL ww_clk : std_logic;
 SIGNAL ww_rst_n : std_logic;
 SIGNAL ww_key_n : std_logic;
-SIGNAL ww_hex : hex_type;
+SIGNAL ww_hex : WORK.DEFINITIONS_PKG.hex_t;
 SIGNAL \~QUARTUS_CREATED_GND~I_combout\ : std_logic;
 SIGNAL \clk~input_o\ : std_logic;
 SIGNAL \clk~inputCLKENA0_outclk\ : std_logic;
 SIGNAL \bigclock|Add0~1_sumout\ : std_logic;
 SIGNAL \rst_n~input_o\ : std_logic;
 SIGNAL \rst_n~inputCLKENA0_outclk\ : std_logic;
-SIGNAL \bigclock|Add0~2\ : std_logic;
-SIGNAL \bigclock|Add0~5_sumout\ : std_logic;
-SIGNAL \bigclock|Add1~1_sumout\ : std_logic;
-SIGNAL \bigclock|Add1~6\ : std_logic;
-SIGNAL \bigclock|Add1~9_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~1_sumout\ : std_logic;
 SIGNAL \key_n~input_o\ : std_logic;
 SIGNAL \bigclock|q1~0_combout\ : std_logic;
 SIGNAL \bigclock|q1~q\ : std_logic;
@@ -137,90 +122,180 @@ SIGNAL \bigclock|clk_state_s.counting~0_combout\ : std_logic;
 SIGNAL \bigclock|clk_state_s.counting~q\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~101_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~102\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~25_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~26\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~17_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~18\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~21_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~22\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~97_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~98\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~93_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~94\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~89_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~90\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~85_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~86\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~81_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~82\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~9_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~10\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~13_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~14\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~29_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~30\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~1_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~2\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~5_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~6\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~25_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~26\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~33_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~34\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~17_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~18\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~21_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~22\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~29_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|LessThan0~2_combout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~30\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~37_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~38\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~41_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|counter_s[8]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~42\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~45_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|counter_s[17]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~46\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~61_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~62\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~65_sumout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|Add0~66\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~49_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|counter_s[10]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~50\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~53_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~54\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~57_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~58\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~61_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~62\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~65_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~66\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~37_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~38\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~69_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~70\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~73_sumout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~74\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|Add0~77_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~78\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~5_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|LessThan0~0_combout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~6\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~81_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~82\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~85_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~86\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~89_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~90\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~93_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~94\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~97_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~98\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|Add0~1_sumout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|LessThan0~1_combout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|LessThan0~5_combout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|LessThan0~3_combout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|LessThan0~2_combout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|LessThan0~1_combout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|LessThan0~4_combout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|slow_clk~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|LessThan0~0_combout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|LessThan0~6_combout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|slow_clk~q\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[3]~1_combout\ : std_logic;
 SIGNAL \bigclock|Add5~1_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[0]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~2\ : std_logic;
+SIGNAL \bigclock|Add5~5_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[1]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~6\ : std_logic;
+SIGNAL \bigclock|Add5~9_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[2]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~10\ : std_logic;
+SIGNAL \bigclock|Add5~13_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~14\ : std_logic;
+SIGNAL \bigclock|Add5~117_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~118\ : std_logic;
+SIGNAL \bigclock|Add5~121_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~122\ : std_logic;
+SIGNAL \bigclock|Add5~69_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[6]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~70\ : std_logic;
+SIGNAL \bigclock|Add5~77_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~78\ : std_logic;
+SIGNAL \bigclock|Add5~81_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[8]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~82\ : std_logic;
+SIGNAL \bigclock|Add5~113_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~114\ : std_logic;
+SIGNAL \bigclock|Add5~85_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[10]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~86\ : std_logic;
+SIGNAL \bigclock|Add5~89_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~90\ : std_logic;
+SIGNAL \bigclock|Add5~109_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~110\ : std_logic;
+SIGNAL \bigclock|Add5~105_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~106\ : std_logic;
+SIGNAL \bigclock|Add5~101_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[14]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~102\ : std_logic;
+SIGNAL \bigclock|Add5~97_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~98\ : std_logic;
+SIGNAL \bigclock|Add5~18\ : std_logic;
+SIGNAL \bigclock|Add5~41_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~42\ : std_logic;
+SIGNAL \bigclock|Add5~37_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~38\ : std_logic;
+SIGNAL \bigclock|Add5~33_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~34\ : std_logic;
+SIGNAL \bigclock|Add5~29_sumout\ : std_logic;
+SIGNAL \bigclock|second_s[20]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~30\ : std_logic;
+SIGNAL \bigclock|Add5~25_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~26\ : std_logic;
+SIGNAL \bigclock|Add5~21_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~22\ : std_logic;
+SIGNAL \bigclock|Add5~65_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~66\ : std_logic;
+SIGNAL \bigclock|Add5~61_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~62\ : std_logic;
+SIGNAL \bigclock|Add5~57_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~58\ : std_logic;
+SIGNAL \bigclock|Add5~53_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~54\ : std_logic;
+SIGNAL \bigclock|Add5~49_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~50\ : std_logic;
+SIGNAL \bigclock|Add5~45_sumout\ : std_logic;
+SIGNAL \bigclock|Add5~46\ : std_logic;
+SIGNAL \bigclock|Add5~73_sumout\ : std_logic;
+SIGNAL \bigclock|Equal6~7_combout\ : std_logic;
+SIGNAL \bigclock|second_s[3]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Equal6~3_combout\ : std_logic;
+SIGNAL \bigclock|second_s[9]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Equal6~4_combout\ : std_logic;
+SIGNAL \bigclock|Add5~74\ : std_logic;
+SIGNAL \bigclock|Add5~93_sumout\ : std_logic;
+SIGNAL \bigclock|Equal6~2_combout\ : std_logic;
+SIGNAL \bigclock|Equal6~1_combout\ : std_logic;
+SIGNAL \bigclock|second_s[22]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Equal6~0_combout\ : std_logic;
+SIGNAL \bigclock|Equal6~6_combout\ : std_logic;
+SIGNAL \bigclock|second_s[16]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add5~17_sumout\ : std_logic;
+SIGNAL \bigclock|Add1~1_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~1_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[3]~1_combout\ : std_logic;
+SIGNAL \bigclock|hour_s[28]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add1~6\ : std_logic;
+SIGNAL \bigclock|Add1~9_sumout\ : std_logic;
+SIGNAL \bigclock|Add1~10\ : std_logic;
+SIGNAL \bigclock|Add1~13_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[3]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~14\ : std_logic;
-SIGNAL \bigclock|Add1~69_sumout\ : std_logic;
-SIGNAL \bigclock|Add1~70\ : std_logic;
+SIGNAL \bigclock|Add1~65_sumout\ : std_logic;
+SIGNAL \bigclock|Add1~66\ : std_logic;
 SIGNAL \bigclock|Add1~85_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[5]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~86\ : std_logic;
 SIGNAL \bigclock|Add1~81_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[6]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~82\ : std_logic;
-SIGNAL \bigclock|Add1~73_sumout\ : std_logic;
-SIGNAL \bigclock|Add1~74\ : std_logic;
+SIGNAL \bigclock|Add1~69_sumout\ : std_logic;
+SIGNAL \bigclock|Add1~70\ : std_logic;
 SIGNAL \bigclock|Add1~121_sumout\ : std_logic;
-SIGNAL \bigclock|hour_s[8]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~122\ : std_logic;
 SIGNAL \bigclock|Add1~117_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~118\ : std_logic;
 SIGNAL \bigclock|Add1~113_sumout\ : std_logic;
-SIGNAL \bigclock|hour_s[10]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~114\ : std_logic;
 SIGNAL \bigclock|Add1~109_sumout\ : std_logic;
-SIGNAL \bigclock|hour_s[11]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~110\ : std_logic;
 SIGNAL \bigclock|Add1~77_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[12]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~78\ : std_logic;
 SIGNAL \bigclock|Add1~105_sumout\ : std_logic;
-SIGNAL \bigclock|hour_s[13]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~106\ : std_logic;
 SIGNAL \bigclock|Add1~101_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[14]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~102\ : std_logic;
 SIGNAL \bigclock|Add1~97_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~98\ : std_logic;
@@ -230,379 +305,139 @@ SIGNAL \bigclock|Add1~94\ : std_logic;
 SIGNAL \bigclock|Add1~89_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~90\ : std_logic;
 SIGNAL \bigclock|Add1~41_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[18]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~42\ : std_logic;
 SIGNAL \bigclock|Add1~37_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~38\ : std_logic;
 SIGNAL \bigclock|Add1~33_sumout\ : std_logic;
-SIGNAL \bigclock|hour_s[20]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~34\ : std_logic;
 SIGNAL \bigclock|Add1~29_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~30\ : std_logic;
 SIGNAL \bigclock|Add1~25_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~26\ : std_logic;
 SIGNAL \bigclock|Add1~21_sumout\ : std_logic;
-SIGNAL \bigclock|hour_s[23]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~22\ : std_logic;
-SIGNAL \bigclock|Add1~17_sumout\ : std_logic;
-SIGNAL \bigclock|Add1~18\ : std_logic;
+SIGNAL \bigclock|Add1~61_sumout\ : std_logic;
+SIGNAL \bigclock|hour_s[24]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add1~62\ : std_logic;
 SIGNAL \bigclock|Add1~57_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~58\ : std_logic;
 SIGNAL \bigclock|Add1~53_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~54\ : std_logic;
-SIGNAL \bigclock|Add1~61_sumout\ : std_logic;
-SIGNAL \bigclock|Add1~62\ : std_logic;
+SIGNAL \bigclock|Add1~73_sumout\ : std_logic;
+SIGNAL \bigclock|Add1~74\ : std_logic;
 SIGNAL \bigclock|Add1~49_sumout\ : std_logic;
 SIGNAL \bigclock|Add1~50\ : std_logic;
 SIGNAL \bigclock|Add1~45_sumout\ : std_logic;
-SIGNAL \bigclock|counter24h~12_combout\ : std_logic;
+SIGNAL \bigclock|hour_s[25]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|counter24h~10_combout\ : std_logic;
 SIGNAL \bigclock|counter24h~11_combout\ : std_logic;
 SIGNAL \bigclock|hour_s[30]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add1~46\ : std_logic;
-SIGNAL \bigclock|Add1~65_sumout\ : std_logic;
-SIGNAL \bigclock|hour_s[12]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~27_combout\ : std_logic;
-SIGNAL \bigclock|hour_s[0]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|hour_s[6]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|hour_s[5]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~28_combout\ : std_logic;
-SIGNAL \bigclock|hour_s[9]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add1~17_sumout\ : std_logic;
+SIGNAL \bigclock|counter24h~31_combout\ : std_logic;
 SIGNAL \bigclock|counter24h~13_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~30_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~12_combout\ : std_logic;
 SIGNAL \bigclock|counter24h~14_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~15_combout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~2_combout\ : std_logic;
-SIGNAL \bigclock|Add5~18\ : std_logic;
-SIGNAL \bigclock|Add5~49_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~50\ : std_logic;
-SIGNAL \bigclock|Add5~45_sumout\ : std_logic;
-SIGNAL \bigclock|second_s[18]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add5~46\ : std_logic;
-SIGNAL \bigclock|Add5~41_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~42\ : std_logic;
-SIGNAL \bigclock|Add5~37_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~38\ : std_logic;
-SIGNAL \bigclock|Add5~33_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~34\ : std_logic;
-SIGNAL \bigclock|Add5~29_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~8_combout\ : std_logic;
-SIGNAL \bigclock|Add5~30\ : std_logic;
-SIGNAL \bigclock|Add5~25_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~26\ : std_logic;
-SIGNAL \bigclock|Add5~69_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~70\ : std_logic;
-SIGNAL \bigclock|Add5~65_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~66\ : std_logic;
-SIGNAL \bigclock|Add5~61_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~62\ : std_logic;
-SIGNAL \bigclock|Add5~57_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~58\ : std_logic;
-SIGNAL \bigclock|Add5~53_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~0_combout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~3_combout\ : std_logic;
-SIGNAL \bigclock|Add5~54\ : std_logic;
-SIGNAL \bigclock|Add5~21_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~22\ : std_logic;
-SIGNAL \bigclock|Add5~89_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~1_combout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~9_combout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~4_combout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|slow_clk~q\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~5_combout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[9]~7_combout\ : std_logic;
-SIGNAL \bigclock|Add5~2\ : std_logic;
-SIGNAL \bigclock|Add5~5_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~6\ : std_logic;
-SIGNAL \bigclock|Add5~9_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~10\ : std_logic;
-SIGNAL \bigclock|Add5~13_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~14\ : std_logic;
-SIGNAL \bigclock|Add5~121_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~122\ : std_logic;
-SIGNAL \bigclock|Add5~93_sumout\ : std_logic;
-SIGNAL \bigclock|second_s[5]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add5~94\ : std_logic;
-SIGNAL \bigclock|Add5~97_sumout\ : std_logic;
-SIGNAL \bigclock|second_s[6]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add5~98\ : std_logic;
-SIGNAL \bigclock|Add5~73_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~74\ : std_logic;
-SIGNAL \bigclock|Add5~77_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~78\ : std_logic;
-SIGNAL \bigclock|Add5~117_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~118\ : std_logic;
-SIGNAL \bigclock|Add5~81_sumout\ : std_logic;
-SIGNAL \bigclock|second_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add5~82\ : std_logic;
-SIGNAL \bigclock|Add5~85_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~86\ : std_logic;
-SIGNAL \bigclock|Add5~113_sumout\ : std_logic;
-SIGNAL \bigclock|second_s[12]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add5~114\ : std_logic;
-SIGNAL \bigclock|Add5~109_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~110\ : std_logic;
-SIGNAL \bigclock|Add5~105_sumout\ : std_logic;
-SIGNAL \bigclock|second_s[14]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add5~106\ : std_logic;
-SIGNAL \bigclock|Add5~101_sumout\ : std_logic;
-SIGNAL \bigclock|Add5~102\ : std_logic;
-SIGNAL \bigclock|Add5~17_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~1_sumout\ : std_logic;
-SIGNAL \bigclock|Add3~1_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~1_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~7_combout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[3]~6_combout\ : std_logic;
-SIGNAL \bigclock|Add4~2\ : std_logic;
-SIGNAL \bigclock|Add4~5_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[1]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~6\ : std_logic;
-SIGNAL \bigclock|Add4~9_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~10\ : std_logic;
-SIGNAL \bigclock|Add4~13_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~14\ : std_logic;
-SIGNAL \bigclock|Add4~57_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~58\ : std_logic;
-SIGNAL \bigclock|Add4~105_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[5]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~106\ : std_logic;
-SIGNAL \bigclock|Add4~101_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~102\ : std_logic;
-SIGNAL \bigclock|Add4~97_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[7]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~98\ : std_logic;
-SIGNAL \bigclock|Add4~93_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~94\ : std_logic;
-SIGNAL \bigclock|Add4~89_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~90\ : std_logic;
-SIGNAL \bigclock|Add4~33_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~34\ : std_logic;
-SIGNAL \bigclock|Add4~29_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~30\ : std_logic;
-SIGNAL \bigclock|Add4~25_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[12]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~26\ : std_logic;
-SIGNAL \bigclock|Add4~109_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~110\ : std_logic;
-SIGNAL \bigclock|Add4~21_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[14]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~22\ : std_logic;
-SIGNAL \bigclock|Add4~17_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[15]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~18\ : std_logic;
-SIGNAL \bigclock|Add4~53_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~54\ : std_logic;
-SIGNAL \bigclock|Add4~49_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~50\ : std_logic;
-SIGNAL \bigclock|Add4~45_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~46\ : std_logic;
-SIGNAL \bigclock|Add4~41_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[19]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~42\ : std_logic;
-SIGNAL \bigclock|Add4~37_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[20]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~38\ : std_logic;
-SIGNAL \bigclock|Add4~65_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~66\ : std_logic;
-SIGNAL \bigclock|Add4~85_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[22]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~86\ : std_logic;
-SIGNAL \bigclock|Add4~81_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~82\ : std_logic;
-SIGNAL \bigclock|Add4~77_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~78\ : std_logic;
-SIGNAL \bigclock|Add4~73_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~74\ : std_logic;
-SIGNAL \bigclock|Add4~69_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~1_combout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~8_combout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[27]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~70\ : std_logic;
-SIGNAL \bigclock|Add4~61_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~9_combout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~2_combout\ : std_logic;
-SIGNAL \bigclock|Add4~62\ : std_logic;
-SIGNAL \bigclock|Add4~121_sumout\ : std_logic;
-SIGNAL \bigclock|deci_second_s[28]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add4~122\ : std_logic;
-SIGNAL \bigclock|Add4~117_sumout\ : std_logic;
-SIGNAL \bigclock|Add4~118\ : std_logic;
-SIGNAL \bigclock|Add4~113_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~3_combout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~0_combout\ : std_logic;
-SIGNAL \bigclock|minute_s[8]~4_combout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[15]~2_combout\ : std_logic;
+SIGNAL \bigclock|Equal6~5_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~32_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~23_combout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[15]~1_combout\ : std_logic;
 SIGNAL \bigclock|minute_s[8]~5_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~22_combout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[3]~3_combout\ : std_logic;
 SIGNAL \bigclock|minute_s[3]~6_combout\ : std_logic;
 SIGNAL \bigclock|Add3~2\ : std_logic;
 SIGNAL \bigclock|Add3~5_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[1]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~6\ : std_logic;
 SIGNAL \bigclock|Add3~9_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[2]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~10\ : std_logic;
 SIGNAL \bigclock|Add3~13_sumout\ : std_logic;
 SIGNAL \bigclock|minute_s[3]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~14\ : std_logic;
 SIGNAL \bigclock|Add3~45_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[4]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~46\ : std_logic;
 SIGNAL \bigclock|Add3~53_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~54\ : std_logic;
 SIGNAL \bigclock|Add3~49_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~50\ : std_logic;
-SIGNAL \bigclock|Add3~17_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[7]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add3~18\ : std_logic;
+SIGNAL \bigclock|Add3~73_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~74\ : std_logic;
+SIGNAL \bigclock|Add3~85_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~86\ : std_logic;
 SIGNAL \bigclock|Add3~89_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[9]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~90\ : std_logic;
 SIGNAL \bigclock|Add3~93_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[12]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~94\ : std_logic;
 SIGNAL \bigclock|Add3~97_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[10]~feeder_combout\ : std_logic;
-SIGNAL \bigclock|minute_s[10]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~98\ : std_logic;
 SIGNAL \bigclock|Add3~101_sumout\ : std_logic;
+SIGNAL \bigclock|counter24h~2_combout\ : std_logic;
 SIGNAL \bigclock|Add3~102\ : std_logic;
-SIGNAL \bigclock|Add3~105_sumout\ : std_logic;
-SIGNAL \bigclock|Add3~106\ : std_logic;
+SIGNAL \bigclock|Add3~65_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~66\ : std_logic;
 SIGNAL \bigclock|Add3~77_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~78\ : std_logic;
-SIGNAL \bigclock|Add3~69_sumout\ : std_logic;
-SIGNAL \bigclock|Add3~70\ : std_logic;
+SIGNAL \bigclock|Add3~105_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~106\ : std_logic;
 SIGNAL \bigclock|Add3~109_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~110\ : std_logic;
 SIGNAL \bigclock|Add3~113_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[18]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~114\ : std_logic;
 SIGNAL \bigclock|Add3~117_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[19]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~118\ : std_logic;
 SIGNAL \bigclock|Add3~121_sumout\ : std_logic;
+SIGNAL \bigclock|counter24h~3_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[30]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~122\ : std_logic;
-SIGNAL \bigclock|Add3~81_sumout\ : std_logic;
-SIGNAL \bigclock|Add3~82\ : std_logic;
-SIGNAL \bigclock|Add3~85_sumout\ : std_logic;
-SIGNAL \bigclock|Add3~86\ : std_logic;
-SIGNAL \bigclock|Add3~41_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~69_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[20]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add3~70\ : std_logic;
+SIGNAL \bigclock|Add3~21_sumout\ : std_logic;
 SIGNAL \bigclock|minute_s[21]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add3~22\ : std_logic;
+SIGNAL \bigclock|Add3~41_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~42\ : std_logic;
 SIGNAL \bigclock|Add3~37_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~38\ : std_logic;
 SIGNAL \bigclock|Add3~33_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~34\ : std_logic;
+SIGNAL \bigclock|Add3~81_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~82\ : std_logic;
 SIGNAL \bigclock|Add3~29_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[26]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~30\ : std_logic;
-SIGNAL \bigclock|Add3~73_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[0]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~1_combout\ : std_logic;
-SIGNAL \bigclock|Add3~74\ : std_logic;
 SIGNAL \bigclock|Add3~25_sumout\ : std_logic;
 SIGNAL \bigclock|Add3~26\ : std_logic;
-SIGNAL \bigclock|Add3~21_sumout\ : std_logic;
-SIGNAL \bigclock|Add3~22\ : std_logic;
-SIGNAL \bigclock|Add3~65_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[29]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add3~66\ : std_logic;
+SIGNAL \bigclock|Add3~17_sumout\ : std_logic;
+SIGNAL \bigclock|Add3~18\ : std_logic;
 SIGNAL \bigclock|Add3~61_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[29]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add3~62\ : std_logic;
 SIGNAL \bigclock|Add3~57_sumout\ : std_logic;
-SIGNAL \bigclock|minute_s[6]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|counter24h~0_combout\ : std_logic;
-SIGNAL \bigclock|minute_s[23]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~23_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~3_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~2_combout\ : std_logic;
-SIGNAL \bigclock|minute_s[19]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~24_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~4_combout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[3]~0_combout\ : std_logic;
-SIGNAL \bigclock|Add2~2\ : std_logic;
-SIGNAL \bigclock|Add2~5_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~6\ : std_logic;
-SIGNAL \bigclock|Add2~9_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~10\ : std_logic;
-SIGNAL \bigclock|Add2~13_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~14\ : std_logic;
-SIGNAL \bigclock|Add2~25_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~26\ : std_logic;
-SIGNAL \bigclock|Add2~21_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[5]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~22\ : std_logic;
-SIGNAL \bigclock|Add2~17_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~18\ : std_logic;
-SIGNAL \bigclock|Add2~77_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[7]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~78\ : std_logic;
-SIGNAL \bigclock|Add2~73_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~74\ : std_logic;
-SIGNAL \bigclock|Add2~69_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[9]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~70\ : std_logic;
-SIGNAL \bigclock|Add2~61_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[3]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~62\ : std_logic;
-SIGNAL \bigclock|Add2~117_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~118\ : std_logic;
-SIGNAL \bigclock|Add2~113_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[12]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~114\ : std_logic;
-SIGNAL \bigclock|Add2~109_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~110\ : std_logic;
-SIGNAL \bigclock|Add2~57_sumout\ : std_logic;
+SIGNAL \bigclock|counter24h~27_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[25]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|counter24h~1_combout\ : std_logic;
 SIGNAL \bigclock|counter24h~26_combout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[22]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~58\ : std_logic;
-SIGNAL \bigclock|Add2~89_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~90\ : std_logic;
-SIGNAL \bigclock|Add2~105_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[16]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~106\ : std_logic;
-SIGNAL \bigclock|Add2~101_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[17]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~102\ : std_logic;
-SIGNAL \bigclock|Add2~41_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[18]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~42\ : std_logic;
-SIGNAL \bigclock|Add2~65_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[19]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~66\ : std_logic;
-SIGNAL \bigclock|Add2~85_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~86\ : std_logic;
-SIGNAL \bigclock|Add2~81_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~82\ : std_logic;
-SIGNAL \bigclock|Add2~121_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[0]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~8_combout\ : std_logic;
-SIGNAL \bigclock|Add2~122\ : std_logic;
-SIGNAL \bigclock|Add2~45_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~46\ : std_logic;
-SIGNAL \bigclock|Add2~37_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~38\ : std_logic;
-SIGNAL \bigclock|Add2~49_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~50\ : std_logic;
-SIGNAL \bigclock|Add2~53_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~54\ : std_logic;
-SIGNAL \bigclock|Add2~97_sumout\ : std_logic;
-SIGNAL \bigclock|deci_minute_s[27]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Add2~98\ : std_logic;
-SIGNAL \bigclock|Add2~93_sumout\ : std_logic;
-SIGNAL \bigclock|counter24h~7_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~5_combout\ : std_logic;
-SIGNAL \bigclock|Add2~94\ : std_logic;
-SIGNAL \bigclock|Add2~33_sumout\ : std_logic;
-SIGNAL \bigclock|Add2~34\ : std_logic;
-SIGNAL \bigclock|Add2~29_sumout\ : std_logic;
-SIGNAL \bigclock|counter24h~25_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~6_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~9_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~10_combout\ : std_logic;
-SIGNAL \bigclock|hour_s[3]~1_combout\ : std_logic;
-SIGNAL \bigclock|Add1~10\ : std_logic;
-SIGNAL \bigclock|Add1~13_sumout\ : std_logic;
+SIGNAL \bigclock|counter24h~4_combout\ : std_logic;
+SIGNAL \bigclock|hour_s[17]~2_combout\ : std_logic;
 SIGNAL \bigclock|hour_s[17]~0_combout\ : std_logic;
 SIGNAL \bigclock|Add1~2\ : std_logic;
 SIGNAL \bigclock|Add1~5_sumout\ : std_logic;
 SIGNAL \bigclock|hour_s[1]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add0~2\ : std_logic;
+SIGNAL \bigclock|Add0~5_sumout\ : std_logic;
 SIGNAL \bigclock|deci_hour_s[3]~0_combout\ : std_logic;
 SIGNAL \bigclock|Add0~6\ : std_logic;
 SIGNAL \bigclock|Add0~9_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[2]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add0~10\ : std_logic;
 SIGNAL \bigclock|Add0~13_sumout\ : std_logic;
 SIGNAL \bigclock|Add0~14\ : std_logic;
@@ -616,70 +451,248 @@ SIGNAL \bigclock|Add0~53_sumout\ : std_logic;
 SIGNAL \bigclock|deci_hour_s[7]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add0~54\ : std_logic;
 SIGNAL \bigclock|Add0~17_sumout\ : std_logic;
-SIGNAL \bigclock|deci_hour_s[8]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add0~18\ : std_logic;
 SIGNAL \bigclock|Add0~21_sumout\ : std_logic;
 SIGNAL \bigclock|Add0~22\ : std_logic;
 SIGNAL \bigclock|Add0~25_sumout\ : std_logic;
-SIGNAL \bigclock|deci_hour_s[10]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add0~26\ : std_logic;
 SIGNAL \bigclock|Add0~29_sumout\ : std_logic;
 SIGNAL \bigclock|Add0~30\ : std_logic;
 SIGNAL \bigclock|Add0~33_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|counter24h~15_combout\ : std_logic;
 SIGNAL \bigclock|Add0~34\ : std_logic;
-SIGNAL \bigclock|Add0~101_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~102\ : std_logic;
-SIGNAL \bigclock|Add0~105_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~106\ : std_logic;
-SIGNAL \bigclock|Add0~77_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~78\ : std_logic;
-SIGNAL \bigclock|Add0~109_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~110\ : std_logic;
-SIGNAL \bigclock|Add0~113_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~114\ : std_logic;
 SIGNAL \bigclock|Add0~97_sumout\ : std_logic;
 SIGNAL \bigclock|Add0~98\ : std_logic;
-SIGNAL \bigclock|Add0~61_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~62\ : std_logic;
+SIGNAL \bigclock|Add0~101_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[14]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add0~102\ : std_logic;
 SIGNAL \bigclock|Add0~57_sumout\ : std_logic;
 SIGNAL \bigclock|Add0~58\ : std_logic;
-SIGNAL \bigclock|Add0~73_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~74\ : std_logic;
-SIGNAL \bigclock|Add0~69_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~70\ : std_logic;
-SIGNAL \bigclock|Add0~89_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~90\ : std_logic;
-SIGNAL \bigclock|Add0~37_sumout\ : std_logic;
-SIGNAL \bigclock|deci_hour_s[24]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~17_combout\ : std_logic;
-SIGNAL \bigclock|counter24h~16_combout\ : std_logic;
-SIGNAL \bigclock|display0|Mux4~0_combout\ : std_logic;
-SIGNAL \bigclock|Add0~38\ : std_logic;
+SIGNAL \bigclock|Add0~105_sumout\ : std_logic;
+SIGNAL \bigclock|Add0~106\ : std_logic;
+SIGNAL \bigclock|Add0~109_sumout\ : std_logic;
+SIGNAL \bigclock|Add0~110\ : std_logic;
+SIGNAL \bigclock|Add0~93_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[18]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add0~94\ : std_logic;
 SIGNAL \bigclock|Add0~65_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[19]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|Add0~66\ : std_logic;
-SIGNAL \bigclock|Add0~85_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~86\ : std_logic;
 SIGNAL \bigclock|Add0~81_sumout\ : std_logic;
 SIGNAL \bigclock|Add0~82\ : std_logic;
-SIGNAL \bigclock|Add0~121_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~122\ : std_logic;
-SIGNAL \bigclock|Add0~93_sumout\ : std_logic;
-SIGNAL \bigclock|Add0~94\ : std_logic;
-SIGNAL \bigclock|Add0~117_sumout\ : std_logic;
-SIGNAL \bigclock|counter24h~18_combout\ : std_logic;
-SIGNAL \bigclock|deci_hour_s[25]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~30_combout\ : std_logic;
+SIGNAL \bigclock|Add0~77_sumout\ : std_logic;
+SIGNAL \bigclock|Add0~78\ : std_logic;
+SIGNAL \bigclock|Add0~73_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[22]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add0~74\ : std_logic;
+SIGNAL \bigclock|Add0~85_sumout\ : std_logic;
 SIGNAL \bigclock|deci_hour_s[23]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|counter24h~29_combout\ : std_logic;
+SIGNAL \bigclock|Add0~86\ : std_logic;
+SIGNAL \bigclock|Add0~37_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[4]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|counter24h~16_combout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[1]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|display0|Mux4~0_combout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[27]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add0~38\ : std_logic;
+SIGNAL \bigclock|Add0~69_sumout\ : std_logic;
+SIGNAL \bigclock|Add0~70\ : std_logic;
+SIGNAL \bigclock|Add0~61_sumout\ : std_logic;
+SIGNAL \bigclock|Add0~62\ : std_logic;
+SIGNAL \bigclock|Add0~121_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[30]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add0~122\ : std_logic;
+SIGNAL \bigclock|Add0~117_sumout\ : std_logic;
+SIGNAL \bigclock|Add0~118\ : std_logic;
+SIGNAL \bigclock|Add0~89_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[29]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add0~90\ : std_logic;
+SIGNAL \bigclock|Add0~113_sumout\ : std_logic;
+SIGNAL \bigclock|deci_hour_s[16]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|counter24h~19_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~17_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~18_combout\ : std_logic;
 SIGNAL \bigclock|counter24h~20_combout\ : std_logic;
 SIGNAL \bigclock|counter24h~21_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~7_combout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[3]~0_combout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~1_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~2\ : std_logic;
+SIGNAL \bigclock|Add4~5_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~6\ : std_logic;
+SIGNAL \bigclock|Add4~9_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~10\ : std_logic;
+SIGNAL \bigclock|Add4~13_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~14\ : std_logic;
+SIGNAL \bigclock|Add4~81_sumout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[4]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~82\ : std_logic;
+SIGNAL \bigclock|Add4~109_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~110\ : std_logic;
+SIGNAL \bigclock|Add4~105_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~106\ : std_logic;
+SIGNAL \bigclock|Add4~101_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~102\ : std_logic;
+SIGNAL \bigclock|Add4~97_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~98\ : std_logic;
+SIGNAL \bigclock|Add4~93_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~94\ : std_logic;
+SIGNAL \bigclock|Add4~29_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~30\ : std_logic;
+SIGNAL \bigclock|Add4~25_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~26\ : std_logic;
+SIGNAL \bigclock|Add4~21_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~22\ : std_logic;
+SIGNAL \bigclock|Add4~113_sumout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[13]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~114\ : std_logic;
+SIGNAL \bigclock|Add4~17_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~18\ : std_logic;
+SIGNAL \bigclock|Add4~53_sumout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[15]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~54\ : std_logic;
+SIGNAL \bigclock|Add4~49_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~50\ : std_logic;
+SIGNAL \bigclock|Add4~45_sumout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[17]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~46\ : std_logic;
+SIGNAL \bigclock|Add4~41_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~42\ : std_logic;
+SIGNAL \bigclock|Add4~37_sumout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[19]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~38\ : std_logic;
+SIGNAL \bigclock|Add4~33_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~34\ : std_logic;
+SIGNAL \bigclock|Add4~77_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~78\ : std_logic;
+SIGNAL \bigclock|Add4~73_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~74\ : std_logic;
+SIGNAL \bigclock|Add4~69_sumout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[23]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~70\ : std_logic;
+SIGNAL \bigclock|Add4~65_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~66\ : std_logic;
+SIGNAL \bigclock|Add4~61_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~62\ : std_logic;
+SIGNAL \bigclock|Add4~57_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~58\ : std_logic;
+SIGNAL \bigclock|Add4~89_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~8_combout\ : std_logic;
+SIGNAL \bigclock|Add4~90\ : std_logic;
+SIGNAL \bigclock|Add4~85_sumout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[28]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add4~86\ : std_logic;
+SIGNAL \bigclock|Add4~121_sumout\ : std_logic;
+SIGNAL \bigclock|Add4~122\ : std_logic;
+SIGNAL \bigclock|Add4~117_sumout\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~3_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~1_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~9_combout\ : std_logic;
+SIGNAL \bigclock|deci_second_s[7]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~2_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~0_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[8]~4_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~24_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~25_combout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[3]~0_combout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[0]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~2\ : std_logic;
+SIGNAL \bigclock|Add2~5_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[1]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~6\ : std_logic;
+SIGNAL \bigclock|Add2~9_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[2]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~10\ : std_logic;
+SIGNAL \bigclock|Add2~13_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[3]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~14\ : std_logic;
+SIGNAL \bigclock|Add2~25_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[4]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~26\ : std_logic;
+SIGNAL \bigclock|Add2~21_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[5]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~22\ : std_logic;
+SIGNAL \bigclock|Add2~17_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~18\ : std_logic;
+SIGNAL \bigclock|Add2~77_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~78\ : std_logic;
+SIGNAL \bigclock|Add2~73_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[8]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~74\ : std_logic;
+SIGNAL \bigclock|Add2~69_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~70\ : std_logic;
+SIGNAL \bigclock|Add2~61_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~62\ : std_logic;
+SIGNAL \bigclock|Add2~117_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[11]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~118\ : std_logic;
+SIGNAL \bigclock|Add2~113_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~114\ : std_logic;
+SIGNAL \bigclock|Add2~109_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[13]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~110\ : std_logic;
+SIGNAL \bigclock|Add2~57_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~58\ : std_logic;
+SIGNAL \bigclock|Add2~89_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[15]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~90\ : std_logic;
+SIGNAL \bigclock|Add2~105_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[16]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~106\ : std_logic;
+SIGNAL \bigclock|Add2~101_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~102\ : std_logic;
+SIGNAL \bigclock|Add2~41_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~42\ : std_logic;
+SIGNAL \bigclock|Add2~65_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[19]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~66\ : std_logic;
+SIGNAL \bigclock|Add2~85_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[20]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~86\ : std_logic;
+SIGNAL \bigclock|Add2~81_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[21]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~82\ : std_logic;
+SIGNAL \bigclock|Add2~121_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[22]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~122\ : std_logic;
+SIGNAL \bigclock|Add2~45_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[23]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~46\ : std_logic;
+SIGNAL \bigclock|Add2~37_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[24]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~38\ : std_logic;
+SIGNAL \bigclock|Add2~49_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[25]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~50\ : std_logic;
+SIGNAL \bigclock|Add2~53_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[26]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Add2~54\ : std_logic;
+SIGNAL \bigclock|Add2~97_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~98\ : std_logic;
+SIGNAL \bigclock|Add2~93_sumout\ : std_logic;
+SIGNAL \bigclock|counter24h~7_combout\ : std_logic;
+SIGNAL \bigclock|Add2~94\ : std_logic;
+SIGNAL \bigclock|Add2~33_sumout\ : std_logic;
+SIGNAL \bigclock|Add2~34\ : std_logic;
+SIGNAL \bigclock|Add2~29_sumout\ : std_logic;
+SIGNAL \bigclock|deci_minute_s[29]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|counter24h~28_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~29_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~6_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~8_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~5_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~9_combout\ : std_logic;
+SIGNAL \bigclock|counter24h~22_combout\ : std_logic;
 SIGNAL \bigclock|display0|Mux6~0_combout\ : std_logic;
 SIGNAL \bigclock|display0|Mux5~0_combout\ : std_logic;
 SIGNAL \bigclock|display0|Mux3~0_combout\ : std_logic;
 SIGNAL \bigclock|display0|Mux2~0_combout\ : std_logic;
 SIGNAL \bigclock|display0|Mux1~0_combout\ : std_logic;
 SIGNAL \bigclock|display0|Mux0~0_combout\ : std_logic;
+SIGNAL \bigclock|hour_s[0]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|display1|Mux6~0_combout\ : std_logic;
 SIGNAL \bigclock|display1|Mux5~0_combout\ : std_logic;
 SIGNAL \bigclock|display1|Mux4~0_combout\ : std_logic;
@@ -694,6 +707,7 @@ SIGNAL \bigclock|display2|Mux3~0_combout\ : std_logic;
 SIGNAL \bigclock|display2|Mux2~0_combout\ : std_logic;
 SIGNAL \bigclock|display2|Mux1~0_combout\ : std_logic;
 SIGNAL \bigclock|display2|Mux0~0_combout\ : std_logic;
+SIGNAL \bigclock|minute_s[0]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|display3|Mux6~0_combout\ : std_logic;
 SIGNAL \bigclock|display3|Mux5~0_combout\ : std_logic;
 SIGNAL \bigclock|display3|Mux4~0_combout\ : std_logic;
@@ -722,93 +736,118 @@ SIGNAL \bigclock|deci_minute_s\ : std_logic_vector(30 DOWNTO 0);
 SIGNAL \bigclock|minute_s\ : std_logic_vector(30 DOWNTO 0);
 SIGNAL \bigclock|deci_second_s\ : std_logic_vector(30 DOWNTO 0);
 SIGNAL \bigclock|second_s\ : std_logic_vector(30 DOWNTO 0);
-SIGNAL \bigclock|Sec_Clock|ALT_INV_slow_clk~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|ALT_INV_counter_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|ALT_INV_counter_s[8]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|ALT_INV_counter_s[17]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[27]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[30]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[16]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[14]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[18]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[29]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_hour_s[23]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_hour_s[25]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[22]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[19]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_hour_s[7]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_hour_s[24]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_hour_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_hour_s[8]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_hour_s[8]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_hour_s[9]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_hour_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_hour_s[11]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_hour_s[13]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[4]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_hour_s[14]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_hour_s[16]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_hour_s[5]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_hour_s[6]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_hour_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_hour_s[24]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_hour_s[25]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_hour_s[28]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_hour_s[18]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_hour_s[30]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_hour_s[20]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_hour_s[23]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_minute_s[22]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[11]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_minute_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[13]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_minute_s[16]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_minute_s[17]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_minute_s[27]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_minute_s[7]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_minute_s[9]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[15]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[20]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[21]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[8]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_minute_s[19]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_minute_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_minute_s[18]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[26]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[25]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[23]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[24]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[29]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[4]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_minute_s[5]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_minute_s[10]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[19]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[18]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[9]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[25]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[20]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[29]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_minute_s[6]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_minute_s[4]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[30]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[26]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[21]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_minute_s[23]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_minute_s[7]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[28]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[5]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_second_s[13]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_second_s[7]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[22]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[27]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[19]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[20]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[12]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[14]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_second_s[28]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_second_s[4]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_second_s[23]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_second_s[15]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_second_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_second_s[17]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_second_s[19]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_second_s[12]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[9]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_second_s[14]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_second_s[6]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_second_s[5]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_second_s[10]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_second_s[18]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[1]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[8]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[6]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[20]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[22]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[16]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[3]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[2]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[3]~DUPLICATE_q\ : std_logic;
-SIGNAL \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[2]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[1]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_hour_s[3]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\ : std_logic;
 SIGNAL \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\ : std_logic;
-SIGNAL \ALT_INV_rst_n~inputCLKENA0_outclk\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\ : std_logic;
 SIGNAL \ALT_INV_key_n~input_o\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[3]~3_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~7_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_minute_s[15]~2_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_hour_s[17]~2_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_counter24h~32_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_counter24h~31_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~30_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~29_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~28_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~27_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~26_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_counter24h~25_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_counter24h~24_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_counter24h~23_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[8]~9_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[8]~8_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~9_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~8_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_q1~q\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|ALT_INV_LessThan0~5_combout\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|ALT_INV_LessThan0~4_combout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|ALT_INV_LessThan0~3_combout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|ALT_INV_LessThan0~2_combout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|ALT_INV_LessThan0~1_combout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|ALT_INV_LessThan0~0_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~5_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_deci_hour_s[3]~1_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[8]~5_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_counter24h~24_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_counter24h~23_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_clk_state_s.counting~q\ : std_logic;
+SIGNAL \bigclock|Sec_Clock|ALT_INV_slow_clk~q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_counter24h~22_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_counter24h~21_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~20_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~19_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_counter24h~18_combout\ : std_logic;
@@ -835,12 +874,13 @@ SIGNAL \bigclock|ALT_INV_minute_s[8]~3_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[8]~2_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[8]~1_combout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_minute_s[8]~0_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~4_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~3_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~2_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~1_combout\ : std_logic;
-SIGNAL \bigclock|ALT_INV_deci_second_s[9]~0_combout\ : std_logic;
-SIGNAL \bigclock|Sec_Clock|ALT_INV_slow_clk~q\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~6_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~5_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~4_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~3_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~2_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~1_combout\ : std_logic;
+SIGNAL \bigclock|ALT_INV_Equal6~0_combout\ : std_logic;
 SIGNAL \bigclock|display5|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \bigclock|display4|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \bigclock|display3|ALT_INV_Mux0~0_combout\ : std_logic;
@@ -849,7 +889,6 @@ SIGNAL \bigclock|display1|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \bigclock|display0|ALT_INV_Mux0~0_combout\ : std_logic;
 SIGNAL \bigclock|display0|ALT_INV_Mux4~0_combout\ : std_logic;
 SIGNAL \bigclock|Sec_Clock|ALT_INV_counter_s\ : std_logic_vector(25 DOWNTO 0);
-SIGNAL \bigclock|ALT_INV_Add3~97_sumout\ : std_logic;
 SIGNAL \bigclock|ALT_INV_deci_hour_s\ : std_logic_vector(30 DOWNTO 0);
 SIGNAL \bigclock|ALT_INV_hour_s\ : std_logic_vector(30 DOWNTO 0);
 SIGNAL \bigclock|ALT_INV_deci_minute_s\ : std_logic_vector(30 DOWNTO 0);
@@ -866,93 +905,118 @@ hex <= ww_hex;
 ww_devoe <= devoe;
 ww_devclrn <= devclrn;
 ww_devpor <= devpor;
-\bigclock|Sec_Clock|ALT_INV_slow_clk~DUPLICATE_q\ <= NOT \bigclock|Sec_Clock|slow_clk~DUPLICATE_q\;
-\bigclock|Sec_Clock|ALT_INV_counter_s[10]~DUPLICATE_q\ <= NOT \bigclock|Sec_Clock|counter_s[10]~DUPLICATE_q\;
-\bigclock|Sec_Clock|ALT_INV_counter_s[8]~DUPLICATE_q\ <= NOT \bigclock|Sec_Clock|counter_s[8]~DUPLICATE_q\;
+\bigclock|Sec_Clock|ALT_INV_counter_s[17]~DUPLICATE_q\ <= NOT \bigclock|Sec_Clock|counter_s[17]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[27]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[27]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[30]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[30]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[16]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[16]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[14]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[14]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[18]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[18]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[29]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[29]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_hour_s[23]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[23]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_hour_s[25]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[25]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[22]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[22]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[19]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[19]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_hour_s[7]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[7]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_hour_s[24]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[24]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_hour_s[10]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[10]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_hour_s[8]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[8]~DUPLICATE_q\;
-\bigclock|ALT_INV_hour_s[8]~DUPLICATE_q\ <= NOT \bigclock|hour_s[8]~DUPLICATE_q\;
-\bigclock|ALT_INV_hour_s[9]~DUPLICATE_q\ <= NOT \bigclock|hour_s[9]~DUPLICATE_q\;
-\bigclock|ALT_INV_hour_s[10]~DUPLICATE_q\ <= NOT \bigclock|hour_s[10]~DUPLICATE_q\;
-\bigclock|ALT_INV_hour_s[11]~DUPLICATE_q\ <= NOT \bigclock|hour_s[11]~DUPLICATE_q\;
-\bigclock|ALT_INV_hour_s[13]~DUPLICATE_q\ <= NOT \bigclock|hour_s[13]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[4]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[4]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[12]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[12]~DUPLICATE_q\;
+\bigclock|ALT_INV_hour_s[14]~DUPLICATE_q\ <= NOT \bigclock|hour_s[14]~DUPLICATE_q\;
 \bigclock|ALT_INV_hour_s[16]~DUPLICATE_q\ <= NOT \bigclock|hour_s[16]~DUPLICATE_q\;
 \bigclock|ALT_INV_hour_s[5]~DUPLICATE_q\ <= NOT \bigclock|hour_s[5]~DUPLICATE_q\;
 \bigclock|ALT_INV_hour_s[6]~DUPLICATE_q\ <= NOT \bigclock|hour_s[6]~DUPLICATE_q\;
 \bigclock|ALT_INV_hour_s[12]~DUPLICATE_q\ <= NOT \bigclock|hour_s[12]~DUPLICATE_q\;
+\bigclock|ALT_INV_hour_s[24]~DUPLICATE_q\ <= NOT \bigclock|hour_s[24]~DUPLICATE_q\;
+\bigclock|ALT_INV_hour_s[25]~DUPLICATE_q\ <= NOT \bigclock|hour_s[25]~DUPLICATE_q\;
+\bigclock|ALT_INV_hour_s[28]~DUPLICATE_q\ <= NOT \bigclock|hour_s[28]~DUPLICATE_q\;
+\bigclock|ALT_INV_hour_s[18]~DUPLICATE_q\ <= NOT \bigclock|hour_s[18]~DUPLICATE_q\;
 \bigclock|ALT_INV_hour_s[30]~DUPLICATE_q\ <= NOT \bigclock|hour_s[30]~DUPLICATE_q\;
-\bigclock|ALT_INV_hour_s[20]~DUPLICATE_q\ <= NOT \bigclock|hour_s[20]~DUPLICATE_q\;
-\bigclock|ALT_INV_hour_s[23]~DUPLICATE_q\ <= NOT \bigclock|hour_s[23]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_minute_s[22]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[22]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[11]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[11]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_minute_s[12]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[12]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[13]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[13]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_minute_s[16]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[16]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_minute_s[17]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[17]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_minute_s[27]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[27]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_minute_s[7]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[7]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_minute_s[9]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[9]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[15]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[15]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[20]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[20]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[21]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[21]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[8]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[8]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_minute_s[19]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[19]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_minute_s[10]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[10]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_minute_s[18]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[18]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[26]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[26]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[25]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[25]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[23]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[23]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[24]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[24]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[29]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[29]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[4]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[4]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_minute_s[5]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[5]~DUPLICATE_q\;
-\bigclock|ALT_INV_minute_s[10]~DUPLICATE_q\ <= NOT \bigclock|minute_s[10]~DUPLICATE_q\;
 \bigclock|ALT_INV_minute_s[19]~DUPLICATE_q\ <= NOT \bigclock|minute_s[19]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[18]~DUPLICATE_q\ <= NOT \bigclock|minute_s[18]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[12]~DUPLICATE_q\ <= NOT \bigclock|minute_s[12]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[9]~DUPLICATE_q\ <= NOT \bigclock|minute_s[9]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[25]~DUPLICATE_q\ <= NOT \bigclock|minute_s[25]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[20]~DUPLICATE_q\ <= NOT \bigclock|minute_s[20]~DUPLICATE_q\;
 \bigclock|ALT_INV_minute_s[29]~DUPLICATE_q\ <= NOT \bigclock|minute_s[29]~DUPLICATE_q\;
-\bigclock|ALT_INV_minute_s[6]~DUPLICATE_q\ <= NOT \bigclock|minute_s[6]~DUPLICATE_q\;
-\bigclock|ALT_INV_minute_s[4]~DUPLICATE_q\ <= NOT \bigclock|minute_s[4]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[30]~DUPLICATE_q\ <= NOT \bigclock|minute_s[30]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[26]~DUPLICATE_q\ <= NOT \bigclock|minute_s[26]~DUPLICATE_q\;
 \bigclock|ALT_INV_minute_s[21]~DUPLICATE_q\ <= NOT \bigclock|minute_s[21]~DUPLICATE_q\;
-\bigclock|ALT_INV_minute_s[23]~DUPLICATE_q\ <= NOT \bigclock|minute_s[23]~DUPLICATE_q\;
-\bigclock|ALT_INV_minute_s[7]~DUPLICATE_q\ <= NOT \bigclock|minute_s[7]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[28]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[28]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[5]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[5]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_second_s[13]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[13]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_second_s[7]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[7]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[22]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[22]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[27]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[27]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[19]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[19]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[20]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[20]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[10]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[10]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[12]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[12]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[14]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[14]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_second_s[28]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[28]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_second_s[4]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[4]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_second_s[23]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[23]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_second_s[15]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[15]~DUPLICATE_q\;
-\bigclock|ALT_INV_second_s[12]~DUPLICATE_q\ <= NOT \bigclock|second_s[12]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_second_s[17]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[17]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_second_s[19]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[19]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_second_s[12]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[12]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[9]~DUPLICATE_q\ <= NOT \bigclock|second_s[9]~DUPLICATE_q\;
 \bigclock|ALT_INV_second_s[14]~DUPLICATE_q\ <= NOT \bigclock|second_s[14]~DUPLICATE_q\;
-\bigclock|ALT_INV_second_s[6]~DUPLICATE_q\ <= NOT \bigclock|second_s[6]~DUPLICATE_q\;
-\bigclock|ALT_INV_second_s[5]~DUPLICATE_q\ <= NOT \bigclock|second_s[5]~DUPLICATE_q\;
 \bigclock|ALT_INV_second_s[10]~DUPLICATE_q\ <= NOT \bigclock|second_s[10]~DUPLICATE_q\;
-\bigclock|ALT_INV_second_s[18]~DUPLICATE_q\ <= NOT \bigclock|second_s[18]~DUPLICATE_q\;
-\bigclock|ALT_INV_deci_second_s[1]~DUPLICATE_q\ <= NOT \bigclock|deci_second_s[1]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[8]~DUPLICATE_q\ <= NOT \bigclock|second_s[8]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[6]~DUPLICATE_q\ <= NOT \bigclock|second_s[6]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[20]~DUPLICATE_q\ <= NOT \bigclock|second_s[20]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[22]~DUPLICATE_q\ <= NOT \bigclock|second_s[22]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[16]~DUPLICATE_q\ <= NOT \bigclock|second_s[16]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[3]~DUPLICATE_q\ <= NOT \bigclock|second_s[3]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[2]~DUPLICATE_q\ <= NOT \bigclock|second_s[2]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[1]~DUPLICATE_q\ <= NOT \bigclock|second_s[1]~DUPLICATE_q\;
+\bigclock|ALT_INV_second_s[0]~DUPLICATE_q\ <= NOT \bigclock|second_s[0]~DUPLICATE_q\;
 \bigclock|ALT_INV_minute_s[3]~DUPLICATE_q\ <= NOT \bigclock|minute_s[3]~DUPLICATE_q\;
-\bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\ <= NOT \bigclock|minute_s[1]~DUPLICATE_q\;
+\bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\ <= NOT \bigclock|minute_s[2]~DUPLICATE_q\;
 \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\ <= NOT \bigclock|minute_s[0]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[3]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[2]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[2]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_minute_s[1]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[1]~DUPLICATE_q\;
 \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\ <= NOT \bigclock|deci_minute_s[0]~DUPLICATE_q\;
+\bigclock|ALT_INV_hour_s[3]~DUPLICATE_q\ <= NOT \bigclock|hour_s[3]~DUPLICATE_q\;
 \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\ <= NOT \bigclock|hour_s[1]~DUPLICATE_q\;
 \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\ <= NOT \bigclock|hour_s[0]~DUPLICATE_q\;
-\ALT_INV_rst_n~inputCLKENA0_outclk\ <= NOT \rst_n~inputCLKENA0_outclk\;
+\bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[2]~DUPLICATE_q\;
+\bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\ <= NOT \bigclock|deci_hour_s[1]~DUPLICATE_q\;
 \ALT_INV_key_n~input_o\ <= NOT \key_n~input_o\;
+\bigclock|ALT_INV_deci_minute_s[3]~3_combout\ <= NOT \bigclock|deci_minute_s[3]~3_combout\;
+\bigclock|ALT_INV_Equal6~7_combout\ <= NOT \bigclock|Equal6~7_combout\;
+\bigclock|ALT_INV_deci_minute_s[15]~2_combout\ <= NOT \bigclock|deci_minute_s[15]~2_combout\;
+\bigclock|ALT_INV_hour_s[17]~2_combout\ <= NOT \bigclock|hour_s[17]~2_combout\;
+\bigclock|ALT_INV_counter24h~32_combout\ <= NOT \bigclock|counter24h~32_combout\;
+\bigclock|ALT_INV_counter24h~31_combout\ <= NOT \bigclock|counter24h~31_combout\;
 \bigclock|ALT_INV_counter24h~30_combout\ <= NOT \bigclock|counter24h~30_combout\;
 \bigclock|ALT_INV_counter24h~29_combout\ <= NOT \bigclock|counter24h~29_combout\;
 \bigclock|ALT_INV_counter24h~28_combout\ <= NOT \bigclock|counter24h~28_combout\;
 \bigclock|ALT_INV_counter24h~27_combout\ <= NOT \bigclock|counter24h~27_combout\;
 \bigclock|ALT_INV_counter24h~26_combout\ <= NOT \bigclock|counter24h~26_combout\;
-\bigclock|ALT_INV_counter24h~25_combout\ <= NOT \bigclock|counter24h~25_combout\;
-\bigclock|ALT_INV_counter24h~24_combout\ <= NOT \bigclock|counter24h~24_combout\;
-\bigclock|ALT_INV_counter24h~23_combout\ <= NOT \bigclock|counter24h~23_combout\;
 \bigclock|ALT_INV_minute_s[8]~9_combout\ <= NOT \bigclock|minute_s[8]~9_combout\;
 \bigclock|ALT_INV_minute_s[8]~8_combout\ <= NOT \bigclock|minute_s[8]~8_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~9_combout\ <= NOT \bigclock|deci_second_s[9]~9_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~8_combout\ <= NOT \bigclock|deci_second_s[9]~8_combout\;
 \bigclock|ALT_INV_q1~q\ <= NOT \bigclock|q1~q\;
+\bigclock|Sec_Clock|ALT_INV_LessThan0~5_combout\ <= NOT \bigclock|Sec_Clock|LessThan0~5_combout\;
+\bigclock|Sec_Clock|ALT_INV_LessThan0~4_combout\ <= NOT \bigclock|Sec_Clock|LessThan0~4_combout\;
 \bigclock|Sec_Clock|ALT_INV_LessThan0~3_combout\ <= NOT \bigclock|Sec_Clock|LessThan0~3_combout\;
 \bigclock|Sec_Clock|ALT_INV_LessThan0~2_combout\ <= NOT \bigclock|Sec_Clock|LessThan0~2_combout\;
 \bigclock|Sec_Clock|ALT_INV_LessThan0~1_combout\ <= NOT \bigclock|Sec_Clock|LessThan0~1_combout\;
 \bigclock|Sec_Clock|ALT_INV_LessThan0~0_combout\ <= NOT \bigclock|Sec_Clock|LessThan0~0_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~5_combout\ <= NOT \bigclock|deci_second_s[9]~5_combout\;
+\bigclock|ALT_INV_deci_hour_s[3]~1_combout\ <= NOT \bigclock|deci_hour_s[3]~1_combout\;
 \bigclock|ALT_INV_minute_s[8]~5_combout\ <= NOT \bigclock|minute_s[8]~5_combout\;
+\bigclock|ALT_INV_counter24h~24_combout\ <= NOT \bigclock|counter24h~24_combout\;
+\bigclock|ALT_INV_counter24h~23_combout\ <= NOT \bigclock|counter24h~23_combout\;
 \bigclock|ALT_INV_clk_state_s.counting~q\ <= NOT \bigclock|clk_state_s.counting~q\;
+\bigclock|Sec_Clock|ALT_INV_slow_clk~q\ <= NOT \bigclock|Sec_Clock|slow_clk~q\;
+\bigclock|ALT_INV_counter24h~22_combout\ <= NOT \bigclock|counter24h~22_combout\;
+\bigclock|ALT_INV_counter24h~21_combout\ <= NOT \bigclock|counter24h~21_combout\;
 \bigclock|ALT_INV_counter24h~20_combout\ <= NOT \bigclock|counter24h~20_combout\;
 \bigclock|ALT_INV_counter24h~19_combout\ <= NOT \bigclock|counter24h~19_combout\;
 \bigclock|ALT_INV_counter24h~18_combout\ <= NOT \bigclock|counter24h~18_combout\;
@@ -979,12 +1043,13 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_minute_s[8]~2_combout\ <= NOT \bigclock|minute_s[8]~2_combout\;
 \bigclock|ALT_INV_minute_s[8]~1_combout\ <= NOT \bigclock|minute_s[8]~1_combout\;
 \bigclock|ALT_INV_minute_s[8]~0_combout\ <= NOT \bigclock|minute_s[8]~0_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~4_combout\ <= NOT \bigclock|deci_second_s[9]~4_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~3_combout\ <= NOT \bigclock|deci_second_s[9]~3_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~2_combout\ <= NOT \bigclock|deci_second_s[9]~2_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~1_combout\ <= NOT \bigclock|deci_second_s[9]~1_combout\;
-\bigclock|ALT_INV_deci_second_s[9]~0_combout\ <= NOT \bigclock|deci_second_s[9]~0_combout\;
-\bigclock|Sec_Clock|ALT_INV_slow_clk~q\ <= NOT \bigclock|Sec_Clock|slow_clk~q\;
+\bigclock|ALT_INV_Equal6~6_combout\ <= NOT \bigclock|Equal6~6_combout\;
+\bigclock|ALT_INV_Equal6~5_combout\ <= NOT \bigclock|Equal6~5_combout\;
+\bigclock|ALT_INV_Equal6~4_combout\ <= NOT \bigclock|Equal6~4_combout\;
+\bigclock|ALT_INV_Equal6~3_combout\ <= NOT \bigclock|Equal6~3_combout\;
+\bigclock|ALT_INV_Equal6~2_combout\ <= NOT \bigclock|Equal6~2_combout\;
+\bigclock|ALT_INV_Equal6~1_combout\ <= NOT \bigclock|Equal6~1_combout\;
+\bigclock|ALT_INV_Equal6~0_combout\ <= NOT \bigclock|Equal6~0_combout\;
 \bigclock|display5|ALT_INV_Mux0~0_combout\ <= NOT \bigclock|display5|Mux0~0_combout\;
 \bigclock|display4|ALT_INV_Mux0~0_combout\ <= NOT \bigclock|display4|Mux0~0_combout\;
 \bigclock|display3|ALT_INV_Mux0~0_combout\ <= NOT \bigclock|display3|Mux0~0_combout\;
@@ -993,32 +1058,32 @@ ww_devpor <= devpor;
 \bigclock|display0|ALT_INV_Mux0~0_combout\ <= NOT \bigclock|display0|Mux0~0_combout\;
 \bigclock|display0|ALT_INV_Mux4~0_combout\ <= NOT \bigclock|display0|Mux4~0_combout\;
 \bigclock|Sec_Clock|ALT_INV_counter_s\(0) <= NOT \bigclock|Sec_Clock|counter_s\(0);
-\bigclock|ALT_INV_Add3~97_sumout\ <= NOT \bigclock|Add3~97_sumout\;
+\bigclock|Sec_Clock|ALT_INV_counter_s\(1) <= NOT \bigclock|Sec_Clock|counter_s\(1);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(2) <= NOT \bigclock|Sec_Clock|counter_s\(2);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(3) <= NOT \bigclock|Sec_Clock|counter_s\(3);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(4) <= NOT \bigclock|Sec_Clock|counter_s\(4);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(5) <= NOT \bigclock|Sec_Clock|counter_s\(5);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(25) <= NOT \bigclock|Sec_Clock|counter_s\(25);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(24) <= NOT \bigclock|Sec_Clock|counter_s\(24);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(23) <= NOT \bigclock|Sec_Clock|counter_s\(23);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(19) <= NOT \bigclock|Sec_Clock|counter_s\(19);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(18) <= NOT \bigclock|Sec_Clock|counter_s\(18);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(22) <= NOT \bigclock|Sec_Clock|counter_s\(22);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(21) <= NOT \bigclock|Sec_Clock|counter_s\(21);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(20) <= NOT \bigclock|Sec_Clock|counter_s\(20);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(18) <= NOT \bigclock|Sec_Clock|counter_s\(18);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(17) <= NOT \bigclock|Sec_Clock|counter_s\(17);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(16) <= NOT \bigclock|Sec_Clock|counter_s\(16);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(15) <= NOT \bigclock|Sec_Clock|counter_s\(15);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(11) <= NOT \bigclock|Sec_Clock|counter_s\(11);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(14) <= NOT \bigclock|Sec_Clock|counter_s\(14);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(10) <= NOT \bigclock|Sec_Clock|counter_s\(10);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(13) <= NOT \bigclock|Sec_Clock|counter_s\(13);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(12) <= NOT \bigclock|Sec_Clock|counter_s\(12);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(11) <= NOT \bigclock|Sec_Clock|counter_s\(11);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(10) <= NOT \bigclock|Sec_Clock|counter_s\(10);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(9) <= NOT \bigclock|Sec_Clock|counter_s\(9);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(8) <= NOT \bigclock|Sec_Clock|counter_s\(8);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(15) <= NOT \bigclock|Sec_Clock|counter_s\(15);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(7) <= NOT \bigclock|Sec_Clock|counter_s\(7);
 \bigclock|Sec_Clock|ALT_INV_counter_s\(6) <= NOT \bigclock|Sec_Clock|counter_s\(6);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(1) <= NOT \bigclock|Sec_Clock|counter_s\(1);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(3) <= NOT \bigclock|Sec_Clock|counter_s\(3);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(2) <= NOT \bigclock|Sec_Clock|counter_s\(2);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(5) <= NOT \bigclock|Sec_Clock|counter_s\(5);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(4) <= NOT \bigclock|Sec_Clock|counter_s\(4);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(19) <= NOT \bigclock|Sec_Clock|counter_s\(19);
-\bigclock|Sec_Clock|ALT_INV_counter_s\(25) <= NOT \bigclock|Sec_Clock|counter_s\(25);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(9) <= NOT \bigclock|Sec_Clock|counter_s\(9);
+\bigclock|Sec_Clock|ALT_INV_counter_s\(8) <= NOT \bigclock|Sec_Clock|counter_s\(8);
+\bigclock|ALT_INV_deci_hour_s\(27) <= NOT \bigclock|deci_hour_s\(27);
 \bigclock|ALT_INV_deci_hour_s\(28) <= NOT \bigclock|deci_hour_s\(28);
 \bigclock|ALT_INV_deci_hour_s\(30) <= NOT \bigclock|deci_hour_s\(30);
 \bigclock|ALT_INV_deci_hour_s\(17) <= NOT \bigclock|deci_hour_s\(17);
@@ -1028,14 +1093,13 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_deci_hour_s\(18) <= NOT \bigclock|deci_hour_s\(18);
 \bigclock|ALT_INV_deci_hour_s\(29) <= NOT \bigclock|deci_hour_s\(29);
 \bigclock|ALT_INV_deci_hour_s\(23) <= NOT \bigclock|deci_hour_s\(23);
-\bigclock|ALT_INV_deci_hour_s\(26) <= NOT \bigclock|deci_hour_s\(26);
-\bigclock|ALT_INV_deci_hour_s\(27) <= NOT \bigclock|deci_hour_s\(27);
-\bigclock|ALT_INV_deci_hour_s\(15) <= NOT \bigclock|deci_hour_s\(15);
+\bigclock|ALT_INV_deci_hour_s\(20) <= NOT \bigclock|deci_hour_s\(20);
 \bigclock|ALT_INV_deci_hour_s\(21) <= NOT \bigclock|deci_hour_s\(21);
 \bigclock|ALT_INV_deci_hour_s\(22) <= NOT \bigclock|deci_hour_s\(22);
 \bigclock|ALT_INV_deci_hour_s\(25) <= NOT \bigclock|deci_hour_s\(25);
 \bigclock|ALT_INV_deci_hour_s\(19) <= NOT \bigclock|deci_hour_s\(19);
-\bigclock|ALT_INV_deci_hour_s\(20) <= NOT \bigclock|deci_hour_s\(20);
+\bigclock|ALT_INV_deci_hour_s\(26) <= NOT \bigclock|deci_hour_s\(26);
+\bigclock|ALT_INV_deci_hour_s\(15) <= NOT \bigclock|deci_hour_s\(15);
 \bigclock|ALT_INV_deci_hour_s\(7) <= NOT \bigclock|deci_hour_s\(7);
 \bigclock|ALT_INV_deci_hour_s\(6) <= NOT \bigclock|deci_hour_s\(6);
 \bigclock|ALT_INV_deci_hour_s\(5) <= NOT \bigclock|deci_hour_s\(5);
@@ -1058,10 +1122,10 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_hour_s\(5) <= NOT \bigclock|hour_s\(5);
 \bigclock|ALT_INV_hour_s\(6) <= NOT \bigclock|hour_s\(6);
 \bigclock|ALT_INV_hour_s\(12) <= NOT \bigclock|hour_s\(12);
+\bigclock|ALT_INV_hour_s\(27) <= NOT \bigclock|hour_s\(27);
 \bigclock|ALT_INV_hour_s\(7) <= NOT \bigclock|hour_s\(7);
 \bigclock|ALT_INV_hour_s\(4) <= NOT \bigclock|hour_s\(4);
-\bigclock|ALT_INV_hour_s\(30) <= NOT \bigclock|hour_s\(30);
-\bigclock|ALT_INV_hour_s\(27) <= NOT \bigclock|hour_s\(27);
+\bigclock|ALT_INV_hour_s\(24) <= NOT \bigclock|hour_s\(24);
 \bigclock|ALT_INV_hour_s\(25) <= NOT \bigclock|hour_s\(25);
 \bigclock|ALT_INV_hour_s\(26) <= NOT \bigclock|hour_s\(26);
 \bigclock|ALT_INV_hour_s\(28) <= NOT \bigclock|hour_s\(28);
@@ -1072,7 +1136,7 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_hour_s\(21) <= NOT \bigclock|hour_s\(21);
 \bigclock|ALT_INV_hour_s\(22) <= NOT \bigclock|hour_s\(22);
 \bigclock|ALT_INV_hour_s\(23) <= NOT \bigclock|hour_s\(23);
-\bigclock|ALT_INV_hour_s\(24) <= NOT \bigclock|hour_s\(24);
+\bigclock|ALT_INV_hour_s\(30) <= NOT \bigclock|hour_s\(30);
 \bigclock|ALT_INV_deci_minute_s\(22) <= NOT \bigclock|deci_minute_s\(22);
 \bigclock|ALT_INV_deci_minute_s\(11) <= NOT \bigclock|deci_minute_s\(11);
 \bigclock|ALT_INV_deci_minute_s\(12) <= NOT \bigclock|deci_minute_s\(12);
@@ -1100,6 +1164,7 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_deci_minute_s\(4) <= NOT \bigclock|deci_minute_s\(4);
 \bigclock|ALT_INV_deci_minute_s\(5) <= NOT \bigclock|deci_minute_s\(5);
 \bigclock|ALT_INV_deci_minute_s\(6) <= NOT \bigclock|deci_minute_s\(6);
+\bigclock|ALT_INV_minute_s\(19) <= NOT \bigclock|minute_s\(19);
 \bigclock|ALT_INV_minute_s\(18) <= NOT \bigclock|minute_s\(18);
 \bigclock|ALT_INV_minute_s\(17) <= NOT \bigclock|minute_s\(17);
 \bigclock|ALT_INV_minute_s\(16) <= NOT \bigclock|minute_s\(16);
@@ -1109,25 +1174,23 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_minute_s\(10) <= NOT \bigclock|minute_s\(10);
 \bigclock|ALT_INV_minute_s\(9) <= NOT \bigclock|minute_s\(9);
 \bigclock|ALT_INV_minute_s\(8) <= NOT \bigclock|minute_s\(8);
-\bigclock|ALT_INV_minute_s\(20) <= NOT \bigclock|minute_s\(20);
-\bigclock|ALT_INV_minute_s\(19) <= NOT \bigclock|minute_s\(19);
-\bigclock|ALT_INV_minute_s\(13) <= NOT \bigclock|minute_s\(13);
 \bigclock|ALT_INV_minute_s\(25) <= NOT \bigclock|minute_s\(25);
 \bigclock|ALT_INV_minute_s\(14) <= NOT \bigclock|minute_s\(14);
-\bigclock|ALT_INV_minute_s\(28) <= NOT \bigclock|minute_s\(28);
+\bigclock|ALT_INV_minute_s\(7) <= NOT \bigclock|minute_s\(7);
+\bigclock|ALT_INV_minute_s\(20) <= NOT \bigclock|minute_s\(20);
+\bigclock|ALT_INV_minute_s\(13) <= NOT \bigclock|minute_s\(13);
 \bigclock|ALT_INV_minute_s\(29) <= NOT \bigclock|minute_s\(29);
 \bigclock|ALT_INV_minute_s\(30) <= NOT \bigclock|minute_s\(30);
 \bigclock|ALT_INV_minute_s\(5) <= NOT \bigclock|minute_s\(5);
 \bigclock|ALT_INV_minute_s\(6) <= NOT \bigclock|minute_s\(6);
 \bigclock|ALT_INV_minute_s\(4) <= NOT \bigclock|minute_s\(4);
-\bigclock|ALT_INV_minute_s\(21) <= NOT \bigclock|minute_s\(21);
 \bigclock|ALT_INV_minute_s\(22) <= NOT \bigclock|minute_s\(22);
 \bigclock|ALT_INV_minute_s\(23) <= NOT \bigclock|minute_s\(23);
 \bigclock|ALT_INV_minute_s\(24) <= NOT \bigclock|minute_s\(24);
 \bigclock|ALT_INV_minute_s\(26) <= NOT \bigclock|minute_s\(26);
 \bigclock|ALT_INV_minute_s\(27) <= NOT \bigclock|minute_s\(27);
-\bigclock|ALT_INV_minute_s\(7) <= NOT \bigclock|minute_s\(7);
-\bigclock|ALT_INV_deci_second_s\(28) <= NOT \bigclock|deci_second_s\(28);
+\bigclock|ALT_INV_minute_s\(21) <= NOT \bigclock|minute_s\(21);
+\bigclock|ALT_INV_minute_s\(28) <= NOT \bigclock|minute_s\(28);
 \bigclock|ALT_INV_deci_second_s\(29) <= NOT \bigclock|deci_second_s\(29);
 \bigclock|ALT_INV_deci_second_s\(30) <= NOT \bigclock|deci_second_s\(30);
 \bigclock|ALT_INV_deci_second_s\(13) <= NOT \bigclock|deci_second_s\(13);
@@ -1136,14 +1199,16 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_deci_second_s\(7) <= NOT \bigclock|deci_second_s\(7);
 \bigclock|ALT_INV_deci_second_s\(8) <= NOT \bigclock|deci_second_s\(8);
 \bigclock|ALT_INV_deci_second_s\(9) <= NOT \bigclock|deci_second_s\(9);
+\bigclock|ALT_INV_deci_second_s\(27) <= NOT \bigclock|deci_second_s\(27);
+\bigclock|ALT_INV_deci_second_s\(28) <= NOT \bigclock|deci_second_s\(28);
+\bigclock|ALT_INV_deci_second_s\(4) <= NOT \bigclock|deci_second_s\(4);
+\bigclock|ALT_INV_deci_second_s\(21) <= NOT \bigclock|deci_second_s\(21);
 \bigclock|ALT_INV_deci_second_s\(22) <= NOT \bigclock|deci_second_s\(22);
 \bigclock|ALT_INV_deci_second_s\(23) <= NOT \bigclock|deci_second_s\(23);
 \bigclock|ALT_INV_deci_second_s\(24) <= NOT \bigclock|deci_second_s\(24);
 \bigclock|ALT_INV_deci_second_s\(25) <= NOT \bigclock|deci_second_s\(25);
 \bigclock|ALT_INV_deci_second_s\(26) <= NOT \bigclock|deci_second_s\(26);
-\bigclock|ALT_INV_deci_second_s\(21) <= NOT \bigclock|deci_second_s\(21);
-\bigclock|ALT_INV_deci_second_s\(27) <= NOT \bigclock|deci_second_s\(27);
-\bigclock|ALT_INV_deci_second_s\(4) <= NOT \bigclock|deci_second_s\(4);
+\bigclock|ALT_INV_deci_second_s\(15) <= NOT \bigclock|deci_second_s\(15);
 \bigclock|ALT_INV_deci_second_s\(16) <= NOT \bigclock|deci_second_s\(16);
 \bigclock|ALT_INV_deci_second_s\(17) <= NOT \bigclock|deci_second_s\(17);
 \bigclock|ALT_INV_deci_second_s\(18) <= NOT \bigclock|deci_second_s\(18);
@@ -1153,20 +1218,21 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_deci_second_s\(11) <= NOT \bigclock|deci_second_s\(11);
 \bigclock|ALT_INV_deci_second_s\(12) <= NOT \bigclock|deci_second_s\(12);
 \bigclock|ALT_INV_deci_second_s\(14) <= NOT \bigclock|deci_second_s\(14);
-\bigclock|ALT_INV_deci_second_s\(15) <= NOT \bigclock|deci_second_s\(15);
+\bigclock|ALT_INV_second_s\(5) <= NOT \bigclock|second_s\(5);
 \bigclock|ALT_INV_second_s\(4) <= NOT \bigclock|second_s\(4);
 \bigclock|ALT_INV_second_s\(9) <= NOT \bigclock|second_s\(9);
 \bigclock|ALT_INV_second_s\(12) <= NOT \bigclock|second_s\(12);
 \bigclock|ALT_INV_second_s\(13) <= NOT \bigclock|second_s\(13);
 \bigclock|ALT_INV_second_s\(14) <= NOT \bigclock|second_s\(14);
 \bigclock|ALT_INV_second_s\(15) <= NOT \bigclock|second_s\(15);
-\bigclock|ALT_INV_second_s\(6) <= NOT \bigclock|second_s\(6);
-\bigclock|ALT_INV_second_s\(5) <= NOT \bigclock|second_s\(5);
 \bigclock|ALT_INV_second_s\(30) <= NOT \bigclock|second_s\(30);
 \bigclock|ALT_INV_second_s\(11) <= NOT \bigclock|second_s\(11);
 \bigclock|ALT_INV_second_s\(10) <= NOT \bigclock|second_s\(10);
 \bigclock|ALT_INV_second_s\(8) <= NOT \bigclock|second_s\(8);
 \bigclock|ALT_INV_second_s\(7) <= NOT \bigclock|second_s\(7);
+\bigclock|ALT_INV_second_s\(29) <= NOT \bigclock|second_s\(29);
+\bigclock|ALT_INV_second_s\(6) <= NOT \bigclock|second_s\(6);
+\bigclock|ALT_INV_second_s\(23) <= NOT \bigclock|second_s\(23);
 \bigclock|ALT_INV_second_s\(24) <= NOT \bigclock|second_s\(24);
 \bigclock|ALT_INV_second_s\(25) <= NOT \bigclock|second_s\(25);
 \bigclock|ALT_INV_second_s\(26) <= NOT \bigclock|second_s\(26);
@@ -1178,8 +1244,6 @@ ww_devpor <= devpor;
 \bigclock|ALT_INV_second_s\(20) <= NOT \bigclock|second_s\(20);
 \bigclock|ALT_INV_second_s\(21) <= NOT \bigclock|second_s\(21);
 \bigclock|ALT_INV_second_s\(22) <= NOT \bigclock|second_s\(22);
-\bigclock|ALT_INV_second_s\(23) <= NOT \bigclock|second_s\(23);
-\bigclock|ALT_INV_second_s\(29) <= NOT \bigclock|second_s\(29);
 \bigclock|ALT_INV_second_s\(16) <= NOT \bigclock|second_s\(16);
 \bigclock|ALT_INV_second_s\(3) <= NOT \bigclock|second_s\(3);
 \bigclock|ALT_INV_second_s\(2) <= NOT \bigclock|second_s\(2);
@@ -1777,7 +1841,7 @@ PORT MAP (
 	inclk => \clk~input_o\,
 	outclk => \clk~inputCLKENA0_outclk\);
 
--- Location: MLABCELL_X42_Y2_N0
+-- Location: LABCELL_X40_Y6_N0
 \bigclock|Add0~1\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~1_sumout\ = SUM(( \bigclock|deci_hour_s\(0) ) + ( VCC ) + ( !VCC ))
@@ -1820,29 +1884,11 @@ PORT MAP (
 	inclk => \rst_n~input_o\,
 	outclk => \rst_n~inputCLKENA0_outclk\);
 
--- Location: MLABCELL_X42_Y2_N3
-\bigclock|Add0~5\ : cyclonev_lcell_comb
+-- Location: LABCELL_X39_Y4_N0
+\bigclock|Add2~1\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~5_sumout\ = SUM(( \bigclock|deci_hour_s\(1) ) + ( GND ) + ( \bigclock|Add0~2\ ))
--- \bigclock|Add0~6\ = CARRY(( \bigclock|deci_hour_s\(1) ) + ( GND ) + ( \bigclock|Add0~2\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_hour_s\(1),
-	cin => \bigclock|Add0~2\,
-	sumout => \bigclock|Add0~5_sumout\,
-	cout => \bigclock|Add0~6\);
-
--- Location: MLABCELL_X42_Y4_N0
-\bigclock|Add1~1\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~1_sumout\ = SUM(( \bigclock|hour_s\(0) ) + ( VCC ) + ( !VCC ))
--- \bigclock|Add1~2\ = CARRY(( \bigclock|hour_s\(0) ) + ( VCC ) + ( !VCC ))
+-- \bigclock|Add2~1_sumout\ = SUM(( \bigclock|deci_minute_s[0]~DUPLICATE_q\ ) + ( VCC ) + ( !VCC ))
+-- \bigclock|Add2~2\ = CARRY(( \bigclock|deci_minute_s[0]~DUPLICATE_q\ ) + ( VCC ) + ( !VCC ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -1851,46 +1897,10 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(0),
+	datad => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
 	cin => GND,
-	sumout => \bigclock|Add1~1_sumout\,
-	cout => \bigclock|Add1~2\);
-
--- Location: MLABCELL_X42_Y4_N3
-\bigclock|Add1~5\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~5_sumout\ = SUM(( \bigclock|hour_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~2\ ))
--- \bigclock|Add1~6\ = CARRY(( \bigclock|hour_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~2\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
-	cin => \bigclock|Add1~2\,
-	sumout => \bigclock|Add1~5_sumout\,
-	cout => \bigclock|Add1~6\);
-
--- Location: MLABCELL_X42_Y4_N6
-\bigclock|Add1~9\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~9_sumout\ = SUM(( \bigclock|hour_s\(2) ) + ( GND ) + ( \bigclock|Add1~6\ ))
--- \bigclock|Add1~10\ = CARRY(( \bigclock|hour_s\(2) ) + ( GND ) + ( \bigclock|Add1~6\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(2),
-	cin => \bigclock|Add1~6\,
-	sumout => \bigclock|Add1~9_sumout\,
-	cout => \bigclock|Add1~10\);
+	sumout => \bigclock|Add2~1_sumout\,
+	cout => \bigclock|Add2~2\);
 
 -- Location: IOIBUF_X10_Y0_N92
 \key_n~input\ : cyclonev_io_ibuf
@@ -1903,22 +1913,22 @@ PORT MAP (
 	i => ww_key_n,
 	o => \key_n~input_o\);
 
--- Location: LABCELL_X39_Y2_N15
+-- Location: LABCELL_X40_Y3_N15
 \bigclock|q1~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|q1~0_combout\ = !\key_n~input_o\
+-- \bigclock|q1~0_combout\ = ( !\key_n~input_o\ )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "1100110011001100110011001100110011001100110011001100110011001100",
+	lut_mask => "1111111111111111111111111111111100000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \ALT_INV_key_n~input_o\,
+	dataf => \ALT_INV_key_n~input_o\,
 	combout => \bigclock|q1~0_combout\);
 
--- Location: FF_X39_Y2_N16
+-- Location: FF_X40_Y3_N16
 \bigclock|q1\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -1928,29 +1938,29 @@ GENERIC MAP (
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|q1~0_combout\,
-	clrn => \ALT_INV_rst_n~inputCLKENA0_outclk\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|q1~q\);
 
--- Location: LABCELL_X39_Y2_N12
+-- Location: LABCELL_X40_Y3_N18
 \bigclock|clk_state_s.counting~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|clk_state_s.counting~0_combout\ = ( \bigclock|q1~q\ & ( !\key_n~input_o\ $ (!\bigclock|clk_state_s.counting~q\) ) ) # ( !\bigclock|q1~q\ & ( \bigclock|clk_state_s.counting~q\ ) )
+-- \bigclock|clk_state_s.counting~0_combout\ = ( \bigclock|q1~q\ & ( \bigclock|clk_state_s.counting~q\ ) ) # ( !\bigclock|q1~q\ & ( !\key_n~input_o\ $ (\bigclock|clk_state_s.counting~q\) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000011111111000000001111111100110011110011000011001111001100",
+	lut_mask => "1111000000001111111100000000111100000000111111110000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \ALT_INV_key_n~input_o\,
+	datac => \ALT_INV_key_n~input_o\,
 	datad => \bigclock|ALT_INV_clk_state_s.counting~q\,
 	dataf => \bigclock|ALT_INV_q1~q\,
 	combout => \bigclock|clk_state_s.counting~0_combout\);
 
--- Location: FF_X39_Y2_N14
+-- Location: FF_X40_Y3_N20
 \bigclock|clk_state_s.counting\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -1960,12 +1970,12 @@ GENERIC MAP (
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|clk_state_s.counting~0_combout\,
-	clrn => \ALT_INV_rst_n~inputCLKENA0_outclk\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|clk_state_s.counting~q\);
 
--- Location: MLABCELL_X37_Y3_N0
+-- Location: LABCELL_X40_Y3_N30
 \bigclock|Sec_Clock|Add0~101\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Sec_Clock|Add0~101_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(0) ) + ( VCC ) + ( !VCC ))
@@ -1974,16 +1984,16 @@ PORT MAP (
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000000000000000011111111",
+	lut_mask => "0000000000000000000000000000000000000000000000000011001100110011",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(0),
+	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(0),
 	cin => GND,
 	sumout => \bigclock|Sec_Clock|Add0~101_sumout\,
 	cout => \bigclock|Sec_Clock|Add0~102\);
 
--- Location: FF_X37_Y3_N2
+-- Location: FF_X40_Y3_N32
 \bigclock|Sec_Clock|counter_s[0]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -1994,30 +2004,30 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Sec_Clock|Add0~101_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(0));
 
--- Location: MLABCELL_X37_Y3_N3
-\bigclock|Sec_Clock|Add0~25\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N33
+\bigclock|Sec_Clock|Add0~97\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~25_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(1) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~102\ ))
--- \bigclock|Sec_Clock|Add0~26\ = CARRY(( \bigclock|Sec_Clock|counter_s\(1) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~102\ ))
+-- \bigclock|Sec_Clock|Add0~97_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(1) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~102\ ))
+-- \bigclock|Sec_Clock|Add0~98\ = CARRY(( \bigclock|Sec_Clock|counter_s\(1) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~102\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(1),
+	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(1),
 	cin => \bigclock|Sec_Clock|Add0~102\,
-	sumout => \bigclock|Sec_Clock|Add0~25_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~26\);
+	sumout => \bigclock|Sec_Clock|Add0~97_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~98\);
 
--- Location: FF_X37_Y3_N5
+-- Location: FF_X40_Y3_N35
 \bigclock|Sec_Clock|counter_s[1]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2026,32 +2036,32 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~25_sumout\,
+	d => \bigclock|Sec_Clock|Add0~97_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(1));
 
--- Location: MLABCELL_X37_Y3_N6
-\bigclock|Sec_Clock|Add0~17\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N36
+\bigclock|Sec_Clock|Add0~93\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~17_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(2) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~26\ ))
--- \bigclock|Sec_Clock|Add0~18\ = CARRY(( \bigclock|Sec_Clock|counter_s\(2) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~26\ ))
+-- \bigclock|Sec_Clock|Add0~93_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(2) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~98\ ))
+-- \bigclock|Sec_Clock|Add0~94\ = CARRY(( \bigclock|Sec_Clock|counter_s\(2) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~98\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(2),
-	cin => \bigclock|Sec_Clock|Add0~26\,
-	sumout => \bigclock|Sec_Clock|Add0~17_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~18\);
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(2),
+	cin => \bigclock|Sec_Clock|Add0~98\,
+	sumout => \bigclock|Sec_Clock|Add0~93_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~94\);
 
--- Location: FF_X37_Y3_N7
+-- Location: FF_X40_Y3_N38
 \bigclock|Sec_Clock|counter_s[2]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2060,18 +2070,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~17_sumout\,
+	d => \bigclock|Sec_Clock|Add0~93_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(2));
 
--- Location: MLABCELL_X37_Y3_N9
-\bigclock|Sec_Clock|Add0~21\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N39
+\bigclock|Sec_Clock|Add0~89\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~21_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(3) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~18\ ))
--- \bigclock|Sec_Clock|Add0~22\ = CARRY(( \bigclock|Sec_Clock|counter_s\(3) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~18\ ))
+-- \bigclock|Sec_Clock|Add0~89_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(3) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~94\ ))
+-- \bigclock|Sec_Clock|Add0~90\ = CARRY(( \bigclock|Sec_Clock|counter_s\(3) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~94\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2081,11 +2091,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(3),
-	cin => \bigclock|Sec_Clock|Add0~18\,
-	sumout => \bigclock|Sec_Clock|Add0~21_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~22\);
+	cin => \bigclock|Sec_Clock|Add0~94\,
+	sumout => \bigclock|Sec_Clock|Add0~89_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~90\);
 
--- Location: FF_X37_Y3_N11
+-- Location: FF_X40_Y3_N41
 \bigclock|Sec_Clock|counter_s[3]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2094,32 +2104,32 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~21_sumout\,
+	d => \bigclock|Sec_Clock|Add0~89_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(3));
 
--- Location: MLABCELL_X37_Y3_N12
-\bigclock|Sec_Clock|Add0~9\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N42
+\bigclock|Sec_Clock|Add0~85\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~9_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(4) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~22\ ))
--- \bigclock|Sec_Clock|Add0~10\ = CARRY(( \bigclock|Sec_Clock|counter_s\(4) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~22\ ))
+-- \bigclock|Sec_Clock|Add0~85_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(4) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~90\ ))
+-- \bigclock|Sec_Clock|Add0~86\ = CARRY(( \bigclock|Sec_Clock|counter_s\(4) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~90\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(4),
-	cin => \bigclock|Sec_Clock|Add0~22\,
-	sumout => \bigclock|Sec_Clock|Add0~9_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~10\);
+	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(4),
+	cin => \bigclock|Sec_Clock|Add0~90\,
+	sumout => \bigclock|Sec_Clock|Add0~85_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~86\);
 
--- Location: FF_X37_Y3_N14
+-- Location: FF_X40_Y3_N43
 \bigclock|Sec_Clock|counter_s[4]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2128,18 +2138,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~9_sumout\,
+	d => \bigclock|Sec_Clock|Add0~85_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(4));
 
--- Location: MLABCELL_X37_Y3_N15
-\bigclock|Sec_Clock|Add0~13\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N45
+\bigclock|Sec_Clock|Add0~81\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~13_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(5) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~10\ ))
--- \bigclock|Sec_Clock|Add0~14\ = CARRY(( \bigclock|Sec_Clock|counter_s\(5) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~10\ ))
+-- \bigclock|Sec_Clock|Add0~81_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(5) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~86\ ))
+-- \bigclock|Sec_Clock|Add0~82\ = CARRY(( \bigclock|Sec_Clock|counter_s\(5) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~86\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2149,11 +2159,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(5),
-	cin => \bigclock|Sec_Clock|Add0~10\,
-	sumout => \bigclock|Sec_Clock|Add0~13_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~14\);
+	cin => \bigclock|Sec_Clock|Add0~86\,
+	sumout => \bigclock|Sec_Clock|Add0~81_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~82\);
 
--- Location: FF_X37_Y3_N17
+-- Location: FF_X40_Y3_N47
 \bigclock|Sec_Clock|counter_s[5]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2162,18 +2172,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~13_sumout\,
+	d => \bigclock|Sec_Clock|Add0~81_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(5));
 
--- Location: MLABCELL_X37_Y3_N18
-\bigclock|Sec_Clock|Add0~29\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N48
+\bigclock|Sec_Clock|Add0~9\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~29_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(6) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~14\ ))
--- \bigclock|Sec_Clock|Add0~30\ = CARRY(( \bigclock|Sec_Clock|counter_s\(6) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~14\ ))
+-- \bigclock|Sec_Clock|Add0~9_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(6) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~82\ ))
+-- \bigclock|Sec_Clock|Add0~10\ = CARRY(( \bigclock|Sec_Clock|counter_s\(6) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~82\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2183,11 +2193,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(6),
-	cin => \bigclock|Sec_Clock|Add0~14\,
-	sumout => \bigclock|Sec_Clock|Add0~29_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~30\);
+	cin => \bigclock|Sec_Clock|Add0~82\,
+	sumout => \bigclock|Sec_Clock|Add0~9_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~10\);
 
--- Location: FF_X37_Y3_N20
+-- Location: FF_X40_Y3_N50
 \bigclock|Sec_Clock|counter_s[6]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2196,32 +2206,32 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~29_sumout\,
+	d => \bigclock|Sec_Clock|Add0~9_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(6));
 
--- Location: MLABCELL_X37_Y3_N21
-\bigclock|Sec_Clock|Add0~33\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N51
+\bigclock|Sec_Clock|Add0~13\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~33_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(7) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~30\ ))
--- \bigclock|Sec_Clock|Add0~34\ = CARRY(( \bigclock|Sec_Clock|counter_s\(7) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~30\ ))
+-- \bigclock|Sec_Clock|Add0~13_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(7) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~10\ ))
+-- \bigclock|Sec_Clock|Add0~14\ = CARRY(( \bigclock|Sec_Clock|counter_s\(7) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~10\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(7),
-	cin => \bigclock|Sec_Clock|Add0~30\,
-	sumout => \bigclock|Sec_Clock|Add0~33_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~34\);
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(7),
+	cin => \bigclock|Sec_Clock|Add0~10\,
+	sumout => \bigclock|Sec_Clock|Add0~13_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~14\);
 
--- Location: FF_X37_Y3_N23
+-- Location: FF_X40_Y3_N52
 \bigclock|Sec_Clock|counter_s[7]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2230,18 +2240,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~33_sumout\,
+	d => \bigclock|Sec_Clock|Add0~13_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(7));
 
--- Location: MLABCELL_X37_Y3_N24
-\bigclock|Sec_Clock|Add0~41\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N54
+\bigclock|Sec_Clock|Add0~1\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~41_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~34\ ))
--- \bigclock|Sec_Clock|Add0~42\ = CARRY(( \bigclock|Sec_Clock|counter_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~34\ ))
+-- \bigclock|Sec_Clock|Add0~1_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(8) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~14\ ))
+-- \bigclock|Sec_Clock|Add0~2\ = CARRY(( \bigclock|Sec_Clock|counter_s\(8) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~14\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2250,13 +2260,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s[8]~DUPLICATE_q\,
-	cin => \bigclock|Sec_Clock|Add0~34\,
-	sumout => \bigclock|Sec_Clock|Add0~41_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~42\);
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(8),
+	cin => \bigclock|Sec_Clock|Add0~14\,
+	sumout => \bigclock|Sec_Clock|Add0~1_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~2\);
 
--- Location: FF_X37_Y3_N26
-\bigclock|Sec_Clock|counter_s[8]~DUPLICATE\ : dffeas
+-- Location: FF_X40_Y3_N56
+\bigclock|Sec_Clock|counter_s[8]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -2264,32 +2274,32 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~41_sumout\,
+	d => \bigclock|Sec_Clock|Add0~1_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s[8]~DUPLICATE_q\);
+	q => \bigclock|Sec_Clock|counter_s\(8));
 
--- Location: MLABCELL_X37_Y3_N27
-\bigclock|Sec_Clock|Add0~45\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N57
+\bigclock|Sec_Clock|Add0~5\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~45_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(9) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~42\ ))
--- \bigclock|Sec_Clock|Add0~46\ = CARRY(( \bigclock|Sec_Clock|counter_s\(9) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~42\ ))
+-- \bigclock|Sec_Clock|Add0~5_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(9) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~2\ ))
+-- \bigclock|Sec_Clock|Add0~6\ = CARRY(( \bigclock|Sec_Clock|counter_s\(9) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~2\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(9),
-	cin => \bigclock|Sec_Clock|Add0~42\,
-	sumout => \bigclock|Sec_Clock|Add0~45_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~46\);
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(9),
+	cin => \bigclock|Sec_Clock|Add0~2\,
+	sumout => \bigclock|Sec_Clock|Add0~5_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~6\);
 
--- Location: FF_X37_Y3_N29
+-- Location: FF_X40_Y3_N59
 \bigclock|Sec_Clock|counter_s[9]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2298,18 +2308,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~45_sumout\,
+	d => \bigclock|Sec_Clock|Add0~5_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(9));
 
--- Location: MLABCELL_X37_Y2_N0
-\bigclock|Sec_Clock|Add0~49\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y2_N0
+\bigclock|Sec_Clock|Add0~25\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~49_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~46\ ))
--- \bigclock|Sec_Clock|Add0~50\ = CARRY(( \bigclock|Sec_Clock|counter_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~46\ ))
+-- \bigclock|Sec_Clock|Add0~25_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(10) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~6\ ))
+-- \bigclock|Sec_Clock|Add0~26\ = CARRY(( \bigclock|Sec_Clock|counter_s\(10) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~6\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2318,13 +2328,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s[10]~DUPLICATE_q\,
-	cin => \bigclock|Sec_Clock|Add0~46\,
-	sumout => \bigclock|Sec_Clock|Add0~49_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~50\);
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(10),
+	cin => \bigclock|Sec_Clock|Add0~6\,
+	sumout => \bigclock|Sec_Clock|Add0~25_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~26\);
 
--- Location: FF_X37_Y2_N2
-\bigclock|Sec_Clock|counter_s[10]~DUPLICATE\ : dffeas
+-- Location: FF_X40_Y2_N2
+\bigclock|Sec_Clock|counter_s[10]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -2332,18 +2342,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~49_sumout\,
+	d => \bigclock|Sec_Clock|Add0~25_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s[10]~DUPLICATE_q\);
+	q => \bigclock|Sec_Clock|counter_s\(10));
 
--- Location: MLABCELL_X37_Y2_N3
-\bigclock|Sec_Clock|Add0~53\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y2_N3
+\bigclock|Sec_Clock|Add0~33\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~53_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(11) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~50\ ))
--- \bigclock|Sec_Clock|Add0~54\ = CARRY(( \bigclock|Sec_Clock|counter_s\(11) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~50\ ))
+-- \bigclock|Sec_Clock|Add0~33_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(11) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~26\ ))
+-- \bigclock|Sec_Clock|Add0~34\ = CARRY(( \bigclock|Sec_Clock|counter_s\(11) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~26\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2353,11 +2363,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(11),
-	cin => \bigclock|Sec_Clock|Add0~50\,
-	sumout => \bigclock|Sec_Clock|Add0~53_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~54\);
+	cin => \bigclock|Sec_Clock|Add0~26\,
+	sumout => \bigclock|Sec_Clock|Add0~33_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~34\);
 
--- Location: FF_X37_Y2_N5
+-- Location: FF_X40_Y2_N5
 \bigclock|Sec_Clock|counter_s[11]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2366,18 +2376,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~53_sumout\,
+	d => \bigclock|Sec_Clock|Add0~33_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(11));
 
--- Location: MLABCELL_X37_Y2_N6
-\bigclock|Sec_Clock|Add0~57\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y2_N6
+\bigclock|Sec_Clock|Add0~17\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~57_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(12) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~54\ ))
--- \bigclock|Sec_Clock|Add0~58\ = CARRY(( \bigclock|Sec_Clock|counter_s\(12) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~54\ ))
+-- \bigclock|Sec_Clock|Add0~17_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(12) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~34\ ))
+-- \bigclock|Sec_Clock|Add0~18\ = CARRY(( \bigclock|Sec_Clock|counter_s\(12) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~34\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2387,11 +2397,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(12),
-	cin => \bigclock|Sec_Clock|Add0~54\,
-	sumout => \bigclock|Sec_Clock|Add0~57_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~58\);
+	cin => \bigclock|Sec_Clock|Add0~34\,
+	sumout => \bigclock|Sec_Clock|Add0~17_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~18\);
 
--- Location: FF_X37_Y2_N7
+-- Location: FF_X40_Y2_N7
 \bigclock|Sec_Clock|counter_s[12]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2400,18 +2410,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~57_sumout\,
+	d => \bigclock|Sec_Clock|Add0~17_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(12));
 
--- Location: MLABCELL_X37_Y2_N9
-\bigclock|Sec_Clock|Add0~61\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y2_N9
+\bigclock|Sec_Clock|Add0~21\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~61_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(13) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~58\ ))
--- \bigclock|Sec_Clock|Add0~62\ = CARRY(( \bigclock|Sec_Clock|counter_s\(13) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~58\ ))
+-- \bigclock|Sec_Clock|Add0~21_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(13) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~18\ ))
+-- \bigclock|Sec_Clock|Add0~22\ = CARRY(( \bigclock|Sec_Clock|counter_s\(13) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~18\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2421,11 +2431,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(13),
-	cin => \bigclock|Sec_Clock|Add0~58\,
-	sumout => \bigclock|Sec_Clock|Add0~61_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~62\);
+	cin => \bigclock|Sec_Clock|Add0~18\,
+	sumout => \bigclock|Sec_Clock|Add0~21_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~22\);
 
--- Location: FF_X37_Y2_N11
+-- Location: FF_X40_Y2_N11
 \bigclock|Sec_Clock|counter_s[13]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2434,18 +2444,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~61_sumout\,
+	d => \bigclock|Sec_Clock|Add0~21_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(13));
 
--- Location: MLABCELL_X37_Y2_N12
-\bigclock|Sec_Clock|Add0~65\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y2_N12
+\bigclock|Sec_Clock|Add0~29\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~65_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(14) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~62\ ))
--- \bigclock|Sec_Clock|Add0~66\ = CARRY(( \bigclock|Sec_Clock|counter_s\(14) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~62\ ))
+-- \bigclock|Sec_Clock|Add0~29_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(14) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~22\ ))
+-- \bigclock|Sec_Clock|Add0~30\ = CARRY(( \bigclock|Sec_Clock|counter_s\(14) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~22\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2455,11 +2465,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(14),
-	cin => \bigclock|Sec_Clock|Add0~62\,
-	sumout => \bigclock|Sec_Clock|Add0~65_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~66\);
+	cin => \bigclock|Sec_Clock|Add0~22\,
+	sumout => \bigclock|Sec_Clock|Add0~29_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~30\);
 
--- Location: FF_X37_Y2_N14
+-- Location: FF_X40_Y2_N14
 \bigclock|Sec_Clock|counter_s[14]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2468,18 +2478,37 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~65_sumout\,
+	d => \bigclock|Sec_Clock|Add0~29_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(14));
 
--- Location: MLABCELL_X37_Y2_N15
+-- Location: LABCELL_X40_Y2_N51
+\bigclock|Sec_Clock|LessThan0~2\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|LessThan0~2_combout\ = ( \bigclock|Sec_Clock|counter_s\(13) & ( \bigclock|Sec_Clock|counter_s\(14) ) ) # ( !\bigclock|Sec_Clock|counter_s\(13) & ( (\bigclock|Sec_Clock|counter_s\(14) & ((\bigclock|Sec_Clock|counter_s\(11)) # 
+-- (\bigclock|Sec_Clock|counter_s\(12)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000010100001111000001010000111100001111000011110000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(12),
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(14),
+	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(11),
+	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(13),
+	combout => \bigclock|Sec_Clock|LessThan0~2_combout\);
+
+-- Location: LABCELL_X40_Y2_N15
 \bigclock|Sec_Clock|Add0~37\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~37_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(15) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~66\ ))
--- \bigclock|Sec_Clock|Add0~38\ = CARRY(( \bigclock|Sec_Clock|counter_s\(15) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~66\ ))
+-- \bigclock|Sec_Clock|Add0~37_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(15) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~30\ ))
+-- \bigclock|Sec_Clock|Add0~38\ = CARRY(( \bigclock|Sec_Clock|counter_s\(15) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~30\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2489,11 +2518,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(15),
-	cin => \bigclock|Sec_Clock|Add0~66\,
+	cin => \bigclock|Sec_Clock|Add0~30\,
 	sumout => \bigclock|Sec_Clock|Add0~37_sumout\,
 	cout => \bigclock|Sec_Clock|Add0~38\);
 
--- Location: FF_X37_Y2_N16
+-- Location: FF_X40_Y2_N17
 \bigclock|Sec_Clock|counter_s[15]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -2504,16 +2533,16 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Sec_Clock|Add0~37_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|Sec_Clock|counter_s\(15));
 
--- Location: MLABCELL_X37_Y2_N18
-\bigclock|Sec_Clock|Add0~69\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y2_N18
+\bigclock|Sec_Clock|Add0~41\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|Add0~69_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(16) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~38\ ))
--- \bigclock|Sec_Clock|Add0~70\ = CARRY(( \bigclock|Sec_Clock|counter_s\(16) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~38\ ))
+-- \bigclock|Sec_Clock|Add0~41_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(16) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~38\ ))
+-- \bigclock|Sec_Clock|Add0~42\ = CARRY(( \bigclock|Sec_Clock|counter_s\(16) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~38\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -2524,351 +2553,11 @@ GENERIC MAP (
 PORT MAP (
 	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(16),
 	cin => \bigclock|Sec_Clock|Add0~38\,
-	sumout => \bigclock|Sec_Clock|Add0~69_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~70\);
+	sumout => \bigclock|Sec_Clock|Add0~41_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~42\);
 
--- Location: FF_X37_Y2_N20
+-- Location: FF_X40_Y2_N20
 \bigclock|Sec_Clock|counter_s[16]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~69_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(16));
-
--- Location: MLABCELL_X37_Y2_N21
-\bigclock|Sec_Clock|Add0~73\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~73_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(17) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~70\ ))
--- \bigclock|Sec_Clock|Add0~74\ = CARRY(( \bigclock|Sec_Clock|counter_s\(17) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~70\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(17),
-	cin => \bigclock|Sec_Clock|Add0~70\,
-	sumout => \bigclock|Sec_Clock|Add0~73_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~74\);
-
--- Location: FF_X37_Y2_N23
-\bigclock|Sec_Clock|counter_s[17]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~73_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(17));
-
--- Location: MLABCELL_X37_Y2_N24
-\bigclock|Sec_Clock|Add0~77\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~77_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(18) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~74\ ))
--- \bigclock|Sec_Clock|Add0~78\ = CARRY(( \bigclock|Sec_Clock|counter_s\(18) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~74\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(18),
-	cin => \bigclock|Sec_Clock|Add0~74\,
-	sumout => \bigclock|Sec_Clock|Add0~77_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~78\);
-
--- Location: FF_X37_Y2_N26
-\bigclock|Sec_Clock|counter_s[18]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(18));
-
--- Location: MLABCELL_X37_Y2_N27
-\bigclock|Sec_Clock|Add0~5\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~5_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(19) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~78\ ))
--- \bigclock|Sec_Clock|Add0~6\ = CARRY(( \bigclock|Sec_Clock|counter_s\(19) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~78\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(19),
-	cin => \bigclock|Sec_Clock|Add0~78\,
-	sumout => \bigclock|Sec_Clock|Add0~5_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~6\);
-
--- Location: FF_X37_Y2_N28
-\bigclock|Sec_Clock|counter_s[19]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~5_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(19));
-
--- Location: MLABCELL_X37_Y3_N30
-\bigclock|Sec_Clock|LessThan0~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|LessThan0~0_combout\ = ( \bigclock|Sec_Clock|counter_s\(1) & ( \bigclock|Sec_Clock|counter_s\(4) & ( \bigclock|Sec_Clock|counter_s\(5) ) ) ) # ( !\bigclock|Sec_Clock|counter_s\(1) & ( \bigclock|Sec_Clock|counter_s\(4) & ( 
--- (\bigclock|Sec_Clock|counter_s\(5) & ((\bigclock|Sec_Clock|counter_s\(3)) # (\bigclock|Sec_Clock|counter_s\(2)))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000010001001100110011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(2),
-	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(5),
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(3),
-	datae => \bigclock|Sec_Clock|ALT_INV_counter_s\(1),
-	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(4),
-	combout => \bigclock|Sec_Clock|LessThan0~0_combout\);
-
--- Location: MLABCELL_X37_Y2_N30
-\bigclock|Sec_Clock|Add0~81\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~81_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(20) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~6\ ))
--- \bigclock|Sec_Clock|Add0~82\ = CARRY(( \bigclock|Sec_Clock|counter_s\(20) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~6\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(20),
-	cin => \bigclock|Sec_Clock|Add0~6\,
-	sumout => \bigclock|Sec_Clock|Add0~81_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~82\);
-
--- Location: FF_X37_Y2_N32
-\bigclock|Sec_Clock|counter_s[20]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~81_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(20));
-
--- Location: MLABCELL_X37_Y2_N33
-\bigclock|Sec_Clock|Add0~85\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~85_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(21) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~82\ ))
--- \bigclock|Sec_Clock|Add0~86\ = CARRY(( \bigclock|Sec_Clock|counter_s\(21) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~82\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(21),
-	cin => \bigclock|Sec_Clock|Add0~82\,
-	sumout => \bigclock|Sec_Clock|Add0~85_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~86\);
-
--- Location: FF_X37_Y2_N35
-\bigclock|Sec_Clock|counter_s[21]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~85_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(21));
-
--- Location: MLABCELL_X37_Y2_N36
-\bigclock|Sec_Clock|Add0~89\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~89_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(22) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~86\ ))
--- \bigclock|Sec_Clock|Add0~90\ = CARRY(( \bigclock|Sec_Clock|counter_s\(22) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~86\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(22),
-	cin => \bigclock|Sec_Clock|Add0~86\,
-	sumout => \bigclock|Sec_Clock|Add0~89_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~90\);
-
--- Location: FF_X37_Y2_N38
-\bigclock|Sec_Clock|counter_s[22]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~89_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(22));
-
--- Location: MLABCELL_X37_Y2_N39
-\bigclock|Sec_Clock|Add0~93\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~93_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(23) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~90\ ))
--- \bigclock|Sec_Clock|Add0~94\ = CARRY(( \bigclock|Sec_Clock|counter_s\(23) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~90\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(23),
-	cin => \bigclock|Sec_Clock|Add0~90\,
-	sumout => \bigclock|Sec_Clock|Add0~93_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~94\);
-
--- Location: FF_X37_Y2_N41
-\bigclock|Sec_Clock|counter_s[23]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~93_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(23));
-
--- Location: MLABCELL_X37_Y2_N42
-\bigclock|Sec_Clock|Add0~97\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~97_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(24) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~94\ ))
--- \bigclock|Sec_Clock|Add0~98\ = CARRY(( \bigclock|Sec_Clock|counter_s\(24) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~94\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(24),
-	cin => \bigclock|Sec_Clock|Add0~94\,
-	sumout => \bigclock|Sec_Clock|Add0~97_sumout\,
-	cout => \bigclock|Sec_Clock|Add0~98\);
-
--- Location: FF_X37_Y2_N44
-\bigclock|Sec_Clock|counter_s[24]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~97_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(24));
-
--- Location: MLABCELL_X37_Y2_N45
-\bigclock|Sec_Clock|Add0~1\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|Add0~1_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(25) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~98\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(25),
-	cin => \bigclock|Sec_Clock|Add0~98\,
-	sumout => \bigclock|Sec_Clock|Add0~1_sumout\);
-
--- Location: FF_X37_Y2_N46
-\bigclock|Sec_Clock|counter_s[25]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Sec_Clock|Add0~1_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(25));
-
--- Location: FF_X37_Y3_N25
-\bigclock|Sec_Clock|counter_s[8]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -2878,13 +2567,133 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Sec_Clock|Add0~41_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(8));
+	q => \bigclock|Sec_Clock|counter_s\(16));
 
--- Location: FF_X37_Y2_N1
-\bigclock|Sec_Clock|counter_s[10]\ : dffeas
+-- Location: LABCELL_X40_Y2_N21
+\bigclock|Sec_Clock|Add0~45\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~45_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s[17]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~42\ ))
+-- \bigclock|Sec_Clock|Add0~46\ = CARRY(( \bigclock|Sec_Clock|counter_s[17]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~42\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s[17]~DUPLICATE_q\,
+	cin => \bigclock|Sec_Clock|Add0~42\,
+	sumout => \bigclock|Sec_Clock|Add0~45_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~46\);
+
+-- Location: FF_X40_Y2_N22
+\bigclock|Sec_Clock|counter_s[17]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s[17]~DUPLICATE_q\);
+
+-- Location: LABCELL_X40_Y2_N24
+\bigclock|Sec_Clock|Add0~61\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~61_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(18) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~46\ ))
+-- \bigclock|Sec_Clock|Add0~62\ = CARRY(( \bigclock|Sec_Clock|counter_s\(18) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~46\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(18),
+	cin => \bigclock|Sec_Clock|Add0~46\,
+	sumout => \bigclock|Sec_Clock|Add0~61_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~62\);
+
+-- Location: FF_X40_Y2_N26
+\bigclock|Sec_Clock|counter_s[18]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~61_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(18));
+
+-- Location: LABCELL_X40_Y2_N27
+\bigclock|Sec_Clock|Add0~65\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~65_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(19) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~62\ ))
+-- \bigclock|Sec_Clock|Add0~66\ = CARRY(( \bigclock|Sec_Clock|counter_s\(19) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~62\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(19),
+	cin => \bigclock|Sec_Clock|Add0~62\,
+	sumout => \bigclock|Sec_Clock|Add0~65_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~66\);
+
+-- Location: FF_X40_Y2_N28
+\bigclock|Sec_Clock|counter_s[19]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~65_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(19));
+
+-- Location: LABCELL_X40_Y2_N30
+\bigclock|Sec_Clock|Add0~49\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~49_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(20) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~66\ ))
+-- \bigclock|Sec_Clock|Add0~50\ = CARRY(( \bigclock|Sec_Clock|counter_s\(20) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~66\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(20),
+	cin => \bigclock|Sec_Clock|Add0~66\,
+	sumout => \bigclock|Sec_Clock|Add0~49_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~50\);
+
+-- Location: FF_X40_Y2_N32
+\bigclock|Sec_Clock|counter_s[20]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -2894,98 +2703,31 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Sec_Clock|Add0~49_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|counter_s\(10));
+	q => \bigclock|Sec_Clock|counter_s\(20));
 
--- Location: MLABCELL_X37_Y3_N48
-\bigclock|Sec_Clock|LessThan0~1\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y2_N33
+\bigclock|Sec_Clock|Add0~53\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Sec_Clock|LessThan0~1_combout\ = ( !\bigclock|Sec_Clock|counter_s\(9) & ( !\bigclock|Sec_Clock|counter_s\(10) & ( (!\bigclock|Sec_Clock|counter_s\(6) & (!\bigclock|Sec_Clock|counter_s\(15) & (!\bigclock|Sec_Clock|counter_s\(7) & 
--- !\bigclock|Sec_Clock|counter_s\(8)))) ) ) )
+-- \bigclock|Sec_Clock|Add0~53_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(21) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~50\ ))
+-- \bigclock|Sec_Clock|Add0~54\ = CARRY(( \bigclock|Sec_Clock|counter_s\(21) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~50\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(6),
-	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(15),
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(7),
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(8),
-	datae => \bigclock|Sec_Clock|ALT_INV_counter_s\(9),
-	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(10),
-	combout => \bigclock|Sec_Clock|LessThan0~1_combout\);
+	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(21),
+	cin => \bigclock|Sec_Clock|Add0~50\,
+	sumout => \bigclock|Sec_Clock|Add0~53_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~54\);
 
--- Location: MLABCELL_X37_Y2_N54
-\bigclock|Sec_Clock|LessThan0~3\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|LessThan0~3_combout\ = ( !\bigclock|Sec_Clock|counter_s\(22) & ( !\bigclock|Sec_Clock|counter_s\(23) & ( (!\bigclock|Sec_Clock|counter_s\(18) & (!\bigclock|Sec_Clock|counter_s\(24) & (!\bigclock|Sec_Clock|counter_s\(21) & 
--- !\bigclock|Sec_Clock|counter_s\(20)))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(18),
-	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(24),
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(21),
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(20),
-	datae => \bigclock|Sec_Clock|ALT_INV_counter_s\(22),
-	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(23),
-	combout => \bigclock|Sec_Clock|LessThan0~3_combout\);
-
--- Location: MLABCELL_X37_Y2_N48
-\bigclock|Sec_Clock|LessThan0~2\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|LessThan0~2_combout\ = ( !\bigclock|Sec_Clock|counter_s\(11) & ( !\bigclock|Sec_Clock|counter_s\(16) & ( (!\bigclock|Sec_Clock|counter_s\(17) & (!\bigclock|Sec_Clock|counter_s\(13) & (!\bigclock|Sec_Clock|counter_s\(12) & 
--- !\bigclock|Sec_Clock|counter_s\(14)))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(17),
-	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(13),
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(12),
-	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(14),
-	datae => \bigclock|Sec_Clock|ALT_INV_counter_s\(11),
-	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(16),
-	combout => \bigclock|Sec_Clock|LessThan0~2_combout\);
-
--- Location: MLABCELL_X37_Y3_N57
-\bigclock|Sec_Clock|LessThan0~4\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Sec_Clock|LessThan0~4_combout\ = ( \bigclock|Sec_Clock|LessThan0~3_combout\ & ( \bigclock|Sec_Clock|LessThan0~2_combout\ & ( (((!\bigclock|Sec_Clock|LessThan0~1_combout\) # (\bigclock|Sec_Clock|counter_s\(25))) # 
--- (\bigclock|Sec_Clock|LessThan0~0_combout\)) # (\bigclock|Sec_Clock|counter_s\(19)) ) ) ) # ( !\bigclock|Sec_Clock|LessThan0~3_combout\ & ( \bigclock|Sec_Clock|LessThan0~2_combout\ ) ) # ( \bigclock|Sec_Clock|LessThan0~3_combout\ & ( 
--- !\bigclock|Sec_Clock|LessThan0~2_combout\ ) ) # ( !\bigclock|Sec_Clock|LessThan0~3_combout\ & ( !\bigclock|Sec_Clock|LessThan0~2_combout\ ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1111111111111111111111111111111111111111111111111111111101111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(19),
-	datab => \bigclock|Sec_Clock|ALT_INV_LessThan0~0_combout\,
-	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(25),
-	datad => \bigclock|Sec_Clock|ALT_INV_LessThan0~1_combout\,
-	datae => \bigclock|Sec_Clock|ALT_INV_LessThan0~3_combout\,
-	dataf => \bigclock|Sec_Clock|ALT_INV_LessThan0~2_combout\,
-	combout => \bigclock|Sec_Clock|LessThan0~4_combout\);
-
--- Location: FF_X40_Y3_N16
-\bigclock|Sec_Clock|slow_clk~DUPLICATE\ : dffeas
+-- Location: FF_X40_Y2_N35
+\bigclock|Sec_Clock|counter_s[21]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -2993,1720 +2735,312 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	d => \bigclock|Sec_Clock|Add0~53_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(21));
+
+-- Location: LABCELL_X40_Y2_N36
+\bigclock|Sec_Clock|Add0~57\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~57_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(22) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~54\ ))
+-- \bigclock|Sec_Clock|Add0~58\ = CARRY(( \bigclock|Sec_Clock|counter_s\(22) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~54\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(22),
+	cin => \bigclock|Sec_Clock|Add0~54\,
+	sumout => \bigclock|Sec_Clock|Add0~57_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~58\);
+
+-- Location: FF_X40_Y2_N38
+\bigclock|Sec_Clock|counter_s[22]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~57_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(22));
+
+-- Location: LABCELL_X40_Y2_N39
+\bigclock|Sec_Clock|Add0~69\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~69_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(23) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~58\ ))
+-- \bigclock|Sec_Clock|Add0~70\ = CARRY(( \bigclock|Sec_Clock|counter_s\(23) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~58\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(23),
+	cin => \bigclock|Sec_Clock|Add0~58\,
+	sumout => \bigclock|Sec_Clock|Add0~69_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~70\);
+
+-- Location: FF_X40_Y2_N41
+\bigclock|Sec_Clock|counter_s[23]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~69_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(23));
+
+-- Location: LABCELL_X40_Y2_N42
+\bigclock|Sec_Clock|Add0~73\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~73_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(24) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~70\ ))
+-- \bigclock|Sec_Clock|Add0~74\ = CARRY(( \bigclock|Sec_Clock|counter_s\(24) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~70\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(24),
+	cin => \bigclock|Sec_Clock|Add0~70\,
+	sumout => \bigclock|Sec_Clock|Add0~73_sumout\,
+	cout => \bigclock|Sec_Clock|Add0~74\);
+
+-- Location: FF_X40_Y2_N44
+\bigclock|Sec_Clock|counter_s[24]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~73_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(24));
+
+-- Location: LABCELL_X40_Y2_N45
+\bigclock|Sec_Clock|Add0~77\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|Add0~77_sumout\ = SUM(( \bigclock|Sec_Clock|counter_s\(25) ) + ( GND ) + ( \bigclock|Sec_Clock|Add0~74\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(25),
+	cin => \bigclock|Sec_Clock|Add0~74\,
+	sumout => \bigclock|Sec_Clock|Add0~77_sumout\);
+
+-- Location: FF_X40_Y2_N47
+\bigclock|Sec_Clock|counter_s[25]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~77_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(25));
+
+-- Location: LABCELL_X40_Y2_N48
+\bigclock|Sec_Clock|LessThan0~5\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|LessThan0~5_combout\ = ( !\bigclock|Sec_Clock|counter_s\(23) & ( (!\bigclock|Sec_Clock|counter_s\(24) & !\bigclock|Sec_Clock|counter_s\(25)) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1100110000000000110011000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(24),
+	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(25),
+	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(23),
+	combout => \bigclock|Sec_Clock|LessThan0~5_combout\);
+
+-- Location: FF_X40_Y2_N23
+\bigclock|Sec_Clock|counter_s[17]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Sec_Clock|Add0~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Sec_Clock|LessThan0~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|Sec_Clock|counter_s\(17));
+
+-- Location: LABCELL_X40_Y2_N57
+\bigclock|Sec_Clock|LessThan0~3\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|LessThan0~3_combout\ = ( !\bigclock|Sec_Clock|counter_s\(16) & ( (!\bigclock|Sec_Clock|counter_s\(21) & (!\bigclock|Sec_Clock|counter_s\(20) & (!\bigclock|Sec_Clock|counter_s\(15) & !\bigclock|Sec_Clock|counter_s\(17)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000100000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(21),
+	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(20),
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(15),
+	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(17),
+	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(16),
+	combout => \bigclock|Sec_Clock|LessThan0~3_combout\);
+
+-- Location: LABCELL_X39_Y2_N51
+\bigclock|Sec_Clock|LessThan0~1\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|LessThan0~1_combout\ = ( !\bigclock|Sec_Clock|counter_s\(13) & ( !\bigclock|Sec_Clock|counter_s\(12) & ( !\bigclock|Sec_Clock|counter_s\(10) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1010101010101010000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(10),
+	datae => \bigclock|Sec_Clock|ALT_INV_counter_s\(13),
+	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(12),
+	combout => \bigclock|Sec_Clock|LessThan0~1_combout\);
+
+-- Location: LABCELL_X40_Y2_N54
+\bigclock|Sec_Clock|LessThan0~4\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|LessThan0~4_combout\ = ( \bigclock|Sec_Clock|counter_s\(19) & ( (\bigclock|Sec_Clock|counter_s\(22) & (((\bigclock|Sec_Clock|counter_s\(18)) # (\bigclock|Sec_Clock|counter_s\(20))) # (\bigclock|Sec_Clock|counter_s\(21)))) ) ) # ( 
+-- !\bigclock|Sec_Clock|counter_s\(19) & ( (\bigclock|Sec_Clock|counter_s\(22) & ((\bigclock|Sec_Clock|counter_s\(20)) # (\bigclock|Sec_Clock|counter_s\(21)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000001110111000000000111011100000000011111110000000001111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|Sec_Clock|ALT_INV_counter_s\(21),
+	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(20),
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(18),
+	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(22),
+	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(19),
+	combout => \bigclock|Sec_Clock|LessThan0~4_combout\);
+
+-- Location: LABCELL_X40_Y3_N0
+\bigclock|Sec_Clock|LessThan0~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|LessThan0~0_combout\ = ( \bigclock|Sec_Clock|counter_s\(6) & ( (\bigclock|Sec_Clock|counter_s\(9) & \bigclock|Sec_Clock|counter_s\(8)) ) ) # ( !\bigclock|Sec_Clock|counter_s\(6) & ( (\bigclock|Sec_Clock|counter_s\(9) & 
+-- (\bigclock|Sec_Clock|counter_s\(8) & \bigclock|Sec_Clock|counter_s\(7))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000011000000000000001100000011000000110000001100000011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|Sec_Clock|ALT_INV_counter_s\(9),
+	datac => \bigclock|Sec_Clock|ALT_INV_counter_s\(8),
+	datad => \bigclock|Sec_Clock|ALT_INV_counter_s\(7),
+	dataf => \bigclock|Sec_Clock|ALT_INV_counter_s\(6),
+	combout => \bigclock|Sec_Clock|LessThan0~0_combout\);
+
+-- Location: LABCELL_X39_Y2_N21
+\bigclock|Sec_Clock|LessThan0~6\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Sec_Clock|LessThan0~6_combout\ = ( \bigclock|Sec_Clock|LessThan0~4_combout\ & ( \bigclock|Sec_Clock|LessThan0~0_combout\ & ( ((!\bigclock|Sec_Clock|LessThan0~5_combout\) # (!\bigclock|Sec_Clock|LessThan0~3_combout\)) # 
+-- (\bigclock|Sec_Clock|LessThan0~2_combout\) ) ) ) # ( !\bigclock|Sec_Clock|LessThan0~4_combout\ & ( \bigclock|Sec_Clock|LessThan0~0_combout\ & ( !\bigclock|Sec_Clock|LessThan0~5_combout\ ) ) ) # ( \bigclock|Sec_Clock|LessThan0~4_combout\ & ( 
+-- !\bigclock|Sec_Clock|LessThan0~0_combout\ & ( (!\bigclock|Sec_Clock|LessThan0~5_combout\) # ((!\bigclock|Sec_Clock|LessThan0~3_combout\) # ((\bigclock|Sec_Clock|LessThan0~2_combout\ & !\bigclock|Sec_Clock|LessThan0~1_combout\))) ) ) ) # ( 
+-- !\bigclock|Sec_Clock|LessThan0~4_combout\ & ( !\bigclock|Sec_Clock|LessThan0~0_combout\ & ( !\bigclock|Sec_Clock|LessThan0~5_combout\ ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1100110011001100111111011111110011001100110011001111110111111101",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|Sec_Clock|ALT_INV_LessThan0~2_combout\,
+	datab => \bigclock|Sec_Clock|ALT_INV_LessThan0~5_combout\,
+	datac => \bigclock|Sec_Clock|ALT_INV_LessThan0~3_combout\,
+	datad => \bigclock|Sec_Clock|ALT_INV_LessThan0~1_combout\,
+	datae => \bigclock|Sec_Clock|ALT_INV_LessThan0~4_combout\,
+	dataf => \bigclock|Sec_Clock|ALT_INV_LessThan0~0_combout\,
+	combout => \bigclock|Sec_Clock|LessThan0~6_combout\);
+
+-- Location: FF_X40_Y3_N26
+\bigclock|Sec_Clock|slow_clk\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Sec_Clock|LessThan0~6_combout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
 	sload => VCC,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|slow_clk~DUPLICATE_q\);
+	q => \bigclock|Sec_Clock|slow_clk~q\);
 
--- Location: LABCELL_X39_Y5_N0
-\bigclock|Add5~1\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y3_N12
+\bigclock|deci_hour_s[3]~1\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~1_sumout\ = SUM(( \bigclock|Sec_Clock|slow_clk~DUPLICATE_q\ ) + ( \bigclock|second_s\(0) ) + ( !VCC ))
--- \bigclock|Add5~2\ = CARRY(( \bigclock|Sec_Clock|slow_clk~DUPLICATE_q\ ) + ( \bigclock|second_s\(0) ) + ( !VCC ))
+-- \bigclock|deci_hour_s[3]~1_combout\ = ( \bigclock|Sec_Clock|slow_clk~q\ & ( \bigclock|clk_state_s.counting~q\ ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111100001111000000000000000000000000000011111111",
+	lut_mask => "0000000000000000000000000000000000001111000011110000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(0),
-	datad => \bigclock|Sec_Clock|ALT_INV_slow_clk~DUPLICATE_q\,
-	cin => GND,
-	sumout => \bigclock|Add5~1_sumout\,
-	cout => \bigclock|Add5~2\);
-
--- Location: FF_X42_Y4_N4
-\bigclock|hour_s[1]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~5_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(1));
-
--- Location: MLABCELL_X42_Y4_N9
-\bigclock|Add1~13\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~13_sumout\ = SUM(( \bigclock|hour_s\(3) ) + ( GND ) + ( \bigclock|Add1~10\ ))
--- \bigclock|Add1~14\ = CARRY(( \bigclock|hour_s\(3) ) + ( GND ) + ( \bigclock|Add1~10\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(3),
-	cin => \bigclock|Add1~10\,
-	sumout => \bigclock|Add1~13_sumout\,
-	cout => \bigclock|Add1~14\);
-
--- Location: MLABCELL_X42_Y4_N12
-\bigclock|Add1~69\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~69_sumout\ = SUM(( \bigclock|hour_s\(4) ) + ( GND ) + ( \bigclock|Add1~14\ ))
--- \bigclock|Add1~70\ = CARRY(( \bigclock|hour_s\(4) ) + ( GND ) + ( \bigclock|Add1~14\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(4),
-	cin => \bigclock|Add1~14\,
-	sumout => \bigclock|Add1~69_sumout\,
-	cout => \bigclock|Add1~70\);
-
--- Location: FF_X42_Y4_N14
-\bigclock|hour_s[4]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~69_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(4));
-
--- Location: MLABCELL_X42_Y4_N15
-\bigclock|Add1~85\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~85_sumout\ = SUM(( \bigclock|hour_s\(5) ) + ( GND ) + ( \bigclock|Add1~70\ ))
--- \bigclock|Add1~86\ = CARRY(( \bigclock|hour_s\(5) ) + ( GND ) + ( \bigclock|Add1~70\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(5),
-	cin => \bigclock|Add1~70\,
-	sumout => \bigclock|Add1~85_sumout\,
-	cout => \bigclock|Add1~86\);
-
--- Location: FF_X42_Y4_N17
-\bigclock|hour_s[5]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~85_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(5));
-
--- Location: MLABCELL_X42_Y4_N18
-\bigclock|Add1~81\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~81_sumout\ = SUM(( \bigclock|hour_s\(6) ) + ( GND ) + ( \bigclock|Add1~86\ ))
--- \bigclock|Add1~82\ = CARRY(( \bigclock|hour_s\(6) ) + ( GND ) + ( \bigclock|Add1~86\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(6),
-	cin => \bigclock|Add1~86\,
-	sumout => \bigclock|Add1~81_sumout\,
-	cout => \bigclock|Add1~82\);
-
--- Location: FF_X42_Y4_N20
-\bigclock|hour_s[6]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~81_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(6));
-
--- Location: MLABCELL_X42_Y4_N21
-\bigclock|Add1~73\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~73_sumout\ = SUM(( \bigclock|hour_s\(7) ) + ( GND ) + ( \bigclock|Add1~82\ ))
--- \bigclock|Add1~74\ = CARRY(( \bigclock|hour_s\(7) ) + ( GND ) + ( \bigclock|Add1~82\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(7),
-	cin => \bigclock|Add1~82\,
-	sumout => \bigclock|Add1~73_sumout\,
-	cout => \bigclock|Add1~74\);
-
--- Location: FF_X42_Y4_N23
-\bigclock|hour_s[7]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~73_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(7));
-
--- Location: MLABCELL_X42_Y4_N24
-\bigclock|Add1~121\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~121_sumout\ = SUM(( \bigclock|hour_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~74\ ))
--- \bigclock|Add1~122\ = CARRY(( \bigclock|hour_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~74\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s[8]~DUPLICATE_q\,
-	cin => \bigclock|Add1~74\,
-	sumout => \bigclock|Add1~121_sumout\,
-	cout => \bigclock|Add1~122\);
-
--- Location: FF_X42_Y4_N26
-\bigclock|hour_s[8]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[8]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y4_N27
-\bigclock|Add1~117\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~117_sumout\ = SUM(( \bigclock|hour_s\(9) ) + ( GND ) + ( \bigclock|Add1~122\ ))
--- \bigclock|Add1~118\ = CARRY(( \bigclock|hour_s\(9) ) + ( GND ) + ( \bigclock|Add1~122\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(9),
-	cin => \bigclock|Add1~122\,
-	sumout => \bigclock|Add1~117_sumout\,
-	cout => \bigclock|Add1~118\);
-
--- Location: FF_X42_Y4_N29
-\bigclock|hour_s[9]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~117_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(9));
-
--- Location: MLABCELL_X42_Y4_N30
-\bigclock|Add1~113\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~113_sumout\ = SUM(( \bigclock|hour_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~118\ ))
--- \bigclock|Add1~114\ = CARRY(( \bigclock|hour_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~118\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s[10]~DUPLICATE_q\,
-	cin => \bigclock|Add1~118\,
-	sumout => \bigclock|Add1~113_sumout\,
-	cout => \bigclock|Add1~114\);
-
--- Location: FF_X42_Y4_N31
-\bigclock|hour_s[10]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~113_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[10]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y4_N33
-\bigclock|Add1~109\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~109_sumout\ = SUM(( \bigclock|hour_s[11]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~114\ ))
--- \bigclock|Add1~110\ = CARRY(( \bigclock|hour_s[11]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~114\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s[11]~DUPLICATE_q\,
-	cin => \bigclock|Add1~114\,
-	sumout => \bigclock|Add1~109_sumout\,
-	cout => \bigclock|Add1~110\);
-
--- Location: FF_X42_Y4_N35
-\bigclock|hour_s[11]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~109_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[11]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y4_N36
-\bigclock|Add1~77\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~77_sumout\ = SUM(( \bigclock|hour_s\(12) ) + ( GND ) + ( \bigclock|Add1~110\ ))
--- \bigclock|Add1~78\ = CARRY(( \bigclock|hour_s\(12) ) + ( GND ) + ( \bigclock|Add1~110\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(12),
-	cin => \bigclock|Add1~110\,
-	sumout => \bigclock|Add1~77_sumout\,
-	cout => \bigclock|Add1~78\);
-
--- Location: FF_X42_Y4_N38
-\bigclock|hour_s[12]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(12));
-
--- Location: MLABCELL_X42_Y4_N39
-\bigclock|Add1~105\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~105_sumout\ = SUM(( \bigclock|hour_s[13]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~78\ ))
--- \bigclock|Add1~106\ = CARRY(( \bigclock|hour_s[13]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~78\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s[13]~DUPLICATE_q\,
-	cin => \bigclock|Add1~78\,
-	sumout => \bigclock|Add1~105_sumout\,
-	cout => \bigclock|Add1~106\);
-
--- Location: FF_X42_Y4_N40
-\bigclock|hour_s[13]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[13]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y4_N42
-\bigclock|Add1~101\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~101_sumout\ = SUM(( \bigclock|hour_s\(14) ) + ( GND ) + ( \bigclock|Add1~106\ ))
--- \bigclock|Add1~102\ = CARRY(( \bigclock|hour_s\(14) ) + ( GND ) + ( \bigclock|Add1~106\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(14),
-	cin => \bigclock|Add1~106\,
-	sumout => \bigclock|Add1~101_sumout\,
-	cout => \bigclock|Add1~102\);
-
--- Location: FF_X42_Y4_N43
-\bigclock|hour_s[14]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~101_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(14));
-
--- Location: MLABCELL_X42_Y4_N45
-\bigclock|Add1~97\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~97_sumout\ = SUM(( \bigclock|hour_s\(15) ) + ( GND ) + ( \bigclock|Add1~102\ ))
--- \bigclock|Add1~98\ = CARRY(( \bigclock|hour_s\(15) ) + ( GND ) + ( \bigclock|Add1~102\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(15),
-	cin => \bigclock|Add1~102\,
-	sumout => \bigclock|Add1~97_sumout\,
-	cout => \bigclock|Add1~98\);
-
--- Location: FF_X42_Y4_N47
-\bigclock|hour_s[15]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~97_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(15));
-
--- Location: MLABCELL_X42_Y4_N48
-\bigclock|Add1~93\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~93_sumout\ = SUM(( \bigclock|hour_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~98\ ))
--- \bigclock|Add1~94\ = CARRY(( \bigclock|hour_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~98\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s[16]~DUPLICATE_q\,
-	cin => \bigclock|Add1~98\,
-	sumout => \bigclock|Add1~93_sumout\,
-	cout => \bigclock|Add1~94\);
-
--- Location: FF_X42_Y4_N50
-\bigclock|hour_s[16]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~93_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[16]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y4_N51
-\bigclock|Add1~89\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~89_sumout\ = SUM(( \bigclock|hour_s\(17) ) + ( GND ) + ( \bigclock|Add1~94\ ))
--- \bigclock|Add1~90\ = CARRY(( \bigclock|hour_s\(17) ) + ( GND ) + ( \bigclock|Add1~94\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(17),
-	cin => \bigclock|Add1~94\,
-	sumout => \bigclock|Add1~89_sumout\,
-	cout => \bigclock|Add1~90\);
-
--- Location: FF_X42_Y4_N52
-\bigclock|hour_s[17]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~89_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(17));
-
--- Location: MLABCELL_X42_Y4_N54
-\bigclock|Add1~41\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~41_sumout\ = SUM(( \bigclock|hour_s\(18) ) + ( GND ) + ( \bigclock|Add1~90\ ))
--- \bigclock|Add1~42\ = CARRY(( \bigclock|hour_s\(18) ) + ( GND ) + ( \bigclock|Add1~90\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(18),
-	cin => \bigclock|Add1~90\,
-	sumout => \bigclock|Add1~41_sumout\,
-	cout => \bigclock|Add1~42\);
-
--- Location: FF_X42_Y4_N55
-\bigclock|hour_s[18]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(18));
-
--- Location: MLABCELL_X42_Y4_N57
-\bigclock|Add1~37\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~37_sumout\ = SUM(( \bigclock|hour_s\(19) ) + ( GND ) + ( \bigclock|Add1~42\ ))
--- \bigclock|Add1~38\ = CARRY(( \bigclock|hour_s\(19) ) + ( GND ) + ( \bigclock|Add1~42\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(19),
-	cin => \bigclock|Add1~42\,
-	sumout => \bigclock|Add1~37_sumout\,
-	cout => \bigclock|Add1~38\);
-
--- Location: FF_X42_Y4_N59
-\bigclock|hour_s[19]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~37_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(19));
-
--- Location: MLABCELL_X42_Y3_N0
-\bigclock|Add1~33\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~33_sumout\ = SUM(( \bigclock|hour_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~38\ ))
--- \bigclock|Add1~34\ = CARRY(( \bigclock|hour_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~38\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s[20]~DUPLICATE_q\,
-	cin => \bigclock|Add1~38\,
-	sumout => \bigclock|Add1~33_sumout\,
-	cout => \bigclock|Add1~34\);
-
--- Location: FF_X42_Y3_N2
-\bigclock|hour_s[20]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~33_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[20]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y3_N3
-\bigclock|Add1~29\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~29_sumout\ = SUM(( \bigclock|hour_s\(21) ) + ( GND ) + ( \bigclock|Add1~34\ ))
--- \bigclock|Add1~30\ = CARRY(( \bigclock|hour_s\(21) ) + ( GND ) + ( \bigclock|Add1~34\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(21),
-	cin => \bigclock|Add1~34\,
-	sumout => \bigclock|Add1~29_sumout\,
-	cout => \bigclock|Add1~30\);
-
--- Location: FF_X42_Y3_N5
-\bigclock|hour_s[21]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~29_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(21));
-
--- Location: MLABCELL_X42_Y3_N6
-\bigclock|Add1~25\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~25_sumout\ = SUM(( \bigclock|hour_s\(22) ) + ( GND ) + ( \bigclock|Add1~30\ ))
--- \bigclock|Add1~26\ = CARRY(( \bigclock|hour_s\(22) ) + ( GND ) + ( \bigclock|Add1~30\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(22),
-	cin => \bigclock|Add1~30\,
-	sumout => \bigclock|Add1~25_sumout\,
-	cout => \bigclock|Add1~26\);
-
--- Location: FF_X42_Y3_N8
-\bigclock|hour_s[22]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~25_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(22));
-
--- Location: MLABCELL_X42_Y3_N9
-\bigclock|Add1~21\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~21_sumout\ = SUM(( \bigclock|hour_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~26\ ))
--- \bigclock|Add1~22\ = CARRY(( \bigclock|hour_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~26\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s[23]~DUPLICATE_q\,
-	cin => \bigclock|Add1~26\,
-	sumout => \bigclock|Add1~21_sumout\,
-	cout => \bigclock|Add1~22\);
-
--- Location: FF_X42_Y3_N10
-\bigclock|hour_s[23]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~21_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[23]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y3_N12
-\bigclock|Add1~17\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~17_sumout\ = SUM(( \bigclock|hour_s\(24) ) + ( GND ) + ( \bigclock|Add1~22\ ))
--- \bigclock|Add1~18\ = CARRY(( \bigclock|hour_s\(24) ) + ( GND ) + ( \bigclock|Add1~22\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(24),
-	cin => \bigclock|Add1~22\,
-	sumout => \bigclock|Add1~17_sumout\,
-	cout => \bigclock|Add1~18\);
-
--- Location: FF_X42_Y3_N14
-\bigclock|hour_s[24]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~17_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(24));
-
--- Location: MLABCELL_X42_Y3_N15
-\bigclock|Add1~57\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~57_sumout\ = SUM(( \bigclock|hour_s\(25) ) + ( GND ) + ( \bigclock|Add1~18\ ))
--- \bigclock|Add1~58\ = CARRY(( \bigclock|hour_s\(25) ) + ( GND ) + ( \bigclock|Add1~18\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(25),
-	cin => \bigclock|Add1~18\,
-	sumout => \bigclock|Add1~57_sumout\,
-	cout => \bigclock|Add1~58\);
-
--- Location: FF_X42_Y3_N17
-\bigclock|hour_s[25]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~57_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(25));
-
--- Location: MLABCELL_X42_Y3_N18
-\bigclock|Add1~53\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~53_sumout\ = SUM(( \bigclock|hour_s\(26) ) + ( GND ) + ( \bigclock|Add1~58\ ))
--- \bigclock|Add1~54\ = CARRY(( \bigclock|hour_s\(26) ) + ( GND ) + ( \bigclock|Add1~58\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(26),
-	cin => \bigclock|Add1~58\,
-	sumout => \bigclock|Add1~53_sumout\,
-	cout => \bigclock|Add1~54\);
-
--- Location: FF_X42_Y3_N20
-\bigclock|hour_s[26]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~53_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(26));
-
--- Location: MLABCELL_X42_Y3_N21
-\bigclock|Add1~61\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~61_sumout\ = SUM(( \bigclock|hour_s\(27) ) + ( GND ) + ( \bigclock|Add1~54\ ))
--- \bigclock|Add1~62\ = CARRY(( \bigclock|hour_s\(27) ) + ( GND ) + ( \bigclock|Add1~54\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_hour_s\(27),
-	cin => \bigclock|Add1~54\,
-	sumout => \bigclock|Add1~61_sumout\,
-	cout => \bigclock|Add1~62\);
-
--- Location: FF_X42_Y3_N23
-\bigclock|hour_s[27]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(27));
-
--- Location: MLABCELL_X42_Y3_N24
-\bigclock|Add1~49\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~49_sumout\ = SUM(( \bigclock|hour_s\(28) ) + ( GND ) + ( \bigclock|Add1~62\ ))
--- \bigclock|Add1~50\ = CARRY(( \bigclock|hour_s\(28) ) + ( GND ) + ( \bigclock|Add1~62\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(28),
-	cin => \bigclock|Add1~62\,
-	sumout => \bigclock|Add1~49_sumout\,
-	cout => \bigclock|Add1~50\);
-
--- Location: FF_X42_Y3_N26
-\bigclock|hour_s[28]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~49_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(28));
-
--- Location: MLABCELL_X42_Y3_N27
-\bigclock|Add1~45\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~45_sumout\ = SUM(( \bigclock|hour_s\(29) ) + ( GND ) + ( \bigclock|Add1~50\ ))
--- \bigclock|Add1~46\ = CARRY(( \bigclock|hour_s\(29) ) + ( GND ) + ( \bigclock|Add1~50\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(29),
-	cin => \bigclock|Add1~50\,
-	sumout => \bigclock|Add1~45_sumout\,
-	cout => \bigclock|Add1~46\);
-
--- Location: FF_X42_Y3_N28
-\bigclock|hour_s[29]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~45_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(29));
-
--- Location: LABCELL_X41_Y3_N36
-\bigclock|counter24h~12\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~12_combout\ = ( !\bigclock|hour_s\(28) & ( (!\bigclock|hour_s\(26) & (!\bigclock|hour_s\(29) & !\bigclock|hour_s\(25))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1100000000000000110000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(26),
-	datac => \bigclock|ALT_INV_hour_s\(29),
-	datad => \bigclock|ALT_INV_hour_s\(25),
-	dataf => \bigclock|ALT_INV_hour_s\(28),
-	combout => \bigclock|counter24h~12_combout\);
-
--- Location: FF_X42_Y3_N11
-\bigclock|hour_s[23]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~21_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(23));
-
--- Location: FF_X42_Y3_N1
-\bigclock|hour_s[20]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~33_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(20));
-
--- Location: LABCELL_X41_Y3_N0
-\bigclock|counter24h~11\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~11_combout\ = ( !\bigclock|hour_s\(19) & ( !\bigclock|hour_s\(18) & ( (!\bigclock|hour_s\(22) & (!\bigclock|hour_s\(21) & !\bigclock|hour_s\(20))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(22),
-	datac => \bigclock|ALT_INV_hour_s\(21),
-	datad => \bigclock|ALT_INV_hour_s\(20),
-	datae => \bigclock|ALT_INV_hour_s\(19),
-	dataf => \bigclock|ALT_INV_hour_s\(18),
-	combout => \bigclock|counter24h~11_combout\);
-
--- Location: FF_X42_Y3_N31
-\bigclock|hour_s[30]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[30]~DUPLICATE_q\);
-
--- Location: MLABCELL_X42_Y3_N30
-\bigclock|Add1~65\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add1~65_sumout\ = SUM(( \bigclock|hour_s[30]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~46\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s[30]~DUPLICATE_q\,
-	cin => \bigclock|Add1~46\,
-	sumout => \bigclock|Add1~65_sumout\);
-
--- Location: FF_X42_Y3_N32
-\bigclock|hour_s[30]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(30));
-
--- Location: FF_X42_Y4_N37
-\bigclock|hour_s[12]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[12]~DUPLICATE_q\);
-
--- Location: FF_X42_Y4_N41
-\bigclock|hour_s[13]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(13));
-
--- Location: FF_X42_Y4_N49
-\bigclock|hour_s[16]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~93_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(16));
-
--- Location: MLABCELL_X42_Y3_N57
-\bigclock|counter24h~27\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~27_combout\ = ( !\bigclock|hour_s\(13) & ( !\bigclock|hour_s\(16) & ( (!\bigclock|hour_s\(7) & (!\bigclock|hour_s\(14) & (!\bigclock|hour_s\(17) & !\bigclock|hour_s\(15)))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(7),
-	datab => \bigclock|ALT_INV_hour_s\(14),
-	datac => \bigclock|ALT_INV_hour_s\(17),
-	datad => \bigclock|ALT_INV_hour_s\(15),
-	datae => \bigclock|ALT_INV_hour_s\(13),
-	dataf => \bigclock|ALT_INV_hour_s\(16),
-	combout => \bigclock|counter24h~27_combout\);
-
--- Location: FF_X42_Y4_N1
-\bigclock|hour_s[0]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~1_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[0]~DUPLICATE_q\);
-
--- Location: FF_X42_Y4_N19
-\bigclock|hour_s[6]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~81_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[6]~DUPLICATE_q\);
-
--- Location: FF_X42_Y4_N16
-\bigclock|hour_s[5]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~85_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[5]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y3_N27
-\bigclock|counter24h~28\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~28_combout\ = ( !\bigclock|hour_s[5]~DUPLICATE_q\ & ( (\bigclock|hour_s[0]~DUPLICATE_q\ & (!\bigclock|hour_s\(2) & (!\bigclock|hour_s\(4) & !\bigclock|hour_s[6]~DUPLICATE_q\))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0100000000000000010000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	datab => \bigclock|ALT_INV_hour_s\(2),
-	datac => \bigclock|ALT_INV_hour_s\(4),
-	datad => \bigclock|ALT_INV_hour_s[6]~DUPLICATE_q\,
-	dataf => \bigclock|ALT_INV_hour_s[5]~DUPLICATE_q\,
-	combout => \bigclock|counter24h~28_combout\);
-
--- Location: FF_X42_Y4_N25
-\bigclock|hour_s[8]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(8));
-
--- Location: FF_X42_Y4_N32
-\bigclock|hour_s[10]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~113_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(10));
-
--- Location: FF_X42_Y4_N34
-\bigclock|hour_s[11]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~109_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(11));
-
--- Location: FF_X42_Y4_N28
-\bigclock|hour_s[9]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~117_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s[9]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y3_N42
-\bigclock|counter24h~13\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~13_combout\ = ( !\bigclock|hour_s[9]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(8) & (!\bigclock|hour_s\(10) & !\bigclock|hour_s\(11))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1100000000000000110000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(8),
-	datac => \bigclock|ALT_INV_hour_s\(10),
-	datad => \bigclock|ALT_INV_hour_s\(11),
-	dataf => \bigclock|ALT_INV_hour_s[9]~DUPLICATE_q\,
-	combout => \bigclock|counter24h~13_combout\);
-
--- Location: LABCELL_X41_Y3_N30
-\bigclock|counter24h~14\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~14_combout\ = ( \bigclock|counter24h~28_combout\ & ( \bigclock|counter24h~13_combout\ & ( (!\bigclock|hour_s\(30) & (!\bigclock|hour_s[12]~DUPLICATE_q\ & (!\bigclock|hour_s\(27) & \bigclock|counter24h~27_combout\))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000000000000000010000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(30),
-	datab => \bigclock|ALT_INV_hour_s[12]~DUPLICATE_q\,
-	datac => \bigclock|ALT_INV_hour_s\(27),
-	datad => \bigclock|ALT_INV_counter24h~27_combout\,
-	datae => \bigclock|ALT_INV_counter24h~28_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~13_combout\,
-	combout => \bigclock|counter24h~14_combout\);
-
--- Location: LABCELL_X41_Y3_N6
-\bigclock|counter24h~15\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~15_combout\ = ( \bigclock|counter24h~14_combout\ & ( (\bigclock|counter24h~12_combout\ & (!\bigclock|hour_s\(24) & (!\bigclock|hour_s\(23) & \bigclock|counter24h~11_combout\))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000010000000000000001000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_counter24h~12_combout\,
-	datab => \bigclock|ALT_INV_hour_s\(24),
-	datac => \bigclock|ALT_INV_hour_s\(23),
-	datad => \bigclock|ALT_INV_counter24h~11_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~14_combout\,
-	combout => \bigclock|counter24h~15_combout\);
-
--- Location: FF_X39_Y5_N44
-\bigclock|second_s[14]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(14));
-
--- Location: LABCELL_X40_Y3_N54
-\bigclock|deci_second_s[9]~2\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~2_combout\ = ( \bigclock|second_s\(3) & ( (!\bigclock|second_s\(13) & (!\bigclock|second_s\(2) & (!\bigclock|second_s\(14) & !\bigclock|second_s\(15)))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000010000000000000001000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(13),
-	datab => \bigclock|ALT_INV_second_s\(2),
-	datac => \bigclock|ALT_INV_second_s\(14),
-	datad => \bigclock|ALT_INV_second_s\(15),
-	dataf => \bigclock|ALT_INV_second_s\(3),
-	combout => \bigclock|deci_second_s[9]~2_combout\);
-
--- Location: LABCELL_X39_Y5_N48
-\bigclock|Add5~17\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~17_sumout\ = SUM(( \bigclock|second_s\(16) ) + ( GND ) + ( \bigclock|Add5~102\ ))
--- \bigclock|Add5~18\ = CARRY(( \bigclock|second_s\(16) ) + ( GND ) + ( \bigclock|Add5~102\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(16),
-	cin => \bigclock|Add5~102\,
-	sumout => \bigclock|Add5~17_sumout\,
-	cout => \bigclock|Add5~18\);
-
--- Location: LABCELL_X39_Y5_N51
-\bigclock|Add5~49\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~49_sumout\ = SUM(( \bigclock|second_s\(17) ) + ( GND ) + ( \bigclock|Add5~18\ ))
--- \bigclock|Add5~50\ = CARRY(( \bigclock|second_s\(17) ) + ( GND ) + ( \bigclock|Add5~18\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(17),
-	cin => \bigclock|Add5~18\,
-	sumout => \bigclock|Add5~49_sumout\,
-	cout => \bigclock|Add5~50\);
-
--- Location: FF_X39_Y5_N53
-\bigclock|second_s[17]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~49_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(17));
-
--- Location: LABCELL_X39_Y5_N54
-\bigclock|Add5~45\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~45_sumout\ = SUM(( \bigclock|second_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~50\ ))
--- \bigclock|Add5~46\ = CARRY(( \bigclock|second_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~50\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s[18]~DUPLICATE_q\,
-	cin => \bigclock|Add5~50\,
-	sumout => \bigclock|Add5~45_sumout\,
-	cout => \bigclock|Add5~46\);
-
--- Location: FF_X39_Y5_N56
-\bigclock|second_s[18]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~45_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s[18]~DUPLICATE_q\);
-
--- Location: LABCELL_X39_Y5_N57
-\bigclock|Add5~41\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~41_sumout\ = SUM(( \bigclock|second_s\(19) ) + ( GND ) + ( \bigclock|Add5~46\ ))
--- \bigclock|Add5~42\ = CARRY(( \bigclock|second_s\(19) ) + ( GND ) + ( \bigclock|Add5~46\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(19),
-	cin => \bigclock|Add5~46\,
-	sumout => \bigclock|Add5~41_sumout\,
-	cout => \bigclock|Add5~42\);
-
--- Location: FF_X39_Y5_N59
-\bigclock|second_s[19]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(19));
-
--- Location: LABCELL_X39_Y4_N0
-\bigclock|Add5~37\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~37_sumout\ = SUM(( \bigclock|second_s\(20) ) + ( GND ) + ( \bigclock|Add5~42\ ))
--- \bigclock|Add5~38\ = CARRY(( \bigclock|second_s\(20) ) + ( GND ) + ( \bigclock|Add5~42\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(20),
-	cin => \bigclock|Add5~42\,
-	sumout => \bigclock|Add5~37_sumout\,
-	cout => \bigclock|Add5~38\);
-
--- Location: FF_X39_Y4_N1
-\bigclock|second_s[20]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~37_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(20));
-
--- Location: LABCELL_X39_Y4_N3
-\bigclock|Add5~33\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~33_sumout\ = SUM(( \bigclock|second_s\(21) ) + ( GND ) + ( \bigclock|Add5~38\ ))
--- \bigclock|Add5~34\ = CARRY(( \bigclock|second_s\(21) ) + ( GND ) + ( \bigclock|Add5~38\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(21),
-	cin => \bigclock|Add5~38\,
-	sumout => \bigclock|Add5~33_sumout\,
-	cout => \bigclock|Add5~34\);
-
--- Location: FF_X39_Y4_N5
-\bigclock|second_s[21]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~33_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(21));
-
--- Location: LABCELL_X39_Y4_N6
-\bigclock|Add5~29\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~29_sumout\ = SUM(( \bigclock|second_s\(22) ) + ( GND ) + ( \bigclock|Add5~34\ ))
--- \bigclock|Add5~30\ = CARRY(( \bigclock|second_s\(22) ) + ( GND ) + ( \bigclock|Add5~34\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_second_s\(22),
-	cin => \bigclock|Add5~34\,
-	sumout => \bigclock|Add5~29_sumout\,
-	cout => \bigclock|Add5~30\);
-
--- Location: FF_X39_Y4_N8
-\bigclock|second_s[22]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~29_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(22));
-
--- Location: FF_X39_Y5_N55
-\bigclock|second_s[18]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~45_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(18));
-
--- Location: LABCELL_X40_Y3_N6
-\bigclock|deci_second_s[9]~8\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~8_combout\ = ( !\bigclock|second_s\(21) & ( !\bigclock|second_s\(18) & ( (!\bigclock|second_s\(17) & (!\bigclock|second_s\(19) & (!\bigclock|second_s\(22) & !\bigclock|second_s\(20)))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(17),
-	datab => \bigclock|ALT_INV_second_s\(19),
-	datac => \bigclock|ALT_INV_second_s\(22),
-	datad => \bigclock|ALT_INV_second_s\(20),
-	datae => \bigclock|ALT_INV_second_s\(21),
-	dataf => \bigclock|ALT_INV_second_s\(18),
-	combout => \bigclock|deci_second_s[9]~8_combout\);
-
--- Location: LABCELL_X39_Y4_N9
-\bigclock|Add5~25\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~25_sumout\ = SUM(( \bigclock|second_s\(23) ) + ( GND ) + ( \bigclock|Add5~30\ ))
--- \bigclock|Add5~26\ = CARRY(( \bigclock|second_s\(23) ) + ( GND ) + ( \bigclock|Add5~30\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(23),
-	cin => \bigclock|Add5~30\,
-	sumout => \bigclock|Add5~25_sumout\,
-	cout => \bigclock|Add5~26\);
-
--- Location: FF_X39_Y4_N11
-\bigclock|second_s[23]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~25_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(23));
-
--- Location: LABCELL_X39_Y4_N12
-\bigclock|Add5~69\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~69_sumout\ = SUM(( \bigclock|second_s\(24) ) + ( GND ) + ( \bigclock|Add5~26\ ))
--- \bigclock|Add5~70\ = CARRY(( \bigclock|second_s\(24) ) + ( GND ) + ( \bigclock|Add5~26\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_second_s\(24),
-	cin => \bigclock|Add5~26\,
-	sumout => \bigclock|Add5~69_sumout\,
-	cout => \bigclock|Add5~70\);
-
--- Location: FF_X39_Y4_N14
-\bigclock|second_s[24]\ : dffeas
+	datac => \bigclock|ALT_INV_clk_state_s.counting~q\,
+	dataf => \bigclock|Sec_Clock|ALT_INV_slow_clk~q\,
+	combout => \bigclock|deci_hour_s[3]~1_combout\);
+
+-- Location: FF_X43_Y5_N20
+\bigclock|second_s[6]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -4716,386 +3050,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~69_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(24));
-
--- Location: LABCELL_X39_Y4_N15
-\bigclock|Add5~65\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~65_sumout\ = SUM(( \bigclock|second_s\(25) ) + ( GND ) + ( \bigclock|Add5~70\ ))
--- \bigclock|Add5~66\ = CARRY(( \bigclock|second_s\(25) ) + ( GND ) + ( \bigclock|Add5~70\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(25),
-	cin => \bigclock|Add5~70\,
-	sumout => \bigclock|Add5~65_sumout\,
-	cout => \bigclock|Add5~66\);
-
--- Location: FF_X39_Y4_N17
-\bigclock|second_s[25]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(25));
-
--- Location: LABCELL_X39_Y4_N18
-\bigclock|Add5~61\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~61_sumout\ = SUM(( \bigclock|second_s\(26) ) + ( GND ) + ( \bigclock|Add5~66\ ))
--- \bigclock|Add5~62\ = CARRY(( \bigclock|second_s\(26) ) + ( GND ) + ( \bigclock|Add5~66\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(26),
-	cin => \bigclock|Add5~66\,
-	sumout => \bigclock|Add5~61_sumout\,
-	cout => \bigclock|Add5~62\);
-
--- Location: FF_X39_Y4_N20
-\bigclock|second_s[26]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(26));
-
--- Location: LABCELL_X39_Y4_N21
-\bigclock|Add5~57\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~57_sumout\ = SUM(( \bigclock|second_s\(27) ) + ( GND ) + ( \bigclock|Add5~62\ ))
--- \bigclock|Add5~58\ = CARRY(( \bigclock|second_s\(27) ) + ( GND ) + ( \bigclock|Add5~62\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(27),
-	cin => \bigclock|Add5~62\,
-	sumout => \bigclock|Add5~57_sumout\,
-	cout => \bigclock|Add5~58\);
-
--- Location: FF_X39_Y4_N23
-\bigclock|second_s[27]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~57_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(27));
-
--- Location: LABCELL_X39_Y4_N24
-\bigclock|Add5~53\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~53_sumout\ = SUM(( \bigclock|second_s\(28) ) + ( GND ) + ( \bigclock|Add5~58\ ))
--- \bigclock|Add5~54\ = CARRY(( \bigclock|second_s\(28) ) + ( GND ) + ( \bigclock|Add5~58\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(28),
-	cin => \bigclock|Add5~58\,
-	sumout => \bigclock|Add5~53_sumout\,
-	cout => \bigclock|Add5~54\);
-
--- Location: FF_X39_Y4_N26
-\bigclock|second_s[28]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~53_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(28));
-
--- Location: LABCELL_X39_Y4_N36
-\bigclock|deci_second_s[9]~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~0_combout\ = ( !\bigclock|second_s\(27) & ( !\bigclock|second_s\(25) & ( (!\bigclock|second_s\(26) & (!\bigclock|second_s\(28) & !\bigclock|second_s\(24))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(26),
-	datac => \bigclock|ALT_INV_second_s\(28),
-	datad => \bigclock|ALT_INV_second_s\(24),
-	datae => \bigclock|ALT_INV_second_s\(27),
-	dataf => \bigclock|ALT_INV_second_s\(25),
-	combout => \bigclock|deci_second_s[9]~0_combout\);
-
--- Location: FF_X39_Y5_N37
-\bigclock|second_s[12]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~113_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(12));
-
--- Location: LABCELL_X40_Y3_N21
-\bigclock|deci_second_s[9]~3\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~3_combout\ = ( !\bigclock|second_s\(12) & ( (!\bigclock|second_s\(4) & (\bigclock|second_s\(0) & !\bigclock|second_s\(9))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000110000000000000011000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_second_s\(4),
-	datac => \bigclock|ALT_INV_second_s\(0),
-	datad => \bigclock|ALT_INV_second_s\(9),
-	dataf => \bigclock|ALT_INV_second_s\(12),
-	combout => \bigclock|deci_second_s[9]~3_combout\);
-
--- Location: FF_X39_Y5_N32
-\bigclock|second_s[10]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~81_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(10));
-
--- Location: LABCELL_X39_Y4_N27
-\bigclock|Add5~21\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~21_sumout\ = SUM(( \bigclock|second_s\(29) ) + ( GND ) + ( \bigclock|Add5~54\ ))
--- \bigclock|Add5~22\ = CARRY(( \bigclock|second_s\(29) ) + ( GND ) + ( \bigclock|Add5~54\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(29),
-	cin => \bigclock|Add5~54\,
-	sumout => \bigclock|Add5~21_sumout\,
-	cout => \bigclock|Add5~22\);
-
--- Location: FF_X39_Y4_N29
-\bigclock|second_s[29]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~21_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(29));
-
--- Location: LABCELL_X39_Y4_N30
-\bigclock|Add5~89\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~89_sumout\ = SUM(( \bigclock|second_s\(30) ) + ( GND ) + ( \bigclock|Add5~22\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_second_s\(30),
-	cin => \bigclock|Add5~22\,
-	sumout => \bigclock|Add5~89_sumout\);
-
--- Location: FF_X39_Y4_N32
-\bigclock|second_s[30]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~89_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(30));
-
--- Location: LABCELL_X39_Y3_N33
-\bigclock|deci_second_s[9]~1\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~1_combout\ = ( !\bigclock|second_s\(10) & ( !\bigclock|second_s\(30) & ( (!\bigclock|second_s\(8) & (!\bigclock|second_s\(11) & !\bigclock|second_s\(7))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1100000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_second_s\(8),
-	datac => \bigclock|ALT_INV_second_s\(11),
-	datad => \bigclock|ALT_INV_second_s\(7),
-	datae => \bigclock|ALT_INV_second_s\(10),
-	dataf => \bigclock|ALT_INV_second_s\(30),
-	combout => \bigclock|deci_second_s[9]~1_combout\);
-
--- Location: FF_X39_Y5_N16
-\bigclock|second_s[5]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~93_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(5));
-
--- Location: FF_X39_Y5_N19
-\bigclock|second_s[6]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~97_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|second_s\(6));
 
--- Location: LABCELL_X39_Y4_N48
-\bigclock|deci_second_s[9]~9\ : cyclonev_lcell_comb
+-- Location: LABCELL_X43_Y5_N0
+\bigclock|Add5~1\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|deci_second_s[9]~9_combout\ = ( !\bigclock|second_s\(5) & ( !\bigclock|second_s\(6) & ( (!\bigclock|second_s\(29) & (!\bigclock|second_s\(1) & !\bigclock|second_s\(23))) ) ) )
+-- \bigclock|Add5~1_sumout\ = SUM(( \bigclock|second_s[0]~DUPLICATE_q\ ) + ( VCC ) + ( !VCC ))
+-- \bigclock|Add5~2\ = CARRY(( \bigclock|second_s[0]~DUPLICATE_q\ ) + ( VCC ) + ( !VCC ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
+	lut_mask => "0000000000000000000000000000000000000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(29),
-	datac => \bigclock|ALT_INV_second_s\(1),
-	datad => \bigclock|ALT_INV_second_s\(23),
-	datae => \bigclock|ALT_INV_second_s\(5),
-	dataf => \bigclock|ALT_INV_second_s\(6),
-	combout => \bigclock|deci_second_s[9]~9_combout\);
+	datac => \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\,
+	cin => GND,
+	sumout => \bigclock|Add5~1_sumout\,
+	cout => \bigclock|Add5~2\);
 
--- Location: LABCELL_X40_Y3_N36
-\bigclock|deci_second_s[9]~4\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~4_combout\ = ( \bigclock|deci_second_s[9]~1_combout\ & ( \bigclock|deci_second_s[9]~9_combout\ & ( (\bigclock|deci_second_s[9]~2_combout\ & (\bigclock|deci_second_s[9]~8_combout\ & (\bigclock|deci_second_s[9]~0_combout\ & 
--- \bigclock|deci_second_s[9]~3_combout\))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s[9]~2_combout\,
-	datab => \bigclock|ALT_INV_deci_second_s[9]~8_combout\,
-	datac => \bigclock|ALT_INV_deci_second_s[9]~0_combout\,
-	datad => \bigclock|ALT_INV_deci_second_s[9]~3_combout\,
-	datae => \bigclock|ALT_INV_deci_second_s[9]~1_combout\,
-	dataf => \bigclock|ALT_INV_deci_second_s[9]~9_combout\,
-	combout => \bigclock|deci_second_s[9]~4_combout\);
-
--- Location: FF_X40_Y3_N17
-\bigclock|Sec_Clock|slow_clk\ : dffeas
+-- Location: FF_X42_Y4_N40
+\bigclock|second_s[0]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5103,72 +3083,20 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Sec_Clock|LessThan0~4_combout\,
+	asdata => \bigclock|Add5~1_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
 	sload => VCC,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|Sec_Clock|slow_clk~q\);
+	q => \bigclock|second_s[0]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y3_N57
-\bigclock|deci_second_s[9]~5\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~5_combout\ = ( \bigclock|Sec_Clock|slow_clk~q\ & ( (!\bigclock|second_s\(16) & \bigclock|deci_second_s[9]~4_combout\) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000111100000000000011110000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(16),
-	datad => \bigclock|ALT_INV_deci_second_s[9]~4_combout\,
-	dataf => \bigclock|Sec_Clock|ALT_INV_slow_clk~q\,
-	combout => \bigclock|deci_second_s[9]~5_combout\);
-
--- Location: LABCELL_X40_Y3_N48
-\bigclock|deci_second_s[9]~7\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[9]~7_combout\ = ( \bigclock|counter24h~10_combout\ & ( ((!\bigclock|hour_s\(1) & (\bigclock|hour_s\(3) & \bigclock|counter24h~15_combout\))) # (\bigclock|deci_second_s[9]~5_combout\) ) ) # ( !\bigclock|counter24h~10_combout\ & ( 
--- \bigclock|deci_second_s[9]~5_combout\ ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000011111111000000001111111100000010111111110000001011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(1),
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_counter24h~15_combout\,
-	datad => \bigclock|ALT_INV_deci_second_s[9]~5_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~10_combout\,
-	combout => \bigclock|deci_second_s[9]~7_combout\);
-
--- Location: FF_X39_Y5_N2
-\bigclock|second_s[0]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~1_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(0));
-
--- Location: LABCELL_X39_Y5_N3
+-- Location: LABCELL_X43_Y5_N3
 \bigclock|Add5~5\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~5_sumout\ = SUM(( \bigclock|second_s\(1) ) + ( GND ) + ( \bigclock|Add5~2\ ))
--- \bigclock|Add5~6\ = CARRY(( \bigclock|second_s\(1) ) + ( GND ) + ( \bigclock|Add5~2\ ))
+-- \bigclock|Add5~5_sumout\ = SUM(( \bigclock|second_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~2\ ))
+-- \bigclock|Add5~6\ = CARRY(( \bigclock|second_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~2\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5177,13 +3105,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(1),
+	datad => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
 	cin => \bigclock|Add5~2\,
 	sumout => \bigclock|Add5~5_sumout\,
 	cout => \bigclock|Add5~6\);
 
--- Location: FF_X39_Y5_N5
-\bigclock|second_s[1]\ : dffeas
+-- Location: FF_X43_Y5_N5
+\bigclock|second_s[1]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5193,17 +3121,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~5_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|second_s\(1));
+	q => \bigclock|second_s[1]~DUPLICATE_q\);
 
--- Location: LABCELL_X39_Y5_N6
+-- Location: LABCELL_X43_Y5_N6
 \bigclock|Add5~9\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~9_sumout\ = SUM(( \bigclock|second_s\(2) ) + ( GND ) + ( \bigclock|Add5~6\ ))
--- \bigclock|Add5~10\ = CARRY(( \bigclock|second_s\(2) ) + ( GND ) + ( \bigclock|Add5~6\ ))
+-- \bigclock|Add5~9_sumout\ = SUM(( \bigclock|second_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~6\ ))
+-- \bigclock|Add5~10\ = CARRY(( \bigclock|second_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~6\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5212,13 +3140,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(2),
+	datad => \bigclock|ALT_INV_second_s[2]~DUPLICATE_q\,
 	cin => \bigclock|Add5~6\,
 	sumout => \bigclock|Add5~9_sumout\,
 	cout => \bigclock|Add5~10\);
 
--- Location: FF_X39_Y5_N7
-\bigclock|second_s[2]\ : dffeas
+-- Location: FF_X43_Y5_N7
+\bigclock|second_s[2]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5228,13 +3156,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~9_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|second_s\(2));
+	q => \bigclock|second_s[2]~DUPLICATE_q\);
 
--- Location: LABCELL_X39_Y5_N9
+-- Location: LABCELL_X43_Y5_N9
 \bigclock|Add5~13\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add5~13_sumout\ = SUM(( \bigclock|second_s\(3) ) + ( GND ) + ( \bigclock|Add5~10\ ))
@@ -5252,7 +3180,7 @@ PORT MAP (
 	sumout => \bigclock|Add5~13_sumout\,
 	cout => \bigclock|Add5~14\);
 
--- Location: FF_X39_Y5_N11
+-- Location: FF_X43_Y5_N11
 \bigclock|second_s[3]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -5263,17 +3191,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~13_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|second_s\(3));
 
--- Location: LABCELL_X39_Y5_N12
-\bigclock|Add5~121\ : cyclonev_lcell_comb
+-- Location: LABCELL_X43_Y5_N12
+\bigclock|Add5~117\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~121_sumout\ = SUM(( \bigclock|second_s\(4) ) + ( GND ) + ( \bigclock|Add5~14\ ))
--- \bigclock|Add5~122\ = CARRY(( \bigclock|second_s\(4) ) + ( GND ) + ( \bigclock|Add5~14\ ))
+-- \bigclock|Add5~117_sumout\ = SUM(( \bigclock|second_s\(4) ) + ( GND ) + ( \bigclock|Add5~14\ ))
+-- \bigclock|Add5~118\ = CARRY(( \bigclock|second_s\(4) ) + ( GND ) + ( \bigclock|Add5~14\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5284,186 +3212,11 @@ GENERIC MAP (
 PORT MAP (
 	datab => \bigclock|ALT_INV_second_s\(4),
 	cin => \bigclock|Add5~14\,
-	sumout => \bigclock|Add5~121_sumout\,
-	cout => \bigclock|Add5~122\);
-
--- Location: FF_X39_Y5_N14
-\bigclock|second_s[4]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(4));
-
--- Location: LABCELL_X39_Y5_N15
-\bigclock|Add5~93\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~93_sumout\ = SUM(( \bigclock|second_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~122\ ))
--- \bigclock|Add5~94\ = CARRY(( \bigclock|second_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~122\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s[5]~DUPLICATE_q\,
-	cin => \bigclock|Add5~122\,
-	sumout => \bigclock|Add5~93_sumout\,
-	cout => \bigclock|Add5~94\);
-
--- Location: FF_X39_Y5_N17
-\bigclock|second_s[5]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~93_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s[5]~DUPLICATE_q\);
-
--- Location: LABCELL_X39_Y5_N18
-\bigclock|Add5~97\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~97_sumout\ = SUM(( \bigclock|second_s[6]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~94\ ))
--- \bigclock|Add5~98\ = CARRY(( \bigclock|second_s[6]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~94\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s[6]~DUPLICATE_q\,
-	cin => \bigclock|Add5~94\,
-	sumout => \bigclock|Add5~97_sumout\,
-	cout => \bigclock|Add5~98\);
-
--- Location: FF_X39_Y5_N20
-\bigclock|second_s[6]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~97_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s[6]~DUPLICATE_q\);
-
--- Location: LABCELL_X39_Y5_N21
-\bigclock|Add5~73\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~73_sumout\ = SUM(( \bigclock|second_s\(7) ) + ( GND ) + ( \bigclock|Add5~98\ ))
--- \bigclock|Add5~74\ = CARRY(( \bigclock|second_s\(7) ) + ( GND ) + ( \bigclock|Add5~98\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(7),
-	cin => \bigclock|Add5~98\,
-	sumout => \bigclock|Add5~73_sumout\,
-	cout => \bigclock|Add5~74\);
-
--- Location: FF_X39_Y5_N23
-\bigclock|second_s[7]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~73_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(7));
-
--- Location: LABCELL_X39_Y5_N24
-\bigclock|Add5~77\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~77_sumout\ = SUM(( \bigclock|second_s\(8) ) + ( GND ) + ( \bigclock|Add5~74\ ))
--- \bigclock|Add5~78\ = CARRY(( \bigclock|second_s\(8) ) + ( GND ) + ( \bigclock|Add5~74\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(8),
-	cin => \bigclock|Add5~74\,
-	sumout => \bigclock|Add5~77_sumout\,
-	cout => \bigclock|Add5~78\);
-
--- Location: FF_X39_Y5_N26
-\bigclock|second_s[8]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(8));
-
--- Location: LABCELL_X39_Y5_N27
-\bigclock|Add5~117\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~117_sumout\ = SUM(( \bigclock|second_s\(9) ) + ( GND ) + ( \bigclock|Add5~78\ ))
--- \bigclock|Add5~118\ = CARRY(( \bigclock|second_s\(9) ) + ( GND ) + ( \bigclock|Add5~78\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_second_s\(9),
-	cin => \bigclock|Add5~78\,
 	sumout => \bigclock|Add5~117_sumout\,
 	cout => \bigclock|Add5~118\);
 
--- Location: FF_X39_Y5_N29
-\bigclock|second_s[9]\ : dffeas
+-- Location: FF_X43_Y5_N14
+\bigclock|second_s[4]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5473,17 +3226,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~117_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|second_s\(9));
+	q => \bigclock|second_s\(4));
 
--- Location: LABCELL_X39_Y5_N30
-\bigclock|Add5~81\ : cyclonev_lcell_comb
+-- Location: LABCELL_X43_Y5_N15
+\bigclock|Add5~121\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~81_sumout\ = SUM(( \bigclock|second_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~118\ ))
--- \bigclock|Add5~82\ = CARRY(( \bigclock|second_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~118\ ))
+-- \bigclock|Add5~121_sumout\ = SUM(( \bigclock|second_s\(5) ) + ( GND ) + ( \bigclock|Add5~118\ ))
+-- \bigclock|Add5~122\ = CARRY(( \bigclock|second_s\(5) ) + ( GND ) + ( \bigclock|Add5~118\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5492,13 +3245,118 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_second_s[10]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_second_s\(5),
 	cin => \bigclock|Add5~118\,
+	sumout => \bigclock|Add5~121_sumout\,
+	cout => \bigclock|Add5~122\);
+
+-- Location: FF_X43_Y5_N17
+\bigclock|second_s[5]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~121_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(5));
+
+-- Location: LABCELL_X43_Y5_N18
+\bigclock|Add5~69\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~69_sumout\ = SUM(( \bigclock|second_s\(6) ) + ( GND ) + ( \bigclock|Add5~122\ ))
+-- \bigclock|Add5~70\ = CARRY(( \bigclock|second_s\(6) ) + ( GND ) + ( \bigclock|Add5~122\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(6),
+	cin => \bigclock|Add5~122\,
+	sumout => \bigclock|Add5~69_sumout\,
+	cout => \bigclock|Add5~70\);
+
+-- Location: FF_X43_Y5_N19
+\bigclock|second_s[6]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~69_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[6]~DUPLICATE_q\);
+
+-- Location: LABCELL_X43_Y5_N21
+\bigclock|Add5~77\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~77_sumout\ = SUM(( \bigclock|second_s\(7) ) + ( GND ) + ( \bigclock|Add5~70\ ))
+-- \bigclock|Add5~78\ = CARRY(( \bigclock|second_s\(7) ) + ( GND ) + ( \bigclock|Add5~70\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_second_s\(7),
+	cin => \bigclock|Add5~70\,
+	sumout => \bigclock|Add5~77_sumout\,
+	cout => \bigclock|Add5~78\);
+
+-- Location: FF_X43_Y5_N23
+\bigclock|second_s[7]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~77_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(7));
+
+-- Location: LABCELL_X43_Y5_N24
+\bigclock|Add5~81\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~81_sumout\ = SUM(( \bigclock|second_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~78\ ))
+-- \bigclock|Add5~82\ = CARRY(( \bigclock|second_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~78\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s[8]~DUPLICATE_q\,
+	cin => \bigclock|Add5~78\,
 	sumout => \bigclock|Add5~81_sumout\,
 	cout => \bigclock|Add5~82\);
 
--- Location: FF_X39_Y5_N31
-\bigclock|second_s[10]~DUPLICATE\ : dffeas
+-- Location: FF_X43_Y5_N26
+\bigclock|second_s[8]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5508,67 +3366,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~81_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|second_s[10]~DUPLICATE_q\);
+	q => \bigclock|second_s[8]~DUPLICATE_q\);
 
--- Location: LABCELL_X39_Y5_N33
-\bigclock|Add5~85\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add5~85_sumout\ = SUM(( \bigclock|second_s\(11) ) + ( GND ) + ( \bigclock|Add5~82\ ))
--- \bigclock|Add5~86\ = CARRY(( \bigclock|second_s\(11) ) + ( GND ) + ( \bigclock|Add5~82\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(11),
-	cin => \bigclock|Add5~82\,
-	sumout => \bigclock|Add5~85_sumout\,
-	cout => \bigclock|Add5~86\);
-
--- Location: FF_X39_Y5_N35
-\bigclock|second_s[11]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add5~85_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|second_s\(11));
-
--- Location: LABCELL_X39_Y5_N36
+-- Location: LABCELL_X43_Y5_N27
 \bigclock|Add5~113\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~113_sumout\ = SUM(( \bigclock|second_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~86\ ))
--- \bigclock|Add5~114\ = CARRY(( \bigclock|second_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~86\ ))
+-- \bigclock|Add5~113_sumout\ = SUM(( \bigclock|second_s\(9) ) + ( GND ) + ( \bigclock|Add5~82\ ))
+-- \bigclock|Add5~114\ = CARRY(( \bigclock|second_s\(9) ) + ( GND ) + ( \bigclock|Add5~82\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_second_s[12]~DUPLICATE_q\,
-	cin => \bigclock|Add5~86\,
+	datad => \bigclock|ALT_INV_second_s\(9),
+	cin => \bigclock|Add5~82\,
 	sumout => \bigclock|Add5~113_sumout\,
 	cout => \bigclock|Add5~114\);
 
--- Location: FF_X39_Y5_N38
-\bigclock|second_s[12]~DUPLICATE\ : dffeas
+-- Location: FF_X43_Y5_N29
+\bigclock|second_s[9]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5578,17 +3401,87 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~113_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|second_s[12]~DUPLICATE_q\);
+	q => \bigclock|second_s\(9));
 
--- Location: LABCELL_X39_Y5_N39
+-- Location: LABCELL_X43_Y5_N30
+\bigclock|Add5~85\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~85_sumout\ = SUM(( \bigclock|second_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~114\ ))
+-- \bigclock|Add5~86\ = CARRY(( \bigclock|second_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~114\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_second_s[10]~DUPLICATE_q\,
+	cin => \bigclock|Add5~114\,
+	sumout => \bigclock|Add5~85_sumout\,
+	cout => \bigclock|Add5~86\);
+
+-- Location: FF_X43_Y5_N32
+\bigclock|second_s[10]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[10]~DUPLICATE_q\);
+
+-- Location: LABCELL_X43_Y5_N33
+\bigclock|Add5~89\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~89_sumout\ = SUM(( \bigclock|second_s\(11) ) + ( GND ) + ( \bigclock|Add5~86\ ))
+-- \bigclock|Add5~90\ = CARRY(( \bigclock|second_s\(11) ) + ( GND ) + ( \bigclock|Add5~86\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s\(11),
+	cin => \bigclock|Add5~86\,
+	sumout => \bigclock|Add5~89_sumout\,
+	cout => \bigclock|Add5~90\);
+
+-- Location: FF_X43_Y5_N35
+\bigclock|second_s[11]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~89_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(11));
+
+-- Location: LABCELL_X43_Y5_N36
 \bigclock|Add5~109\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~109_sumout\ = SUM(( \bigclock|second_s\(13) ) + ( GND ) + ( \bigclock|Add5~114\ ))
--- \bigclock|Add5~110\ = CARRY(( \bigclock|second_s\(13) ) + ( GND ) + ( \bigclock|Add5~114\ ))
+-- \bigclock|Add5~109_sumout\ = SUM(( \bigclock|second_s\(12) ) + ( GND ) + ( \bigclock|Add5~90\ ))
+-- \bigclock|Add5~110\ = CARRY(( \bigclock|second_s\(12) ) + ( GND ) + ( \bigclock|Add5~90\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5597,13 +3490,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(13),
-	cin => \bigclock|Add5~114\,
+	datac => \bigclock|ALT_INV_second_s\(12),
+	cin => \bigclock|Add5~90\,
 	sumout => \bigclock|Add5~109_sumout\,
 	cout => \bigclock|Add5~110\);
 
--- Location: FF_X39_Y5_N40
-\bigclock|second_s[13]\ : dffeas
+-- Location: FF_X43_Y5_N38
+\bigclock|second_s[12]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5613,32 +3506,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~109_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|second_s\(13));
+	q => \bigclock|second_s\(12));
 
--- Location: LABCELL_X39_Y5_N42
+-- Location: LABCELL_X43_Y5_N39
 \bigclock|Add5~105\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~105_sumout\ = SUM(( \bigclock|second_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~110\ ))
--- \bigclock|Add5~106\ = CARRY(( \bigclock|second_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~110\ ))
+-- \bigclock|Add5~105_sumout\ = SUM(( \bigclock|second_s\(13) ) + ( GND ) + ( \bigclock|Add5~110\ ))
+-- \bigclock|Add5~106\ = CARRY(( \bigclock|second_s\(13) ) + ( GND ) + ( \bigclock|Add5~110\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_second_s[14]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_second_s\(13),
 	cin => \bigclock|Add5~110\,
 	sumout => \bigclock|Add5~105_sumout\,
 	cout => \bigclock|Add5~106\);
 
--- Location: FF_X39_Y5_N43
-\bigclock|second_s[14]~DUPLICATE\ : dffeas
+-- Location: FF_X43_Y5_N40
+\bigclock|second_s[13]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5648,32 +3541,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~105_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|second_s[14]~DUPLICATE_q\);
+	q => \bigclock|second_s\(13));
 
--- Location: LABCELL_X39_Y5_N45
+-- Location: LABCELL_X43_Y5_N42
 \bigclock|Add5~101\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add5~101_sumout\ = SUM(( \bigclock|second_s\(15) ) + ( GND ) + ( \bigclock|Add5~106\ ))
--- \bigclock|Add5~102\ = CARRY(( \bigclock|second_s\(15) ) + ( GND ) + ( \bigclock|Add5~106\ ))
+-- \bigclock|Add5~101_sumout\ = SUM(( \bigclock|second_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~106\ ))
+-- \bigclock|Add5~102\ = CARRY(( \bigclock|second_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~106\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(15),
+	datad => \bigclock|ALT_INV_second_s[14]~DUPLICATE_q\,
 	cin => \bigclock|Add5~106\,
 	sumout => \bigclock|Add5~101_sumout\,
 	cout => \bigclock|Add5~102\);
 
--- Location: FF_X39_Y5_N47
-\bigclock|second_s[15]\ : dffeas
+-- Location: FF_X43_Y5_N43
+\bigclock|second_s[14]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5683,13 +3576,860 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~101_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[14]~DUPLICATE_q\);
+
+-- Location: LABCELL_X43_Y5_N45
+\bigclock|Add5~97\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~97_sumout\ = SUM(( \bigclock|second_s\(15) ) + ( GND ) + ( \bigclock|Add5~102\ ))
+-- \bigclock|Add5~98\ = CARRY(( \bigclock|second_s\(15) ) + ( GND ) + ( \bigclock|Add5~102\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(15),
+	cin => \bigclock|Add5~102\,
+	sumout => \bigclock|Add5~97_sumout\,
+	cout => \bigclock|Add5~98\);
+
+-- Location: FF_X43_Y5_N47
+\bigclock|second_s[15]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~97_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|second_s\(15));
 
--- Location: FF_X39_Y5_N49
+-- Location: LABCELL_X43_Y5_N48
+\bigclock|Add5~17\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~17_sumout\ = SUM(( \bigclock|second_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~98\ ))
+-- \bigclock|Add5~18\ = CARRY(( \bigclock|second_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~98\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s[16]~DUPLICATE_q\,
+	cin => \bigclock|Add5~98\,
+	sumout => \bigclock|Add5~17_sumout\,
+	cout => \bigclock|Add5~18\);
+
+-- Location: LABCELL_X43_Y5_N51
+\bigclock|Add5~41\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~41_sumout\ = SUM(( \bigclock|second_s\(17) ) + ( GND ) + ( \bigclock|Add5~18\ ))
+-- \bigclock|Add5~42\ = CARRY(( \bigclock|second_s\(17) ) + ( GND ) + ( \bigclock|Add5~18\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(17),
+	cin => \bigclock|Add5~18\,
+	sumout => \bigclock|Add5~41_sumout\,
+	cout => \bigclock|Add5~42\);
+
+-- Location: FF_X43_Y5_N52
+\bigclock|second_s[17]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~41_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(17));
+
+-- Location: LABCELL_X43_Y5_N54
+\bigclock|Add5~37\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~37_sumout\ = SUM(( \bigclock|second_s\(18) ) + ( GND ) + ( \bigclock|Add5~42\ ))
+-- \bigclock|Add5~38\ = CARRY(( \bigclock|second_s\(18) ) + ( GND ) + ( \bigclock|Add5~42\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(18),
+	cin => \bigclock|Add5~42\,
+	sumout => \bigclock|Add5~37_sumout\,
+	cout => \bigclock|Add5~38\);
+
+-- Location: FF_X43_Y5_N56
+\bigclock|second_s[18]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~37_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(18));
+
+-- Location: LABCELL_X43_Y5_N57
+\bigclock|Add5~33\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~33_sumout\ = SUM(( \bigclock|second_s\(19) ) + ( GND ) + ( \bigclock|Add5~38\ ))
+-- \bigclock|Add5~34\ = CARRY(( \bigclock|second_s\(19) ) + ( GND ) + ( \bigclock|Add5~38\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(19),
+	cin => \bigclock|Add5~38\,
+	sumout => \bigclock|Add5~33_sumout\,
+	cout => \bigclock|Add5~34\);
+
+-- Location: FF_X43_Y5_N59
+\bigclock|second_s[19]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~33_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(19));
+
+-- Location: LABCELL_X43_Y4_N0
+\bigclock|Add5~29\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~29_sumout\ = SUM(( \bigclock|second_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~34\ ))
+-- \bigclock|Add5~30\ = CARRY(( \bigclock|second_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add5~34\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s[20]~DUPLICATE_q\,
+	cin => \bigclock|Add5~34\,
+	sumout => \bigclock|Add5~29_sumout\,
+	cout => \bigclock|Add5~30\);
+
+-- Location: FF_X43_Y4_N2
+\bigclock|second_s[20]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~29_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[20]~DUPLICATE_q\);
+
+-- Location: LABCELL_X43_Y4_N3
+\bigclock|Add5~25\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~25_sumout\ = SUM(( \bigclock|second_s\(21) ) + ( GND ) + ( \bigclock|Add5~30\ ))
+-- \bigclock|Add5~26\ = CARRY(( \bigclock|second_s\(21) ) + ( GND ) + ( \bigclock|Add5~30\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_second_s\(21),
+	cin => \bigclock|Add5~30\,
+	sumout => \bigclock|Add5~25_sumout\,
+	cout => \bigclock|Add5~26\);
+
+-- Location: FF_X43_Y4_N5
+\bigclock|second_s[21]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~25_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(21));
+
+-- Location: LABCELL_X43_Y4_N6
+\bigclock|Add5~21\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~21_sumout\ = SUM(( \bigclock|second_s\(22) ) + ( GND ) + ( \bigclock|Add5~26\ ))
+-- \bigclock|Add5~22\ = CARRY(( \bigclock|second_s\(22) ) + ( GND ) + ( \bigclock|Add5~26\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_second_s\(22),
+	cin => \bigclock|Add5~26\,
+	sumout => \bigclock|Add5~21_sumout\,
+	cout => \bigclock|Add5~22\);
+
+-- Location: FF_X43_Y4_N8
+\bigclock|second_s[22]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(22));
+
+-- Location: LABCELL_X43_Y4_N9
+\bigclock|Add5~65\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~65_sumout\ = SUM(( \bigclock|second_s\(23) ) + ( GND ) + ( \bigclock|Add5~22\ ))
+-- \bigclock|Add5~66\ = CARRY(( \bigclock|second_s\(23) ) + ( GND ) + ( \bigclock|Add5~22\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(23),
+	cin => \bigclock|Add5~22\,
+	sumout => \bigclock|Add5~65_sumout\,
+	cout => \bigclock|Add5~66\);
+
+-- Location: FF_X43_Y4_N11
+\bigclock|second_s[23]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~65_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(23));
+
+-- Location: LABCELL_X43_Y4_N12
+\bigclock|Add5~61\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~61_sumout\ = SUM(( \bigclock|second_s\(24) ) + ( GND ) + ( \bigclock|Add5~66\ ))
+-- \bigclock|Add5~62\ = CARRY(( \bigclock|second_s\(24) ) + ( GND ) + ( \bigclock|Add5~66\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_second_s\(24),
+	cin => \bigclock|Add5~66\,
+	sumout => \bigclock|Add5~61_sumout\,
+	cout => \bigclock|Add5~62\);
+
+-- Location: FF_X43_Y4_N14
+\bigclock|second_s[24]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~61_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(24));
+
+-- Location: LABCELL_X43_Y4_N15
+\bigclock|Add5~57\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~57_sumout\ = SUM(( \bigclock|second_s\(25) ) + ( GND ) + ( \bigclock|Add5~62\ ))
+-- \bigclock|Add5~58\ = CARRY(( \bigclock|second_s\(25) ) + ( GND ) + ( \bigclock|Add5~62\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(25),
+	cin => \bigclock|Add5~62\,
+	sumout => \bigclock|Add5~57_sumout\,
+	cout => \bigclock|Add5~58\);
+
+-- Location: FF_X43_Y4_N17
+\bigclock|second_s[25]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~57_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(25));
+
+-- Location: LABCELL_X43_Y4_N18
+\bigclock|Add5~53\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~53_sumout\ = SUM(( \bigclock|second_s\(26) ) + ( GND ) + ( \bigclock|Add5~58\ ))
+-- \bigclock|Add5~54\ = CARRY(( \bigclock|second_s\(26) ) + ( GND ) + ( \bigclock|Add5~58\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(26),
+	cin => \bigclock|Add5~58\,
+	sumout => \bigclock|Add5~53_sumout\,
+	cout => \bigclock|Add5~54\);
+
+-- Location: FF_X43_Y4_N20
+\bigclock|second_s[26]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~53_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(26));
+
+-- Location: LABCELL_X43_Y4_N21
+\bigclock|Add5~49\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~49_sumout\ = SUM(( \bigclock|second_s\(27) ) + ( GND ) + ( \bigclock|Add5~54\ ))
+-- \bigclock|Add5~50\ = CARRY(( \bigclock|second_s\(27) ) + ( GND ) + ( \bigclock|Add5~54\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_second_s\(27),
+	cin => \bigclock|Add5~54\,
+	sumout => \bigclock|Add5~49_sumout\,
+	cout => \bigclock|Add5~50\);
+
+-- Location: FF_X43_Y4_N23
+\bigclock|second_s[27]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~49_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(27));
+
+-- Location: LABCELL_X43_Y4_N24
+\bigclock|Add5~45\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~45_sumout\ = SUM(( \bigclock|second_s\(28) ) + ( GND ) + ( \bigclock|Add5~50\ ))
+-- \bigclock|Add5~46\ = CARRY(( \bigclock|second_s\(28) ) + ( GND ) + ( \bigclock|Add5~50\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s\(28),
+	cin => \bigclock|Add5~50\,
+	sumout => \bigclock|Add5~45_sumout\,
+	cout => \bigclock|Add5~46\);
+
+-- Location: FF_X43_Y4_N26
+\bigclock|second_s[28]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(28));
+
+-- Location: LABCELL_X43_Y4_N27
+\bigclock|Add5~73\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~73_sumout\ = SUM(( \bigclock|second_s\(29) ) + ( GND ) + ( \bigclock|Add5~46\ ))
+-- \bigclock|Add5~74\ = CARRY(( \bigclock|second_s\(29) ) + ( GND ) + ( \bigclock|Add5~46\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_second_s\(29),
+	cin => \bigclock|Add5~46\,
+	sumout => \bigclock|Add5~73_sumout\,
+	cout => \bigclock|Add5~74\);
+
+-- Location: FF_X43_Y4_N29
+\bigclock|second_s[29]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~73_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(29));
+
+-- Location: MLABCELL_X42_Y4_N33
+\bigclock|Equal6~7\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~7_combout\ = ( !\bigclock|second_s\(29) & ( !\bigclock|second_s[1]~DUPLICATE_q\ & ( (!\bigclock|second_s[16]~DUPLICATE_q\ & !\bigclock|second_s[6]~DUPLICATE_q\) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1111000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_second_s[16]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_second_s[6]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_second_s\(29),
+	dataf => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
+	combout => \bigclock|Equal6~7_combout\);
+
+-- Location: FF_X43_Y5_N8
+\bigclock|second_s[2]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~9_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(2));
+
+-- Location: FF_X43_Y5_N44
+\bigclock|second_s[14]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(14));
+
+-- Location: FF_X43_Y5_N10
+\bigclock|second_s[3]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~13_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[3]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y4_N6
+\bigclock|Equal6~3\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~3_combout\ = ( !\bigclock|second_s\(15) & ( \bigclock|second_s[3]~DUPLICATE_q\ & ( (!\bigclock|second_s\(2) & (!\bigclock|second_s\(13) & !\bigclock|second_s\(14))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000010100000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s\(2),
+	datac => \bigclock|ALT_INV_second_s\(13),
+	datad => \bigclock|ALT_INV_second_s\(14),
+	datae => \bigclock|ALT_INV_second_s\(15),
+	dataf => \bigclock|ALT_INV_second_s[3]~DUPLICATE_q\,
+	combout => \bigclock|Equal6~3_combout\);
+
+-- Location: FF_X42_Y4_N41
+\bigclock|second_s[0]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add5~1_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	sload => VCC,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(0));
+
+-- Location: FF_X43_Y5_N28
+\bigclock|second_s[9]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~113_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[9]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y4_N3
+\bigclock|Equal6~4\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~4_combout\ = ( !\bigclock|second_s\(12) & ( !\bigclock|second_s\(5) & ( (\bigclock|second_s\(0) & (!\bigclock|second_s\(4) & !\bigclock|second_s[9]~DUPLICATE_q\)) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0011000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_second_s\(0),
+	datac => \bigclock|ALT_INV_second_s\(4),
+	datad => \bigclock|ALT_INV_second_s[9]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_second_s\(12),
+	dataf => \bigclock|ALT_INV_second_s\(5),
+	combout => \bigclock|Equal6~4_combout\);
+
+-- Location: LABCELL_X43_Y4_N30
+\bigclock|Add5~93\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add5~93_sumout\ = SUM(( \bigclock|second_s\(30) ) + ( GND ) + ( \bigclock|Add5~74\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_second_s\(30),
+	cin => \bigclock|Add5~74\,
+	sumout => \bigclock|Add5~93_sumout\);
+
+-- Location: FF_X43_Y4_N32
+\bigclock|second_s[30]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~93_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(30));
+
+-- Location: FF_X43_Y5_N25
+\bigclock|second_s[8]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~81_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(8));
+
+-- Location: FF_X43_Y5_N31
+\bigclock|second_s[10]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(10));
+
+-- Location: MLABCELL_X42_Y4_N15
+\bigclock|Equal6~2\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~2_combout\ = ( !\bigclock|second_s\(8) & ( !\bigclock|second_s\(10) & ( (!\bigclock|second_s\(30) & (!\bigclock|second_s\(7) & !\bigclock|second_s\(11))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s\(30),
+	datac => \bigclock|ALT_INV_second_s\(7),
+	datad => \bigclock|ALT_INV_second_s\(11),
+	datae => \bigclock|ALT_INV_second_s\(8),
+	dataf => \bigclock|ALT_INV_second_s\(10),
+	combout => \bigclock|Equal6~2_combout\);
+
+-- Location: LABCELL_X43_Y4_N42
+\bigclock|Equal6~1\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~1_combout\ = ( !\bigclock|second_s\(27) & ( !\bigclock|second_s\(25) & ( (!\bigclock|second_s\(26) & (!\bigclock|second_s\(23) & (!\bigclock|second_s\(28) & !\bigclock|second_s\(24)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s\(26),
+	datab => \bigclock|ALT_INV_second_s\(23),
+	datac => \bigclock|ALT_INV_second_s\(28),
+	datad => \bigclock|ALT_INV_second_s\(24),
+	datae => \bigclock|ALT_INV_second_s\(27),
+	dataf => \bigclock|ALT_INV_second_s\(25),
+	combout => \bigclock|Equal6~1_combout\);
+
+-- Location: FF_X43_Y4_N7
+\bigclock|second_s[22]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[22]~DUPLICATE_q\);
+
+-- Location: FF_X43_Y4_N1
+\bigclock|second_s[20]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~29_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(20));
+
+-- Location: MLABCELL_X42_Y4_N42
+\bigclock|Equal6~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~0_combout\ = ( !\bigclock|second_s\(18) & ( !\bigclock|second_s\(17) & ( (!\bigclock|second_s\(21) & (!\bigclock|second_s[22]~DUPLICATE_q\ & (!\bigclock|second_s\(20) & !\bigclock|second_s\(19)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s\(21),
+	datab => \bigclock|ALT_INV_second_s[22]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_second_s\(20),
+	datad => \bigclock|ALT_INV_second_s\(19),
+	datae => \bigclock|ALT_INV_second_s\(18),
+	dataf => \bigclock|ALT_INV_second_s\(17),
+	combout => \bigclock|Equal6~0_combout\);
+
+-- Location: MLABCELL_X42_Y4_N48
+\bigclock|Equal6~6\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~6_combout\ = ( \bigclock|Equal6~1_combout\ & ( \bigclock|Equal6~0_combout\ & ( (\bigclock|Equal6~7_combout\ & (\bigclock|Equal6~3_combout\ & (\bigclock|Equal6~4_combout\ & \bigclock|Equal6~2_combout\))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_Equal6~7_combout\,
+	datab => \bigclock|ALT_INV_Equal6~3_combout\,
+	datac => \bigclock|ALT_INV_Equal6~4_combout\,
+	datad => \bigclock|ALT_INV_Equal6~2_combout\,
+	datae => \bigclock|ALT_INV_Equal6~1_combout\,
+	dataf => \bigclock|ALT_INV_Equal6~0_combout\,
+	combout => \bigclock|Equal6~6_combout\);
+
+-- Location: FF_X43_Y5_N50
+\bigclock|second_s[16]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~17_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s[16]~DUPLICATE_q\);
+
+-- Location: FF_X43_Y5_N49
 \bigclock|second_s[16]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -5700,17 +4440,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add5~17_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|deci_second_s[9]~7_combout\,
-	ena => \bigclock|clk_state_s.counting~q\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|second_s\(16));
 
--- Location: LABCELL_X41_Y5_N0
-\bigclock|Add2~1\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N0
+\bigclock|Add1~1\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add2~1_sumout\ = SUM(( \bigclock|deci_minute_s\(0) ) + ( VCC ) + ( !VCC ))
--- \bigclock|Add2~2\ = CARRY(( \bigclock|deci_minute_s\(0) ) + ( VCC ) + ( !VCC ))
+-- \bigclock|Add1~1_sumout\ = SUM(( \bigclock|hour_s\(0) ) + ( VCC ) + ( !VCC ))
+-- \bigclock|Add1~2\ = CARRY(( \bigclock|hour_s\(0) ) + ( VCC ) + ( !VCC ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5719,12 +4459,12 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s\(0),
+	datad => \bigclock|ALT_INV_hour_s\(0),
 	cin => GND,
-	sumout => \bigclock|Add2~1_sumout\,
-	cout => \bigclock|Add2~2\);
+	sumout => \bigclock|Add1~1_sumout\,
+	cout => \bigclock|Add1~2\);
 
--- Location: LABCELL_X40_Y2_N0
+-- Location: MLABCELL_X42_Y6_N0
 \bigclock|Add3~1\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add3~1_sumout\ = SUM(( \bigclock|minute_s\(0) ) + ( VCC ) + ( !VCC ))
@@ -5742,66 +4482,28 @@ PORT MAP (
 	sumout => \bigclock|Add3~1_sumout\,
 	cout => \bigclock|Add3~2\);
 
--- Location: LABCELL_X40_Y5_N0
-\bigclock|Add4~1\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y4_N33
+\bigclock|hour_s[3]~1\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~1_sumout\ = SUM(( \bigclock|deci_second_s\(0) ) + ( VCC ) + ( !VCC ))
--- \bigclock|Add4~2\ = CARRY(( \bigclock|deci_second_s\(0) ) + ( VCC ) + ( !VCC ))
+-- \bigclock|hour_s[3]~1_combout\ = ( \bigclock|minute_s[8]~4_combout\ & ( \bigclock|clk_state_s.counting~q\ & ( (\bigclock|counter24h~9_combout\ & (\bigclock|Sec_Clock|slow_clk~q\ & (\bigclock|Equal6~6_combout\ & \bigclock|counter24h~4_combout\))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000000000000000011111111",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s\(0),
-	cin => GND,
-	sumout => \bigclock|Add4~1_sumout\,
-	cout => \bigclock|Add4~2\);
+	dataa => \bigclock|ALT_INV_counter24h~9_combout\,
+	datab => \bigclock|Sec_Clock|ALT_INV_slow_clk~q\,
+	datac => \bigclock|ALT_INV_Equal6~6_combout\,
+	datad => \bigclock|ALT_INV_counter24h~4_combout\,
+	datae => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	dataf => \bigclock|ALT_INV_clk_state_s.counting~q\,
+	combout => \bigclock|hour_s[3]~1_combout\);
 
--- Location: LABCELL_X40_Y3_N51
-\bigclock|minute_s[8]~7\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|minute_s[8]~7_combout\ = ( \bigclock|minute_s[8]~5_combout\ ) # ( !\bigclock|minute_s[8]~5_combout\ & ( (!\bigclock|hour_s\(1) & (\bigclock|hour_s\(3) & (\bigclock|counter24h~10_combout\ & \bigclock|counter24h~15_combout\))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000010000000000000001011111111111111111111111111111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(1),
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_counter24h~10_combout\,
-	datad => \bigclock|ALT_INV_counter24h~15_combout\,
-	dataf => \bigclock|ALT_INV_minute_s[8]~5_combout\,
-	combout => \bigclock|minute_s[8]~7_combout\);
-
--- Location: LABCELL_X40_Y3_N0
-\bigclock|deci_second_s[3]~6\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_second_s[3]~6_combout\ = ( \bigclock|counter24h~15_combout\ & ( \bigclock|deci_second_s[9]~5_combout\ & ( \bigclock|clk_state_s.counting~q\ ) ) ) # ( !\bigclock|counter24h~15_combout\ & ( \bigclock|deci_second_s[9]~5_combout\ & ( 
--- \bigclock|clk_state_s.counting~q\ ) ) ) # ( \bigclock|counter24h~15_combout\ & ( !\bigclock|deci_second_s[9]~5_combout\ & ( (!\bigclock|hour_s\(1) & (\bigclock|hour_s\(3) & (\bigclock|clk_state_s.counting~q\ & \bigclock|counter24h~10_combout\))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000001000001111000011110000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(1),
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_clk_state_s.counting~q\,
-	datad => \bigclock|ALT_INV_counter24h~10_combout\,
-	datae => \bigclock|ALT_INV_counter24h~15_combout\,
-	dataf => \bigclock|ALT_INV_deci_second_s[9]~5_combout\,
-	combout => \bigclock|deci_second_s[3]~6_combout\);
-
--- Location: FF_X40_Y5_N2
-\bigclock|deci_second_s[0]\ : dffeas
+-- Location: FF_X41_Y2_N26
+\bigclock|hour_s[28]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5809,19 +4511,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~1_sumout\,
+	d => \bigclock|Add1~49_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(0));
+	q => \bigclock|hour_s[28]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y5_N3
-\bigclock|Add4~5\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N3
+\bigclock|Add1~5\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~5_sumout\ = SUM(( \bigclock|deci_second_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~2\ ))
--- \bigclock|Add4~6\ = CARRY(( \bigclock|deci_second_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~2\ ))
+-- \bigclock|Add1~5_sumout\ = SUM(( \bigclock|hour_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~2\ ))
+-- \bigclock|Add1~6\ = CARRY(( \bigclock|hour_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~2\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5830,33 +4532,16 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s[1]~DUPLICATE_q\,
-	cin => \bigclock|Add4~2\,
-	sumout => \bigclock|Add4~5_sumout\,
-	cout => \bigclock|Add4~6\);
+	datad => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
+	cin => \bigclock|Add1~2\,
+	sumout => \bigclock|Add1~5_sumout\,
+	cout => \bigclock|Add1~6\);
 
--- Location: FF_X40_Y5_N5
-\bigclock|deci_second_s[1]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~5_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[1]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y5_N6
-\bigclock|Add4~9\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N6
+\bigclock|Add1~9\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~9_sumout\ = SUM(( \bigclock|deci_second_s\(2) ) + ( GND ) + ( \bigclock|Add4~6\ ))
--- \bigclock|Add4~10\ = CARRY(( \bigclock|deci_second_s\(2) ) + ( GND ) + ( \bigclock|Add4~6\ ))
+-- \bigclock|Add1~9_sumout\ = SUM(( \bigclock|hour_s\(2) ) + ( GND ) + ( \bigclock|Add1~6\ ))
+-- \bigclock|Add1~10\ = CARRY(( \bigclock|hour_s\(2) ) + ( GND ) + ( \bigclock|Add1~6\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5865,13 +4550,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s\(2),
-	cin => \bigclock|Add4~6\,
-	sumout => \bigclock|Add4~9_sumout\,
-	cout => \bigclock|Add4~10\);
+	datad => \bigclock|ALT_INV_hour_s\(2),
+	cin => \bigclock|Add1~6\,
+	sumout => \bigclock|Add1~9_sumout\,
+	cout => \bigclock|Add1~10\);
 
--- Location: FF_X39_Y3_N26
-\bigclock|deci_second_s[2]\ : dffeas
+-- Location: FF_X41_Y3_N7
+\bigclock|hour_s[2]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5879,35 +4564,34 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add4~9_sumout\,
+	d => \bigclock|Add1~9_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	sload => VCC,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(2));
+	q => \bigclock|hour_s\(2));
 
--- Location: LABCELL_X40_Y5_N9
-\bigclock|Add4~13\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N9
+\bigclock|Add1~13\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~13_sumout\ = SUM(( \bigclock|deci_second_s\(3) ) + ( GND ) + ( \bigclock|Add4~10\ ))
--- \bigclock|Add4~14\ = CARRY(( \bigclock|deci_second_s\(3) ) + ( GND ) + ( \bigclock|Add4~10\ ))
+-- \bigclock|Add1~13_sumout\ = SUM(( \bigclock|hour_s[3]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~10\ ))
+-- \bigclock|Add1~14\ = CARRY(( \bigclock|hour_s[3]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~10\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s\(3),
-	cin => \bigclock|Add4~10\,
-	sumout => \bigclock|Add4~13_sumout\,
-	cout => \bigclock|Add4~14\);
+	datac => \bigclock|ALT_INV_hour_s[3]~DUPLICATE_q\,
+	cin => \bigclock|Add1~10\,
+	sumout => \bigclock|Add1~13_sumout\,
+	cout => \bigclock|Add1~14\);
 
--- Location: FF_X40_Y3_N40
-\bigclock|deci_second_s[3]\ : dffeas
+-- Location: FF_X41_Y3_N11
+\bigclock|hour_s[3]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5915,20 +4599,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add4~13_sumout\,
+	d => \bigclock|Add1~13_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	sload => VCC,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(3));
+	q => \bigclock|hour_s[3]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y5_N12
-\bigclock|Add4~57\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N12
+\bigclock|Add1~65\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~57_sumout\ = SUM(( \bigclock|deci_second_s\(4) ) + ( GND ) + ( \bigclock|Add4~14\ ))
--- \bigclock|Add4~58\ = CARRY(( \bigclock|deci_second_s\(4) ) + ( GND ) + ( \bigclock|Add4~14\ ))
+-- \bigclock|Add1~65_sumout\ = SUM(( \bigclock|hour_s\(4) ) + ( GND ) + ( \bigclock|Add1~14\ ))
+-- \bigclock|Add1~66\ = CARRY(( \bigclock|hour_s\(4) ) + ( GND ) + ( \bigclock|Add1~14\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5937,13 +4620,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s\(4),
-	cin => \bigclock|Add4~14\,
-	sumout => \bigclock|Add4~57_sumout\,
-	cout => \bigclock|Add4~58\);
+	datab => \bigclock|ALT_INV_hour_s\(4),
+	cin => \bigclock|Add1~14\,
+	sumout => \bigclock|Add1~65_sumout\,
+	cout => \bigclock|Add1~66\);
 
--- Location: FF_X40_Y5_N14
-\bigclock|deci_second_s[4]\ : dffeas
+-- Location: FF_X41_Y3_N14
+\bigclock|hour_s[4]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5951,19 +4634,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~57_sumout\,
+	d => \bigclock|Add1~65_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(4));
+	q => \bigclock|hour_s\(4));
 
--- Location: LABCELL_X40_Y5_N15
-\bigclock|Add4~105\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N15
+\bigclock|Add1~85\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~105_sumout\ = SUM(( \bigclock|deci_second_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~58\ ))
--- \bigclock|Add4~106\ = CARRY(( \bigclock|deci_second_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~58\ ))
+-- \bigclock|Add1~85_sumout\ = SUM(( \bigclock|hour_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~66\ ))
+-- \bigclock|Add1~86\ = CARRY(( \bigclock|hour_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~66\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -5972,13 +4655,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s[5]~DUPLICATE_q\,
-	cin => \bigclock|Add4~58\,
-	sumout => \bigclock|Add4~105_sumout\,
-	cout => \bigclock|Add4~106\);
+	datac => \bigclock|ALT_INV_hour_s[5]~DUPLICATE_q\,
+	cin => \bigclock|Add1~66\,
+	sumout => \bigclock|Add1~85_sumout\,
+	cout => \bigclock|Add1~86\);
 
--- Location: FF_X40_Y5_N17
-\bigclock|deci_second_s[5]~DUPLICATE\ : dffeas
+-- Location: FF_X41_Y3_N17
+\bigclock|hour_s[5]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -5986,19 +4669,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~105_sumout\,
+	d => \bigclock|Add1~85_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[5]~DUPLICATE_q\);
+	q => \bigclock|hour_s[5]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y5_N18
-\bigclock|Add4~101\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N18
+\bigclock|Add1~81\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~101_sumout\ = SUM(( \bigclock|deci_second_s\(6) ) + ( GND ) + ( \bigclock|Add4~106\ ))
--- \bigclock|Add4~102\ = CARRY(( \bigclock|deci_second_s\(6) ) + ( GND ) + ( \bigclock|Add4~106\ ))
+-- \bigclock|Add1~81_sumout\ = SUM(( \bigclock|hour_s[6]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~86\ ))
+-- \bigclock|Add1~82\ = CARRY(( \bigclock|hour_s[6]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~86\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6007,13 +4690,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(6),
-	cin => \bigclock|Add4~106\,
-	sumout => \bigclock|Add4~101_sumout\,
-	cout => \bigclock|Add4~102\);
+	datac => \bigclock|ALT_INV_hour_s[6]~DUPLICATE_q\,
+	cin => \bigclock|Add1~86\,
+	sumout => \bigclock|Add1~81_sumout\,
+	cout => \bigclock|Add1~82\);
 
--- Location: FF_X40_Y5_N20
-\bigclock|deci_second_s[6]\ : dffeas
+-- Location: FF_X41_Y3_N20
+\bigclock|hour_s[6]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6021,19 +4704,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~101_sumout\,
+	d => \bigclock|Add1~81_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(6));
+	q => \bigclock|hour_s[6]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y5_N21
-\bigclock|Add4~97\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N21
+\bigclock|Add1~69\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~97_sumout\ = SUM(( \bigclock|deci_second_s[7]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~102\ ))
--- \bigclock|Add4~98\ = CARRY(( \bigclock|deci_second_s[7]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~102\ ))
+-- \bigclock|Add1~69_sumout\ = SUM(( \bigclock|hour_s\(7) ) + ( GND ) + ( \bigclock|Add1~82\ ))
+-- \bigclock|Add1~70\ = CARRY(( \bigclock|hour_s\(7) ) + ( GND ) + ( \bigclock|Add1~82\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6042,13 +4725,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s[7]~DUPLICATE_q\,
-	cin => \bigclock|Add4~102\,
-	sumout => \bigclock|Add4~97_sumout\,
-	cout => \bigclock|Add4~98\);
+	datad => \bigclock|ALT_INV_hour_s\(7),
+	cin => \bigclock|Add1~82\,
+	sumout => \bigclock|Add1~69_sumout\,
+	cout => \bigclock|Add1~70\);
 
--- Location: FF_X40_Y5_N23
-\bigclock|deci_second_s[7]~DUPLICATE\ : dffeas
+-- Location: FF_X41_Y3_N23
+\bigclock|hour_s[7]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6056,19 +4739,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~97_sumout\,
+	d => \bigclock|Add1~69_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[7]~DUPLICATE_q\);
+	q => \bigclock|hour_s\(7));
 
--- Location: LABCELL_X40_Y5_N24
-\bigclock|Add4~93\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N24
+\bigclock|Add1~121\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~93_sumout\ = SUM(( \bigclock|deci_second_s\(8) ) + ( GND ) + ( \bigclock|Add4~98\ ))
--- \bigclock|Add4~94\ = CARRY(( \bigclock|deci_second_s\(8) ) + ( GND ) + ( \bigclock|Add4~98\ ))
+-- \bigclock|Add1~121_sumout\ = SUM(( \bigclock|hour_s\(8) ) + ( GND ) + ( \bigclock|Add1~70\ ))
+-- \bigclock|Add1~122\ = CARRY(( \bigclock|hour_s\(8) ) + ( GND ) + ( \bigclock|Add1~70\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6077,13 +4760,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(8),
-	cin => \bigclock|Add4~98\,
-	sumout => \bigclock|Add4~93_sumout\,
-	cout => \bigclock|Add4~94\);
+	datac => \bigclock|ALT_INV_hour_s\(8),
+	cin => \bigclock|Add1~70\,
+	sumout => \bigclock|Add1~121_sumout\,
+	cout => \bigclock|Add1~122\);
 
--- Location: FF_X39_Y3_N50
-\bigclock|deci_second_s[8]\ : dffeas
+-- Location: FF_X41_Y3_N26
+\bigclock|hour_s[8]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6091,35 +4774,34 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add4~93_sumout\,
+	d => \bigclock|Add1~121_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	sload => VCC,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(8));
+	q => \bigclock|hour_s\(8));
 
--- Location: LABCELL_X40_Y5_N27
-\bigclock|Add4~89\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N27
+\bigclock|Add1~117\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~89_sumout\ = SUM(( \bigclock|deci_second_s\(9) ) + ( GND ) + ( \bigclock|Add4~94\ ))
--- \bigclock|Add4~90\ = CARRY(( \bigclock|deci_second_s\(9) ) + ( GND ) + ( \bigclock|Add4~94\ ))
+-- \bigclock|Add1~117_sumout\ = SUM(( \bigclock|hour_s\(9) ) + ( GND ) + ( \bigclock|Add1~122\ ))
+-- \bigclock|Add1~118\ = CARRY(( \bigclock|hour_s\(9) ) + ( GND ) + ( \bigclock|Add1~122\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s\(9),
-	cin => \bigclock|Add4~94\,
-	sumout => \bigclock|Add4~89_sumout\,
-	cout => \bigclock|Add4~90\);
+	datac => \bigclock|ALT_INV_hour_s\(9),
+	cin => \bigclock|Add1~122\,
+	sumout => \bigclock|Add1~117_sumout\,
+	cout => \bigclock|Add1~118\);
 
--- Location: FF_X39_Y3_N2
-\bigclock|deci_second_s[9]\ : dffeas
+-- Location: FF_X41_Y3_N28
+\bigclock|hour_s[9]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6127,35 +4809,34 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add4~89_sumout\,
+	d => \bigclock|Add1~117_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	sload => VCC,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(9));
+	q => \bigclock|hour_s\(9));
 
--- Location: LABCELL_X40_Y5_N30
-\bigclock|Add4~33\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N30
+\bigclock|Add1~113\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~33_sumout\ = SUM(( \bigclock|deci_second_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~90\ ))
--- \bigclock|Add4~34\ = CARRY(( \bigclock|deci_second_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~90\ ))
+-- \bigclock|Add1~113_sumout\ = SUM(( \bigclock|hour_s\(10) ) + ( GND ) + ( \bigclock|Add1~118\ ))
+-- \bigclock|Add1~114\ = CARRY(( \bigclock|hour_s\(10) ) + ( GND ) + ( \bigclock|Add1~118\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s[10]~DUPLICATE_q\,
-	cin => \bigclock|Add4~90\,
-	sumout => \bigclock|Add4~33_sumout\,
-	cout => \bigclock|Add4~34\);
+	datac => \bigclock|ALT_INV_hour_s\(10),
+	cin => \bigclock|Add1~118\,
+	sumout => \bigclock|Add1~113_sumout\,
+	cout => \bigclock|Add1~114\);
 
--- Location: FF_X40_Y5_N32
-\bigclock|deci_second_s[10]~DUPLICATE\ : dffeas
+-- Location: FF_X41_Y3_N31
+\bigclock|hour_s[10]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6163,19 +4844,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~33_sumout\,
+	d => \bigclock|Add1~113_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[10]~DUPLICATE_q\);
+	q => \bigclock|hour_s\(10));
 
--- Location: LABCELL_X40_Y5_N33
-\bigclock|Add4~29\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N33
+\bigclock|Add1~109\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~29_sumout\ = SUM(( \bigclock|deci_second_s\(11) ) + ( GND ) + ( \bigclock|Add4~34\ ))
--- \bigclock|Add4~30\ = CARRY(( \bigclock|deci_second_s\(11) ) + ( GND ) + ( \bigclock|Add4~34\ ))
+-- \bigclock|Add1~109_sumout\ = SUM(( \bigclock|hour_s\(11) ) + ( GND ) + ( \bigclock|Add1~114\ ))
+-- \bigclock|Add1~110\ = CARRY(( \bigclock|hour_s\(11) ) + ( GND ) + ( \bigclock|Add1~114\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6184,13 +4865,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(11),
-	cin => \bigclock|Add4~34\,
-	sumout => \bigclock|Add4~29_sumout\,
-	cout => \bigclock|Add4~30\);
+	dataa => \bigclock|ALT_INV_hour_s\(11),
+	cin => \bigclock|Add1~114\,
+	sumout => \bigclock|Add1~109_sumout\,
+	cout => \bigclock|Add1~110\);
 
--- Location: FF_X40_Y5_N35
-\bigclock|deci_second_s[11]\ : dffeas
+-- Location: FF_X41_Y3_N35
+\bigclock|hour_s[11]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6198,19 +4879,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~29_sumout\,
+	d => \bigclock|Add1~109_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(11));
+	q => \bigclock|hour_s\(11));
 
--- Location: LABCELL_X40_Y5_N36
-\bigclock|Add4~25\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N36
+\bigclock|Add1~77\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~25_sumout\ = SUM(( \bigclock|deci_second_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~30\ ))
--- \bigclock|Add4~26\ = CARRY(( \bigclock|deci_second_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~30\ ))
+-- \bigclock|Add1~77_sumout\ = SUM(( \bigclock|hour_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~110\ ))
+-- \bigclock|Add1~78\ = CARRY(( \bigclock|hour_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~110\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6219,13 +4900,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s[12]~DUPLICATE_q\,
-	cin => \bigclock|Add4~30\,
-	sumout => \bigclock|Add4~25_sumout\,
-	cout => \bigclock|Add4~26\);
+	datac => \bigclock|ALT_INV_hour_s[12]~DUPLICATE_q\,
+	cin => \bigclock|Add1~110\,
+	sumout => \bigclock|Add1~77_sumout\,
+	cout => \bigclock|Add1~78\);
 
--- Location: FF_X40_Y5_N38
-\bigclock|deci_second_s[12]~DUPLICATE\ : dffeas
+-- Location: FF_X41_Y3_N38
+\bigclock|hour_s[12]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6233,19 +4914,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~25_sumout\,
+	d => \bigclock|Add1~77_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[12]~DUPLICATE_q\);
+	q => \bigclock|hour_s[12]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y5_N39
-\bigclock|Add4~109\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N39
+\bigclock|Add1~105\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~109_sumout\ = SUM(( \bigclock|deci_second_s\(13) ) + ( GND ) + ( \bigclock|Add4~26\ ))
--- \bigclock|Add4~110\ = CARRY(( \bigclock|deci_second_s\(13) ) + ( GND ) + ( \bigclock|Add4~26\ ))
+-- \bigclock|Add1~105_sumout\ = SUM(( \bigclock|hour_s\(13) ) + ( GND ) + ( \bigclock|Add1~78\ ))
+-- \bigclock|Add1~106\ = CARRY(( \bigclock|hour_s\(13) ) + ( GND ) + ( \bigclock|Add1~78\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6254,13 +4935,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(13),
-	cin => \bigclock|Add4~26\,
-	sumout => \bigclock|Add4~109_sumout\,
-	cout => \bigclock|Add4~110\);
+	datac => \bigclock|ALT_INV_hour_s\(13),
+	cin => \bigclock|Add1~78\,
+	sumout => \bigclock|Add1~105_sumout\,
+	cout => \bigclock|Add1~106\);
 
--- Location: FF_X40_Y5_N40
-\bigclock|deci_second_s[13]\ : dffeas
+-- Location: FF_X41_Y3_N40
+\bigclock|hour_s[13]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6268,299 +4949,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~109_sumout\,
+	d => \bigclock|Add1~105_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(13));
+	q => \bigclock|hour_s\(13));
 
--- Location: LABCELL_X40_Y5_N42
-\bigclock|Add4~21\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N42
+\bigclock|Add1~101\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~21_sumout\ = SUM(( \bigclock|deci_second_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~110\ ))
--- \bigclock|Add4~22\ = CARRY(( \bigclock|deci_second_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~110\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s[14]~DUPLICATE_q\,
-	cin => \bigclock|Add4~110\,
-	sumout => \bigclock|Add4~21_sumout\,
-	cout => \bigclock|Add4~22\);
-
--- Location: FF_X40_Y5_N43
-\bigclock|deci_second_s[14]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~21_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[14]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y5_N45
-\bigclock|Add4~17\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~17_sumout\ = SUM(( \bigclock|deci_second_s[15]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~22\ ))
--- \bigclock|Add4~18\ = CARRY(( \bigclock|deci_second_s[15]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~22\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s[15]~DUPLICATE_q\,
-	cin => \bigclock|Add4~22\,
-	sumout => \bigclock|Add4~17_sumout\,
-	cout => \bigclock|Add4~18\);
-
--- Location: FF_X40_Y5_N47
-\bigclock|deci_second_s[15]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~17_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[15]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y5_N48
-\bigclock|Add4~53\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~53_sumout\ = SUM(( \bigclock|deci_second_s\(16) ) + ( GND ) + ( \bigclock|Add4~18\ ))
--- \bigclock|Add4~54\ = CARRY(( \bigclock|deci_second_s\(16) ) + ( GND ) + ( \bigclock|Add4~18\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(16),
-	cin => \bigclock|Add4~18\,
-	sumout => \bigclock|Add4~53_sumout\,
-	cout => \bigclock|Add4~54\);
-
--- Location: FF_X40_Y5_N50
-\bigclock|deci_second_s[16]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~53_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(16));
-
--- Location: LABCELL_X40_Y5_N51
-\bigclock|Add4~49\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~49_sumout\ = SUM(( \bigclock|deci_second_s\(17) ) + ( GND ) + ( \bigclock|Add4~54\ ))
--- \bigclock|Add4~50\ = CARRY(( \bigclock|deci_second_s\(17) ) + ( GND ) + ( \bigclock|Add4~54\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(17),
-	cin => \bigclock|Add4~54\,
-	sumout => \bigclock|Add4~49_sumout\,
-	cout => \bigclock|Add4~50\);
-
--- Location: FF_X40_Y5_N52
-\bigclock|deci_second_s[17]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~49_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(17));
-
--- Location: LABCELL_X40_Y5_N54
-\bigclock|Add4~45\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~45_sumout\ = SUM(( \bigclock|deci_second_s\(18) ) + ( GND ) + ( \bigclock|Add4~50\ ))
--- \bigclock|Add4~46\ = CARRY(( \bigclock|deci_second_s\(18) ) + ( GND ) + ( \bigclock|Add4~50\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s\(18),
-	cin => \bigclock|Add4~50\,
-	sumout => \bigclock|Add4~45_sumout\,
-	cout => \bigclock|Add4~46\);
-
--- Location: FF_X40_Y5_N55
-\bigclock|deci_second_s[18]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~45_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(18));
-
--- Location: LABCELL_X40_Y5_N57
-\bigclock|Add4~41\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~41_sumout\ = SUM(( \bigclock|deci_second_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~46\ ))
--- \bigclock|Add4~42\ = CARRY(( \bigclock|deci_second_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~46\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s[19]~DUPLICATE_q\,
-	cin => \bigclock|Add4~46\,
-	sumout => \bigclock|Add4~41_sumout\,
-	cout => \bigclock|Add4~42\);
-
--- Location: FF_X40_Y5_N59
-\bigclock|deci_second_s[19]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[19]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y4_N0
-\bigclock|Add4~37\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~37_sumout\ = SUM(( \bigclock|deci_second_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~42\ ))
--- \bigclock|Add4~38\ = CARRY(( \bigclock|deci_second_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~42\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s[20]~DUPLICATE_q\,
-	cin => \bigclock|Add4~42\,
-	sumout => \bigclock|Add4~37_sumout\,
-	cout => \bigclock|Add4~38\);
-
--- Location: FF_X40_Y4_N1
-\bigclock|deci_second_s[20]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~37_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[20]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y4_N3
-\bigclock|Add4~65\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~65_sumout\ = SUM(( \bigclock|deci_second_s\(21) ) + ( GND ) + ( \bigclock|Add4~38\ ))
--- \bigclock|Add4~66\ = CARRY(( \bigclock|deci_second_s\(21) ) + ( GND ) + ( \bigclock|Add4~38\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_second_s\(21),
-	cin => \bigclock|Add4~38\,
-	sumout => \bigclock|Add4~65_sumout\,
-	cout => \bigclock|Add4~66\);
-
--- Location: FF_X40_Y4_N5
-\bigclock|deci_second_s[21]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(21));
-
--- Location: LABCELL_X40_Y4_N6
-\bigclock|Add4~85\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~85_sumout\ = SUM(( \bigclock|deci_second_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~66\ ))
--- \bigclock|Add4~86\ = CARRY(( \bigclock|deci_second_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~66\ ))
+-- \bigclock|Add1~101_sumout\ = SUM(( \bigclock|hour_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~106\ ))
+-- \bigclock|Add1~102\ = CARRY(( \bigclock|hour_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~106\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6569,13 +4970,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s[22]~DUPLICATE_q\,
-	cin => \bigclock|Add4~66\,
-	sumout => \bigclock|Add4~85_sumout\,
-	cout => \bigclock|Add4~86\);
+	datab => \bigclock|ALT_INV_hour_s[14]~DUPLICATE_q\,
+	cin => \bigclock|Add1~106\,
+	sumout => \bigclock|Add1~101_sumout\,
+	cout => \bigclock|Add1~102\);
 
--- Location: FF_X40_Y4_N8
-\bigclock|deci_second_s[22]~DUPLICATE\ : dffeas
+-- Location: FF_X41_Y3_N44
+\bigclock|hour_s[14]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6583,19 +4984,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~85_sumout\,
+	d => \bigclock|Add1~101_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[22]~DUPLICATE_q\);
+	q => \bigclock|hour_s[14]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y4_N9
-\bigclock|Add4~81\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N45
+\bigclock|Add1~97\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~81_sumout\ = SUM(( \bigclock|deci_second_s\(23) ) + ( GND ) + ( \bigclock|Add4~86\ ))
--- \bigclock|Add4~82\ = CARRY(( \bigclock|deci_second_s\(23) ) + ( GND ) + ( \bigclock|Add4~86\ ))
+-- \bigclock|Add1~97_sumout\ = SUM(( \bigclock|hour_s\(15) ) + ( GND ) + ( \bigclock|Add1~102\ ))
+-- \bigclock|Add1~98\ = CARRY(( \bigclock|hour_s\(15) ) + ( GND ) + ( \bigclock|Add1~102\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6604,13 +5005,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(23),
-	cin => \bigclock|Add4~86\,
-	sumout => \bigclock|Add4~81_sumout\,
-	cout => \bigclock|Add4~82\);
+	datac => \bigclock|ALT_INV_hour_s\(15),
+	cin => \bigclock|Add1~102\,
+	sumout => \bigclock|Add1~97_sumout\,
+	cout => \bigclock|Add1~98\);
 
--- Location: FF_X40_Y4_N11
-\bigclock|deci_second_s[23]\ : dffeas
+-- Location: FF_X41_Y3_N46
+\bigclock|hour_s[15]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6618,19 +5019,229 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~81_sumout\,
+	d => \bigclock|Add1~97_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(23));
+	q => \bigclock|hour_s\(15));
 
--- Location: LABCELL_X40_Y4_N12
-\bigclock|Add4~77\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y3_N48
+\bigclock|Add1~93\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~77_sumout\ = SUM(( \bigclock|deci_second_s\(24) ) + ( GND ) + ( \bigclock|Add4~82\ ))
--- \bigclock|Add4~78\ = CARRY(( \bigclock|deci_second_s\(24) ) + ( GND ) + ( \bigclock|Add4~82\ ))
+-- \bigclock|Add1~93_sumout\ = SUM(( \bigclock|hour_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~98\ ))
+-- \bigclock|Add1~94\ = CARRY(( \bigclock|hour_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~98\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s[16]~DUPLICATE_q\,
+	cin => \bigclock|Add1~98\,
+	sumout => \bigclock|Add1~93_sumout\,
+	cout => \bigclock|Add1~94\);
+
+-- Location: FF_X41_Y3_N50
+\bigclock|hour_s[16]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~93_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s[16]~DUPLICATE_q\);
+
+-- Location: LABCELL_X41_Y3_N51
+\bigclock|Add1~89\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~89_sumout\ = SUM(( \bigclock|hour_s\(17) ) + ( GND ) + ( \bigclock|Add1~94\ ))
+-- \bigclock|Add1~90\ = CARRY(( \bigclock|hour_s\(17) ) + ( GND ) + ( \bigclock|Add1~94\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(17),
+	cin => \bigclock|Add1~94\,
+	sumout => \bigclock|Add1~89_sumout\,
+	cout => \bigclock|Add1~90\);
+
+-- Location: FF_X41_Y3_N52
+\bigclock|hour_s[17]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~89_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(17));
+
+-- Location: LABCELL_X41_Y3_N54
+\bigclock|Add1~41\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~41_sumout\ = SUM(( \bigclock|hour_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~90\ ))
+-- \bigclock|Add1~42\ = CARRY(( \bigclock|hour_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~90\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_hour_s[18]~DUPLICATE_q\,
+	cin => \bigclock|Add1~90\,
+	sumout => \bigclock|Add1~41_sumout\,
+	cout => \bigclock|Add1~42\);
+
+-- Location: FF_X41_Y3_N55
+\bigclock|hour_s[18]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~41_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s[18]~DUPLICATE_q\);
+
+-- Location: LABCELL_X41_Y3_N57
+\bigclock|Add1~37\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~37_sumout\ = SUM(( \bigclock|hour_s\(19) ) + ( GND ) + ( \bigclock|Add1~42\ ))
+-- \bigclock|Add1~38\ = CARRY(( \bigclock|hour_s\(19) ) + ( GND ) + ( \bigclock|Add1~42\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(19),
+	cin => \bigclock|Add1~42\,
+	sumout => \bigclock|Add1~37_sumout\,
+	cout => \bigclock|Add1~38\);
+
+-- Location: FF_X41_Y3_N59
+\bigclock|hour_s[19]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~37_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(19));
+
+-- Location: LABCELL_X41_Y2_N0
+\bigclock|Add1~33\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~33_sumout\ = SUM(( \bigclock|hour_s\(20) ) + ( GND ) + ( \bigclock|Add1~38\ ))
+-- \bigclock|Add1~34\ = CARRY(( \bigclock|hour_s\(20) ) + ( GND ) + ( \bigclock|Add1~38\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(20),
+	cin => \bigclock|Add1~38\,
+	sumout => \bigclock|Add1~33_sumout\,
+	cout => \bigclock|Add1~34\);
+
+-- Location: FF_X41_Y2_N2
+\bigclock|hour_s[20]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~33_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(20));
+
+-- Location: LABCELL_X41_Y2_N3
+\bigclock|Add1~29\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~29_sumout\ = SUM(( \bigclock|hour_s\(21) ) + ( GND ) + ( \bigclock|Add1~34\ ))
+-- \bigclock|Add1~30\ = CARRY(( \bigclock|hour_s\(21) ) + ( GND ) + ( \bigclock|Add1~34\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_hour_s\(21),
+	cin => \bigclock|Add1~34\,
+	sumout => \bigclock|Add1~29_sumout\,
+	cout => \bigclock|Add1~30\);
+
+-- Location: FF_X41_Y2_N5
+\bigclock|hour_s[21]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~29_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(21));
+
+-- Location: LABCELL_X41_Y2_N6
+\bigclock|Add1~25\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~25_sumout\ = SUM(( \bigclock|hour_s\(22) ) + ( GND ) + ( \bigclock|Add1~30\ ))
+-- \bigclock|Add1~26\ = CARRY(( \bigclock|hour_s\(22) ) + ( GND ) + ( \bigclock|Add1~30\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6639,13 +5250,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s\(24),
-	cin => \bigclock|Add4~82\,
-	sumout => \bigclock|Add4~77_sumout\,
-	cout => \bigclock|Add4~78\);
+	datab => \bigclock|ALT_INV_hour_s\(22),
+	cin => \bigclock|Add1~30\,
+	sumout => \bigclock|Add1~25_sumout\,
+	cout => \bigclock|Add1~26\);
 
--- Location: FF_X40_Y4_N14
-\bigclock|deci_second_s[24]\ : dffeas
+-- Location: FF_X41_Y2_N8
+\bigclock|hour_s[22]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6653,19 +5264,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~77_sumout\,
+	d => \bigclock|Add1~25_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(24));
+	q => \bigclock|hour_s\(22));
 
--- Location: LABCELL_X40_Y4_N15
-\bigclock|Add4~73\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y2_N9
+\bigclock|Add1~21\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~73_sumout\ = SUM(( \bigclock|deci_second_s\(25) ) + ( GND ) + ( \bigclock|Add4~78\ ))
--- \bigclock|Add4~74\ = CARRY(( \bigclock|deci_second_s\(25) ) + ( GND ) + ( \bigclock|Add4~78\ ))
+-- \bigclock|Add1~21_sumout\ = SUM(( \bigclock|hour_s\(23) ) + ( GND ) + ( \bigclock|Add1~26\ ))
+-- \bigclock|Add1~22\ = CARRY(( \bigclock|hour_s\(23) ) + ( GND ) + ( \bigclock|Add1~26\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6674,13 +5285,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(25),
-	cin => \bigclock|Add4~78\,
-	sumout => \bigclock|Add4~73_sumout\,
-	cout => \bigclock|Add4~74\);
+	datac => \bigclock|ALT_INV_hour_s\(23),
+	cin => \bigclock|Add1~26\,
+	sumout => \bigclock|Add1~21_sumout\,
+	cout => \bigclock|Add1~22\);
 
--- Location: FF_X40_Y4_N17
-\bigclock|deci_second_s[25]\ : dffeas
+-- Location: FF_X41_Y2_N11
+\bigclock|hour_s[23]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6688,19 +5299,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~73_sumout\,
+	d => \bigclock|Add1~21_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(25));
+	q => \bigclock|hour_s\(23));
 
--- Location: LABCELL_X40_Y4_N18
-\bigclock|Add4~69\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y2_N12
+\bigclock|Add1~61\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~69_sumout\ = SUM(( \bigclock|deci_second_s\(26) ) + ( GND ) + ( \bigclock|Add4~74\ ))
--- \bigclock|Add4~70\ = CARRY(( \bigclock|deci_second_s\(26) ) + ( GND ) + ( \bigclock|Add4~74\ ))
+-- \bigclock|Add1~61_sumout\ = SUM(( \bigclock|hour_s[24]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~22\ ))
+-- \bigclock|Add1~62\ = CARRY(( \bigclock|hour_s[24]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~22\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6709,13 +5320,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(26),
-	cin => \bigclock|Add4~74\,
-	sumout => \bigclock|Add4~69_sumout\,
-	cout => \bigclock|Add4~70\);
+	datac => \bigclock|ALT_INV_hour_s[24]~DUPLICATE_q\,
+	cin => \bigclock|Add1~22\,
+	sumout => \bigclock|Add1~61_sumout\,
+	cout => \bigclock|Add1~62\);
 
--- Location: FF_X40_Y4_N20
-\bigclock|deci_second_s[26]\ : dffeas
+-- Location: FF_X41_Y2_N14
+\bigclock|hour_s[24]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6723,35 +5334,227 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~69_sumout\,
+	d => \bigclock|Add1~61_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(26));
+	q => \bigclock|hour_s[24]~DUPLICATE_q\);
 
--- Location: FF_X40_Y4_N7
-\bigclock|deci_second_s[22]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~85_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(22));
-
--- Location: LABCELL_X40_Y4_N42
-\bigclock|minute_s[8]~1\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y2_N15
+\bigclock|Add1~57\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|minute_s[8]~1_combout\ = ( !\bigclock|deci_second_s\(22) & ( !\bigclock|deci_second_s\(24) & ( (!\bigclock|deci_second_s\(23) & (!\bigclock|deci_second_s\(26) & !\bigclock|deci_second_s\(25))) ) ) )
+-- \bigclock|Add1~57_sumout\ = SUM(( \bigclock|hour_s\(25) ) + ( GND ) + ( \bigclock|Add1~62\ ))
+-- \bigclock|Add1~58\ = CARRY(( \bigclock|hour_s\(25) ) + ( GND ) + ( \bigclock|Add1~62\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(25),
+	cin => \bigclock|Add1~62\,
+	sumout => \bigclock|Add1~57_sumout\,
+	cout => \bigclock|Add1~58\);
+
+-- Location: FF_X41_Y2_N17
+\bigclock|hour_s[25]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~57_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(25));
+
+-- Location: LABCELL_X41_Y2_N18
+\bigclock|Add1~53\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~53_sumout\ = SUM(( \bigclock|hour_s\(26) ) + ( GND ) + ( \bigclock|Add1~58\ ))
+-- \bigclock|Add1~54\ = CARRY(( \bigclock|hour_s\(26) ) + ( GND ) + ( \bigclock|Add1~58\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_hour_s\(26),
+	cin => \bigclock|Add1~58\,
+	sumout => \bigclock|Add1~53_sumout\,
+	cout => \bigclock|Add1~54\);
+
+-- Location: FF_X41_Y2_N19
+\bigclock|hour_s[26]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~53_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(26));
+
+-- Location: LABCELL_X41_Y2_N21
+\bigclock|Add1~73\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~73_sumout\ = SUM(( \bigclock|hour_s\(27) ) + ( GND ) + ( \bigclock|Add1~54\ ))
+-- \bigclock|Add1~74\ = CARRY(( \bigclock|hour_s\(27) ) + ( GND ) + ( \bigclock|Add1~54\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_hour_s\(27),
+	cin => \bigclock|Add1~54\,
+	sumout => \bigclock|Add1~73_sumout\,
+	cout => \bigclock|Add1~74\);
+
+-- Location: FF_X41_Y2_N23
+\bigclock|hour_s[27]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~73_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(27));
+
+-- Location: LABCELL_X41_Y2_N24
+\bigclock|Add1~49\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~49_sumout\ = SUM(( \bigclock|hour_s[28]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~74\ ))
+-- \bigclock|Add1~50\ = CARRY(( \bigclock|hour_s[28]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~74\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s[28]~DUPLICATE_q\,
+	cin => \bigclock|Add1~74\,
+	sumout => \bigclock|Add1~49_sumout\,
+	cout => \bigclock|Add1~50\);
+
+-- Location: FF_X41_Y2_N25
+\bigclock|hour_s[28]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~49_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(28));
+
+-- Location: FF_X41_Y2_N13
+\bigclock|hour_s[24]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~61_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(24));
+
+-- Location: LABCELL_X41_Y2_N27
+\bigclock|Add1~45\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add1~45_sumout\ = SUM(( \bigclock|hour_s\(29) ) + ( GND ) + ( \bigclock|Add1~50\ ))
+-- \bigclock|Add1~46\ = CARRY(( \bigclock|hour_s\(29) ) + ( GND ) + ( \bigclock|Add1~50\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(29),
+	cin => \bigclock|Add1~50\,
+	sumout => \bigclock|Add1~45_sumout\,
+	cout => \bigclock|Add1~46\);
+
+-- Location: FF_X41_Y2_N28
+\bigclock|hour_s[29]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(29));
+
+-- Location: FF_X41_Y2_N16
+\bigclock|hour_s[25]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~57_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s[25]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y2_N54
+\bigclock|counter24h~10\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~10_combout\ = ( !\bigclock|hour_s\(29) & ( !\bigclock|hour_s[25]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(28) & (!\bigclock|hour_s\(24) & !\bigclock|hour_s\(26))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
@@ -6760,86 +5563,34 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s\(23),
-	datac => \bigclock|ALT_INV_deci_second_s\(26),
-	datad => \bigclock|ALT_INV_deci_second_s\(25),
-	datae => \bigclock|ALT_INV_deci_second_s\(22),
-	dataf => \bigclock|ALT_INV_deci_second_s\(24),
-	combout => \bigclock|minute_s[8]~1_combout\);
+	datab => \bigclock|ALT_INV_hour_s\(28),
+	datac => \bigclock|ALT_INV_hour_s\(24),
+	datad => \bigclock|ALT_INV_hour_s\(26),
+	datae => \bigclock|ALT_INV_hour_s\(29),
+	dataf => \bigclock|ALT_INV_hour_s[25]~DUPLICATE_q\,
+	combout => \bigclock|counter24h~10_combout\);
 
--- Location: FF_X40_Y5_N37
-\bigclock|deci_second_s[12]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~25_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(12));
-
--- Location: FF_X40_Y5_N44
-\bigclock|deci_second_s[14]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~21_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(14));
-
--- Location: FF_X40_Y5_N31
-\bigclock|deci_second_s[10]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~33_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(10));
-
--- Location: LABCELL_X39_Y3_N42
-\bigclock|minute_s[8]~8\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y2_N42
+\bigclock|counter24h~11\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|minute_s[8]~8_combout\ = ( !\bigclock|deci_second_s\(21) & ( !\bigclock|deci_second_s\(10) & ( (!\bigclock|deci_second_s\(11) & (!\bigclock|deci_second_s\(12) & (\bigclock|deci_second_s\(0) & !\bigclock|deci_second_s\(14)))) ) ) )
+-- \bigclock|counter24h~11_combout\ = ( !\bigclock|hour_s\(7) & ( !\bigclock|hour_s\(4) & ( (!\bigclock|hour_s\(27) & (\bigclock|hour_s\(0) & !\bigclock|hour_s\(2))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000100000000000000000000000000000000000000000000000000000000000",
+	lut_mask => "0000101000000000000000000000000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(11),
-	datab => \bigclock|ALT_INV_deci_second_s\(12),
-	datac => \bigclock|ALT_INV_deci_second_s\(0),
-	datad => \bigclock|ALT_INV_deci_second_s\(14),
-	datae => \bigclock|ALT_INV_deci_second_s\(21),
-	dataf => \bigclock|ALT_INV_deci_second_s\(10),
-	combout => \bigclock|minute_s[8]~8_combout\);
+	dataa => \bigclock|ALT_INV_hour_s\(27),
+	datac => \bigclock|ALT_INV_hour_s\(0),
+	datad => \bigclock|ALT_INV_hour_s\(2),
+	datae => \bigclock|ALT_INV_hour_s\(7),
+	dataf => \bigclock|ALT_INV_hour_s\(4),
+	combout => \bigclock|counter24h~11_combout\);
 
--- Location: FF_X40_Y5_N4
-\bigclock|deci_second_s[1]\ : dffeas
+-- Location: FF_X41_Y2_N32
+\bigclock|hour_s[30]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -6847,246 +5598,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~5_sumout\,
+	d => \bigclock|Add1~17_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(1));
+	q => \bigclock|hour_s[30]~DUPLICATE_q\);
 
--- Location: FF_X40_Y4_N22
-\bigclock|deci_second_s[27]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[27]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y4_N21
-\bigclock|Add4~61\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y2_N30
+\bigclock|Add1~17\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add4~61_sumout\ = SUM(( \bigclock|deci_second_s[27]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~70\ ))
--- \bigclock|Add4~62\ = CARRY(( \bigclock|deci_second_s[27]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~70\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s[27]~DUPLICATE_q\,
-	cin => \bigclock|Add4~70\,
-	sumout => \bigclock|Add4~61_sumout\,
-	cout => \bigclock|Add4~62\);
-
--- Location: FF_X40_Y4_N23
-\bigclock|deci_second_s[27]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(27));
-
--- Location: FF_X40_Y5_N46
-\bigclock|deci_second_s[15]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~17_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(15));
-
--- Location: LABCELL_X39_Y3_N15
-\bigclock|minute_s[8]~9\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|minute_s[8]~9_combout\ = ( !\bigclock|deci_second_s\(4) & ( (\bigclock|deci_second_s\(2) & (!\bigclock|deci_second_s\(1) & (!\bigclock|deci_second_s\(27) & !\bigclock|deci_second_s\(15)))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0100000000000000010000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(2),
-	datab => \bigclock|ALT_INV_deci_second_s\(1),
-	datac => \bigclock|ALT_INV_deci_second_s\(27),
-	datad => \bigclock|ALT_INV_deci_second_s\(15),
-	dataf => \bigclock|ALT_INV_deci_second_s\(4),
-	combout => \bigclock|minute_s[8]~9_combout\);
-
--- Location: FF_X40_Y5_N16
-\bigclock|deci_second_s[5]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(5));
-
--- Location: FF_X40_Y5_N22
-\bigclock|deci_second_s[7]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~97_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(7));
-
--- Location: LABCELL_X39_Y3_N36
-\bigclock|minute_s[8]~2\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|minute_s[8]~2_combout\ = ( !\bigclock|deci_second_s\(5) & ( !\bigclock|deci_second_s\(7) & ( (!\bigclock|deci_second_s\(9) & (!\bigclock|deci_second_s\(8) & !\bigclock|deci_second_s\(6))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(9),
-	datac => \bigclock|ALT_INV_deci_second_s\(8),
-	datad => \bigclock|ALT_INV_deci_second_s\(6),
-	datae => \bigclock|ALT_INV_deci_second_s\(5),
-	dataf => \bigclock|ALT_INV_deci_second_s\(7),
-	combout => \bigclock|minute_s[8]~2_combout\);
-
--- Location: FF_X40_Y4_N26
-\bigclock|deci_second_s[28]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(28));
-
--- Location: LABCELL_X40_Y4_N24
-\bigclock|Add4~121\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~121_sumout\ = SUM(( \bigclock|deci_second_s\(28) ) + ( GND ) + ( \bigclock|Add4~62\ ))
--- \bigclock|Add4~122\ = CARRY(( \bigclock|deci_second_s\(28) ) + ( GND ) + ( \bigclock|Add4~62\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(28),
-	cin => \bigclock|Add4~62\,
-	sumout => \bigclock|Add4~121_sumout\,
-	cout => \bigclock|Add4~122\);
-
--- Location: FF_X40_Y4_N25
-\bigclock|deci_second_s[28]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s[28]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y4_N27
-\bigclock|Add4~117\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~117_sumout\ = SUM(( \bigclock|deci_second_s\(29) ) + ( GND ) + ( \bigclock|Add4~122\ ))
--- \bigclock|Add4~118\ = CARRY(( \bigclock|deci_second_s\(29) ) + ( GND ) + ( \bigclock|Add4~122\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_second_s\(29),
-	cin => \bigclock|Add4~122\,
-	sumout => \bigclock|Add4~117_sumout\,
-	cout => \bigclock|Add4~118\);
-
--- Location: FF_X40_Y4_N28
-\bigclock|deci_second_s[29]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~117_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(29));
-
--- Location: LABCELL_X40_Y4_N30
-\bigclock|Add4~113\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add4~113_sumout\ = SUM(( \bigclock|deci_second_s\(30) ) + ( GND ) + ( \bigclock|Add4~118\ ))
+-- \bigclock|Add1~17_sumout\ = SUM(( \bigclock|hour_s[30]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add1~46\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -7095,12 +5618,12 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s\(30),
-	cin => \bigclock|Add4~118\,
-	sumout => \bigclock|Add4~113_sumout\);
+	datab => \bigclock|ALT_INV_hour_s[30]~DUPLICATE_q\,
+	cin => \bigclock|Add1~46\,
+	sumout => \bigclock|Add1~17_sumout\);
 
--- Location: FF_X40_Y4_N32
-\bigclock|deci_second_s[30]\ : dffeas
+-- Location: FF_X41_Y2_N31
+\bigclock|hour_s[30]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -7108,18 +5631,176 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~113_sumout\,
+	d => \bigclock|Add1~17_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(30));
+	q => \bigclock|hour_s\(30));
 
--- Location: LABCELL_X39_Y3_N57
-\bigclock|minute_s[8]~3\ : cyclonev_lcell_comb
+-- Location: FF_X41_Y3_N37
+\bigclock|hour_s[12]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~77_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(12));
+
+-- Location: FF_X41_Y3_N19
+\bigclock|hour_s[6]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~81_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(6));
+
+-- Location: LABCELL_X41_Y2_N36
+\bigclock|counter24h~31\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|minute_s[8]~3_combout\ = ( !\bigclock|deci_second_s\(30) & ( !\bigclock|deci_second_s\(29) & ( (!\bigclock|deci_second_s\(3) & (!\bigclock|deci_second_s\(13) & !\bigclock|deci_second_s[28]~DUPLICATE_q\)) ) ) )
+-- \bigclock|counter24h~31_combout\ = ( !\bigclock|hour_s\(6) & ( (!\bigclock|hour_s\(23) & (!\bigclock|hour_s\(30) & !\bigclock|hour_s\(12))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1100000000000000110000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_hour_s\(23),
+	datac => \bigclock|ALT_INV_hour_s\(30),
+	datad => \bigclock|ALT_INV_hour_s\(12),
+	dataf => \bigclock|ALT_INV_hour_s\(6),
+	combout => \bigclock|counter24h~31_combout\);
+
+-- Location: LABCELL_X41_Y2_N39
+\bigclock|counter24h~13\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~13_combout\ = ( !\bigclock|hour_s\(9) & ( (!\bigclock|hour_s\(11) & (!\bigclock|hour_s\(8) & !\bigclock|hour_s\(10))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1010000000000000101000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_hour_s\(11),
+	datac => \bigclock|ALT_INV_hour_s\(8),
+	datad => \bigclock|ALT_INV_hour_s\(10),
+	dataf => \bigclock|ALT_INV_hour_s\(9),
+	combout => \bigclock|counter24h~13_combout\);
+
+-- Location: FF_X41_Y3_N56
+\bigclock|hour_s[18]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~41_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(18));
+
+-- Location: FF_X41_Y3_N16
+\bigclock|hour_s[5]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(5));
+
+-- Location: LABCELL_X41_Y2_N54
+\bigclock|counter24h~30\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~30_combout\ = ( !\bigclock|hour_s\(18) & ( !\bigclock|hour_s\(5) & ( (!\bigclock|hour_s\(21) & (!\bigclock|hour_s\(22) & (!\bigclock|hour_s\(20) & !\bigclock|hour_s\(19)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_hour_s\(21),
+	datab => \bigclock|ALT_INV_hour_s\(22),
+	datac => \bigclock|ALT_INV_hour_s\(20),
+	datad => \bigclock|ALT_INV_hour_s\(19),
+	datae => \bigclock|ALT_INV_hour_s\(18),
+	dataf => \bigclock|ALT_INV_hour_s\(5),
+	combout => \bigclock|counter24h~30_combout\);
+
+-- Location: FF_X41_Y3_N43
+\bigclock|hour_s[14]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(14));
+
+-- Location: FF_X41_Y3_N49
+\bigclock|hour_s[16]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~93_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(16));
+
+-- Location: MLABCELL_X42_Y3_N3
+\bigclock|counter24h~12\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~12_combout\ = ( !\bigclock|hour_s\(16) & ( !\bigclock|hour_s\(15) & ( (!\bigclock|hour_s\(17) & (!\bigclock|hour_s\(14) & !\bigclock|hour_s\(13))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
@@ -7128,70 +5809,17 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(3),
-	datac => \bigclock|ALT_INV_deci_second_s\(13),
-	datad => \bigclock|ALT_INV_deci_second_s[28]~DUPLICATE_q\,
-	datae => \bigclock|ALT_INV_deci_second_s\(30),
-	dataf => \bigclock|ALT_INV_deci_second_s\(29),
-	combout => \bigclock|minute_s[8]~3_combout\);
+	dataa => \bigclock|ALT_INV_hour_s\(17),
+	datac => \bigclock|ALT_INV_hour_s\(14),
+	datad => \bigclock|ALT_INV_hour_s\(13),
+	datae => \bigclock|ALT_INV_hour_s\(16),
+	dataf => \bigclock|ALT_INV_hour_s\(15),
+	combout => \bigclock|counter24h~12_combout\);
 
--- Location: FF_X40_Y5_N58
-\bigclock|deci_second_s[19]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(19));
-
--- Location: FF_X40_Y4_N2
-\bigclock|deci_second_s[20]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add4~37_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|minute_s[8]~7_combout\,
-	ena => \bigclock|deci_second_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_second_s\(20));
-
--- Location: LABCELL_X39_Y3_N6
-\bigclock|minute_s[8]~0\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y2_N48
+\bigclock|counter24h~14\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|minute_s[8]~0_combout\ = ( !\bigclock|deci_second_s\(20) & ( !\bigclock|deci_second_s\(16) & ( (!\bigclock|deci_second_s\(19) & (!\bigclock|deci_second_s\(18) & !\bigclock|deci_second_s\(17))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(19),
-	datac => \bigclock|ALT_INV_deci_second_s\(18),
-	datad => \bigclock|ALT_INV_deci_second_s\(17),
-	datae => \bigclock|ALT_INV_deci_second_s\(20),
-	dataf => \bigclock|ALT_INV_deci_second_s\(16),
-	combout => \bigclock|minute_s[8]~0_combout\);
-
--- Location: LABCELL_X39_Y3_N21
-\bigclock|minute_s[8]~4\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|minute_s[8]~4_combout\ = ( \bigclock|minute_s[8]~3_combout\ & ( \bigclock|minute_s[8]~0_combout\ & ( (\bigclock|minute_s[8]~1_combout\ & (\bigclock|minute_s[8]~8_combout\ & (\bigclock|minute_s[8]~9_combout\ & \bigclock|minute_s[8]~2_combout\))) 
+-- \bigclock|counter24h~14_combout\ = ( \bigclock|counter24h~30_combout\ & ( \bigclock|counter24h~12_combout\ & ( (\bigclock|counter24h~10_combout\ & (\bigclock|counter24h~11_combout\ & (\bigclock|counter24h~31_combout\ & \bigclock|counter24h~13_combout\))) 
 -- ) ) )
 
 -- pragma translate_off
@@ -7201,70 +5829,223 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s[8]~1_combout\,
-	datab => \bigclock|ALT_INV_minute_s[8]~8_combout\,
-	datac => \bigclock|ALT_INV_minute_s[8]~9_combout\,
-	datad => \bigclock|ALT_INV_minute_s[8]~2_combout\,
-	datae => \bigclock|ALT_INV_minute_s[8]~3_combout\,
-	dataf => \bigclock|ALT_INV_minute_s[8]~0_combout\,
-	combout => \bigclock|minute_s[8]~4_combout\);
+	dataa => \bigclock|ALT_INV_counter24h~10_combout\,
+	datab => \bigclock|ALT_INV_counter24h~11_combout\,
+	datac => \bigclock|ALT_INV_counter24h~31_combout\,
+	datad => \bigclock|ALT_INV_counter24h~13_combout\,
+	datae => \bigclock|ALT_INV_counter24h~30_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~12_combout\,
+	combout => \bigclock|counter24h~14_combout\);
 
--- Location: LABCELL_X40_Y3_N24
-\bigclock|minute_s[8]~5\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y4_N6
+\bigclock|deci_minute_s[15]~2\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|minute_s[8]~5_combout\ = ( \bigclock|minute_s[8]~4_combout\ & ( (\bigclock|Sec_Clock|slow_clk~q\ & (\bigclock|deci_second_s[9]~4_combout\ & !\bigclock|second_s\(16))) ) )
+-- \bigclock|deci_minute_s[15]~2_combout\ = ( \bigclock|counter24h~4_combout\ & ( (\bigclock|counter24h~9_combout\ & \bigclock|counter24h~14_combout\) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000011000000000000001100000000",
+	lut_mask => "0000000000000000000000000000000000000000000011110000000000001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|Sec_Clock|ALT_INV_slow_clk~q\,
-	datac => \bigclock|ALT_INV_deci_second_s[9]~4_combout\,
-	datad => \bigclock|ALT_INV_second_s\(16),
+	datac => \bigclock|ALT_INV_counter24h~9_combout\,
+	datad => \bigclock|ALT_INV_counter24h~14_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~4_combout\,
+	combout => \bigclock|deci_minute_s[15]~2_combout\);
+
+-- Location: FF_X43_Y5_N4
+\bigclock|second_s[1]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add5~5_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|Equal6~6_combout\,
+	ena => \bigclock|deci_hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|second_s\(1));
+
+-- Location: MLABCELL_X42_Y4_N54
+\bigclock|Equal6~5\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Equal6~5_combout\ = ( \bigclock|Equal6~4_combout\ & ( \bigclock|Equal6~3_combout\ & ( (!\bigclock|second_s\(29) & (\bigclock|Equal6~2_combout\ & (!\bigclock|second_s[6]~DUPLICATE_q\ & !\bigclock|second_s\(1)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000010000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s\(29),
+	datab => \bigclock|ALT_INV_Equal6~2_combout\,
+	datac => \bigclock|ALT_INV_second_s[6]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_second_s\(1),
+	datae => \bigclock|ALT_INV_Equal6~4_combout\,
+	dataf => \bigclock|ALT_INV_Equal6~3_combout\,
+	combout => \bigclock|Equal6~5_combout\);
+
+-- Location: FF_X41_Y3_N4
+\bigclock|hour_s[1]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~5_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(1));
+
+-- Location: FF_X41_Y3_N10
+\bigclock|hour_s[3]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add1~13_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s\(3));
+
+-- Location: MLABCELL_X42_Y4_N24
+\bigclock|counter24h~32\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~32_combout\ = ( \bigclock|Equal6~1_combout\ & ( \bigclock|Equal6~0_combout\ & ( (!\bigclock|hour_s\(1) & (\bigclock|hour_s\(3) & !\bigclock|second_s[16]~DUPLICATE_q\)) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000110000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_hour_s\(1),
+	datac => \bigclock|ALT_INV_hour_s\(3),
+	datad => \bigclock|ALT_INV_second_s[16]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_Equal6~1_combout\,
+	dataf => \bigclock|ALT_INV_Equal6~0_combout\,
+	combout => \bigclock|counter24h~32_combout\);
+
+-- Location: LABCELL_X41_Y4_N45
+\bigclock|counter24h~23\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~23_combout\ = ( \bigclock|Equal6~5_combout\ & ( \bigclock|counter24h~32_combout\ & ( (\bigclock|counter24h~9_combout\ & (\bigclock|counter24h~4_combout\ & (\bigclock|counter24h~14_combout\ & \bigclock|minute_s[8]~4_combout\))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_counter24h~9_combout\,
+	datab => \bigclock|ALT_INV_counter24h~4_combout\,
+	datac => \bigclock|ALT_INV_counter24h~14_combout\,
+	datad => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	datae => \bigclock|ALT_INV_Equal6~5_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~32_combout\,
+	combout => \bigclock|counter24h~23_combout\);
+
+-- Location: LABCELL_X41_Y4_N51
+\bigclock|deci_minute_s[15]~1\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|deci_minute_s[15]~1_combout\ = ( \bigclock|counter24h~23_combout\ & ( \bigclock|counter24h~24_combout\ ) ) # ( !\bigclock|counter24h~23_combout\ & ( \bigclock|counter24h~24_combout\ ) ) # ( \bigclock|counter24h~23_combout\ & ( 
+-- !\bigclock|counter24h~24_combout\ ) ) # ( !\bigclock|counter24h~23_combout\ & ( !\bigclock|counter24h~24_combout\ & ( (\bigclock|minute_s[8]~4_combout\ & (\bigclock|counter24h~21_combout\ & (\bigclock|deci_minute_s[15]~2_combout\ & 
+-- \bigclock|Equal6~6_combout\))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000001111111111111111111111111111111111111111111111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	datab => \bigclock|ALT_INV_counter24h~21_combout\,
+	datac => \bigclock|ALT_INV_deci_minute_s[15]~2_combout\,
+	datad => \bigclock|ALT_INV_Equal6~6_combout\,
+	datae => \bigclock|ALT_INV_counter24h~23_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~24_combout\,
+	combout => \bigclock|deci_minute_s[15]~1_combout\);
+
+-- Location: LABCELL_X41_Y4_N30
+\bigclock|minute_s[8]~5\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~5_combout\ = ( \bigclock|Equal6~5_combout\ & ( \bigclock|minute_s[8]~4_combout\ & ( (\bigclock|Equal6~0_combout\ & (\bigclock|Equal6~1_combout\ & !\bigclock|second_s\(16))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000001000000010000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_Equal6~0_combout\,
+	datab => \bigclock|ALT_INV_Equal6~1_combout\,
+	datac => \bigclock|ALT_INV_second_s\(16),
+	datae => \bigclock|ALT_INV_Equal6~5_combout\,
 	dataf => \bigclock|ALT_INV_minute_s[8]~4_combout\,
 	combout => \bigclock|minute_s[8]~5_combout\);
 
--- Location: LABCELL_X41_Y3_N57
-\bigclock|counter24h~22\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y4_N9
+\bigclock|deci_minute_s[3]~3\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~22_combout\ = ( \bigclock|counter24h~4_combout\ & ( \bigclock|minute_s[8]~5_combout\ ) )
+-- \bigclock|deci_minute_s[3]~3_combout\ = ( \bigclock|counter24h~14_combout\ & ( (\bigclock|minute_s[8]~4_combout\ & (\bigclock|counter24h~4_combout\ & \bigclock|counter24h~9_combout\)) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000001111000011110000111100001111",
+	lut_mask => "0000000000000000000000000000000000000000000001010000000000000101",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s[8]~5_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~4_combout\,
-	combout => \bigclock|counter24h~22_combout\);
+	dataa => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	datac => \bigclock|ALT_INV_counter24h~4_combout\,
+	datad => \bigclock|ALT_INV_counter24h~9_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~14_combout\,
+	combout => \bigclock|deci_minute_s[3]~3_combout\);
 
--- Location: LABCELL_X40_Y3_N3
+-- Location: LABCELL_X41_Y4_N18
 \bigclock|minute_s[3]~6\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|minute_s[3]~6_combout\ = ( \bigclock|counter24h~15_combout\ & ( \bigclock|minute_s[8]~5_combout\ & ( \bigclock|clk_state_s.counting~q\ ) ) ) # ( !\bigclock|counter24h~15_combout\ & ( \bigclock|minute_s[8]~5_combout\ & ( 
--- \bigclock|clk_state_s.counting~q\ ) ) ) # ( \bigclock|counter24h~15_combout\ & ( !\bigclock|minute_s[8]~5_combout\ & ( (!\bigclock|hour_s\(1) & (\bigclock|hour_s\(3) & (\bigclock|counter24h~10_combout\ & \bigclock|clk_state_s.counting~q\))) ) ) )
+-- \bigclock|minute_s[3]~6_combout\ = ( \bigclock|counter24h~23_combout\ & ( \bigclock|deci_minute_s[3]~3_combout\ & ( \bigclock|deci_hour_s[3]~1_combout\ ) ) ) # ( !\bigclock|counter24h~23_combout\ & ( \bigclock|deci_minute_s[3]~3_combout\ & ( 
+-- (\bigclock|deci_hour_s[3]~1_combout\ & (((\bigclock|Equal6~6_combout\ & \bigclock|counter24h~21_combout\)) # (\bigclock|minute_s[8]~5_combout\))) ) ) ) # ( \bigclock|counter24h~23_combout\ & ( !\bigclock|deci_minute_s[3]~3_combout\ & ( 
+-- \bigclock|deci_hour_s[3]~1_combout\ ) ) ) # ( !\bigclock|counter24h~23_combout\ & ( !\bigclock|deci_minute_s[3]~3_combout\ & ( (\bigclock|deci_hour_s[3]~1_combout\ & \bigclock|minute_s[8]~5_combout\) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000001000000000111111110000000011111111",
+	lut_mask => "0001000100010001010101010101010100010001000101010101010101010101",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(1),
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_counter24h~10_combout\,
-	datad => \bigclock|ALT_INV_clk_state_s.counting~q\,
-	datae => \bigclock|ALT_INV_counter24h~15_combout\,
-	dataf => \bigclock|ALT_INV_minute_s[8]~5_combout\,
+	dataa => \bigclock|ALT_INV_deci_hour_s[3]~1_combout\,
+	datab => \bigclock|ALT_INV_minute_s[8]~5_combout\,
+	datac => \bigclock|ALT_INV_Equal6~6_combout\,
+	datad => \bigclock|ALT_INV_counter24h~21_combout\,
+	datae => \bigclock|ALT_INV_counter24h~23_combout\,
+	dataf => \bigclock|ALT_INV_deci_minute_s[3]~3_combout\,
 	combout => \bigclock|minute_s[3]~6_combout\);
 
--- Location: FF_X40_Y2_N2
+-- Location: FF_X42_Y6_N2
 \bigclock|minute_s[0]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -7275,17 +6056,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~1_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|minute_s\(0));
 
--- Location: LABCELL_X40_Y2_N3
+-- Location: MLABCELL_X42_Y6_N3
 \bigclock|Add3~5\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add3~5_sumout\ = SUM(( \bigclock|minute_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~2\ ))
--- \bigclock|Add3~6\ = CARRY(( \bigclock|minute_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~2\ ))
+-- \bigclock|Add3~5_sumout\ = SUM(( \bigclock|minute_s\(1) ) + ( GND ) + ( \bigclock|Add3~2\ ))
+-- \bigclock|Add3~6\ = CARRY(( \bigclock|minute_s\(1) ) + ( GND ) + ( \bigclock|Add3~2\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -7294,13 +6075,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_minute_s\(1),
 	cin => \bigclock|Add3~2\,
 	sumout => \bigclock|Add3~5_sumout\,
 	cout => \bigclock|Add3~6\);
 
--- Location: FF_X40_Y2_N5
-\bigclock|minute_s[1]~DUPLICATE\ : dffeas
+-- Location: FF_X42_Y6_N5
+\bigclock|minute_s[1]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -7310,17 +6091,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~5_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s[1]~DUPLICATE_q\);
+	q => \bigclock|minute_s\(1));
 
--- Location: LABCELL_X40_Y2_N6
+-- Location: MLABCELL_X42_Y6_N6
 \bigclock|Add3~9\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add3~9_sumout\ = SUM(( \bigclock|minute_s\(2) ) + ( GND ) + ( \bigclock|Add3~6\ ))
--- \bigclock|Add3~10\ = CARRY(( \bigclock|minute_s\(2) ) + ( GND ) + ( \bigclock|Add3~6\ ))
+-- \bigclock|Add3~9_sumout\ = SUM(( \bigclock|minute_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~6\ ))
+-- \bigclock|Add3~10\ = CARRY(( \bigclock|minute_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~6\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -7329,13 +6110,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s\(2),
+	datad => \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\,
 	cin => \bigclock|Add3~6\,
 	sumout => \bigclock|Add3~9_sumout\,
 	cout => \bigclock|Add3~10\);
 
--- Location: FF_X40_Y2_N7
-\bigclock|minute_s[2]\ : dffeas
+-- Location: FF_X41_Y6_N50
+\bigclock|minute_s[2]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -7343,15 +6124,16 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~9_sumout\,
+	asdata => \bigclock|Add3~9_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	sload => VCC,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s\(2));
+	q => \bigclock|minute_s[2]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y2_N9
+-- Location: MLABCELL_X42_Y6_N9
 \bigclock|Add3~13\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add3~13_sumout\ = SUM(( \bigclock|minute_s[3]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~10\ ))
@@ -7360,16 +6142,16 @@ PORT MAP (
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s[3]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_minute_s[3]~DUPLICATE_q\,
 	cin => \bigclock|Add3~10\,
 	sumout => \bigclock|Add3~13_sumout\,
 	cout => \bigclock|Add3~14\);
 
--- Location: FF_X40_Y2_N11
+-- Location: FF_X42_Y6_N10
 \bigclock|minute_s[3]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -7380,17 +6162,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~13_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|minute_s[3]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y2_N12
+-- Location: MLABCELL_X42_Y6_N12
 \bigclock|Add3~45\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add3~45_sumout\ = SUM(( \bigclock|minute_s[4]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~14\ ))
--- \bigclock|Add3~46\ = CARRY(( \bigclock|minute_s[4]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~14\ ))
+-- \bigclock|Add3~45_sumout\ = SUM(( \bigclock|minute_s\(4) ) + ( GND ) + ( \bigclock|Add3~14\ ))
+-- \bigclock|Add3~46\ = CARRY(( \bigclock|minute_s\(4) ) + ( GND ) + ( \bigclock|Add3~14\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -7399,13 +6181,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s[4]~DUPLICATE_q\,
+	datab => \bigclock|ALT_INV_minute_s\(4),
 	cin => \bigclock|Add3~14\,
 	sumout => \bigclock|Add3~45_sumout\,
 	cout => \bigclock|Add3~46\);
 
--- Location: FF_X40_Y2_N14
-\bigclock|minute_s[4]~DUPLICATE\ : dffeas
+-- Location: FF_X42_Y6_N14
+\bigclock|minute_s[4]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -7415,13 +6197,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~45_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s[4]~DUPLICATE_q\);
+	q => \bigclock|minute_s\(4));
 
--- Location: LABCELL_X40_Y2_N15
+-- Location: MLABCELL_X42_Y6_N15
 \bigclock|Add3~53\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add3~53_sumout\ = SUM(( \bigclock|minute_s\(5) ) + ( GND ) + ( \bigclock|Add3~46\ ))
@@ -7439,7 +6221,7 @@ PORT MAP (
 	sumout => \bigclock|Add3~53_sumout\,
 	cout => \bigclock|Add3~54\);
 
--- Location: FF_X40_Y2_N17
+-- Location: FF_X42_Y6_N17
 \bigclock|minute_s[5]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -7450,13 +6232,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~53_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|minute_s\(5));
 
--- Location: LABCELL_X40_Y2_N18
+-- Location: MLABCELL_X42_Y6_N18
 \bigclock|Add3~49\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add3~49_sumout\ = SUM(( \bigclock|minute_s\(6) ) + ( GND ) + ( \bigclock|Add3~54\ ))
@@ -7474,7 +6256,7 @@ PORT MAP (
 	sumout => \bigclock|Add3~49_sumout\,
 	cout => \bigclock|Add3~50\);
 
--- Location: FF_X40_Y2_N20
+-- Location: FF_X42_Y6_N20
 \bigclock|minute_s[6]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -7485,677 +6267,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~49_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|minute_s\(6));
 
--- Location: LABCELL_X40_Y2_N21
-\bigclock|Add3~17\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~17_sumout\ = SUM(( \bigclock|minute_s[7]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~50\ ))
--- \bigclock|Add3~18\ = CARRY(( \bigclock|minute_s[7]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~50\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s[7]~DUPLICATE_q\,
-	cin => \bigclock|Add3~50\,
-	sumout => \bigclock|Add3~17_sumout\,
-	cout => \bigclock|Add3~18\);
-
--- Location: FF_X40_Y2_N23
-\bigclock|minute_s[7]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~17_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s[7]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y2_N24
-\bigclock|Add3~89\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~89_sumout\ = SUM(( \bigclock|minute_s\(8) ) + ( GND ) + ( \bigclock|Add3~18\ ))
--- \bigclock|Add3~90\ = CARRY(( \bigclock|minute_s\(8) ) + ( GND ) + ( \bigclock|Add3~18\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(8),
-	cin => \bigclock|Add3~18\,
-	sumout => \bigclock|Add3~89_sumout\,
-	cout => \bigclock|Add3~90\);
-
--- Location: FF_X40_Y2_N26
-\bigclock|minute_s[8]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~89_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(8));
-
--- Location: LABCELL_X40_Y2_N27
-\bigclock|Add3~93\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~93_sumout\ = SUM(( \bigclock|minute_s\(9) ) + ( GND ) + ( \bigclock|Add3~90\ ))
--- \bigclock|Add3~94\ = CARRY(( \bigclock|minute_s\(9) ) + ( GND ) + ( \bigclock|Add3~90\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s\(9),
-	cin => \bigclock|Add3~90\,
-	sumout => \bigclock|Add3~93_sumout\,
-	cout => \bigclock|Add3~94\);
-
--- Location: FF_X40_Y2_N29
-\bigclock|minute_s[9]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~93_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(9));
-
--- Location: LABCELL_X40_Y2_N30
-\bigclock|Add3~97\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~97_sumout\ = SUM(( \bigclock|minute_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~94\ ))
--- \bigclock|Add3~98\ = CARRY(( \bigclock|minute_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~94\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s[10]~DUPLICATE_q\,
-	cin => \bigclock|Add3~94\,
-	sumout => \bigclock|Add3~97_sumout\,
-	cout => \bigclock|Add3~98\);
-
--- Location: LABCELL_X39_Y2_N27
-\bigclock|minute_s[10]~feeder\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|minute_s[10]~feeder_combout\ = ( \bigclock|Add3~97_sumout\ )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000011111111111111111111111111111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataf => \bigclock|ALT_INV_Add3~97_sumout\,
-	combout => \bigclock|minute_s[10]~feeder_combout\);
-
--- Location: FF_X39_Y2_N28
-\bigclock|minute_s[10]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|minute_s[10]~feeder_combout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s[10]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y2_N33
-\bigclock|Add3~101\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~101_sumout\ = SUM(( \bigclock|minute_s\(11) ) + ( GND ) + ( \bigclock|Add3~98\ ))
--- \bigclock|Add3~102\ = CARRY(( \bigclock|minute_s\(11) ) + ( GND ) + ( \bigclock|Add3~98\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s\(11),
-	cin => \bigclock|Add3~98\,
-	sumout => \bigclock|Add3~101_sumout\,
-	cout => \bigclock|Add3~102\);
-
--- Location: FF_X40_Y2_N35
-\bigclock|minute_s[11]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~101_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(11));
-
--- Location: LABCELL_X40_Y2_N36
-\bigclock|Add3~105\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~105_sumout\ = SUM(( \bigclock|minute_s\(12) ) + ( GND ) + ( \bigclock|Add3~102\ ))
--- \bigclock|Add3~106\ = CARRY(( \bigclock|minute_s\(12) ) + ( GND ) + ( \bigclock|Add3~102\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(12),
-	cin => \bigclock|Add3~102\,
-	sumout => \bigclock|Add3~105_sumout\,
-	cout => \bigclock|Add3~106\);
-
--- Location: FF_X40_Y2_N38
-\bigclock|minute_s[12]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(12));
-
--- Location: LABCELL_X40_Y2_N39
-\bigclock|Add3~77\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~77_sumout\ = SUM(( \bigclock|minute_s\(13) ) + ( GND ) + ( \bigclock|Add3~106\ ))
--- \bigclock|Add3~78\ = CARRY(( \bigclock|minute_s\(13) ) + ( GND ) + ( \bigclock|Add3~106\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(13),
-	cin => \bigclock|Add3~106\,
-	sumout => \bigclock|Add3~77_sumout\,
-	cout => \bigclock|Add3~78\);
-
--- Location: FF_X40_Y2_N40
-\bigclock|minute_s[13]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(13));
-
--- Location: LABCELL_X40_Y2_N42
-\bigclock|Add3~69\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~69_sumout\ = SUM(( \bigclock|minute_s\(14) ) + ( GND ) + ( \bigclock|Add3~78\ ))
--- \bigclock|Add3~70\ = CARRY(( \bigclock|minute_s\(14) ) + ( GND ) + ( \bigclock|Add3~78\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s\(14),
-	cin => \bigclock|Add3~78\,
-	sumout => \bigclock|Add3~69_sumout\,
-	cout => \bigclock|Add3~70\);
-
--- Location: FF_X40_Y2_N43
-\bigclock|minute_s[14]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~69_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(14));
-
--- Location: LABCELL_X40_Y2_N45
-\bigclock|Add3~109\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~109_sumout\ = SUM(( \bigclock|minute_s\(15) ) + ( GND ) + ( \bigclock|Add3~70\ ))
--- \bigclock|Add3~110\ = CARRY(( \bigclock|minute_s\(15) ) + ( GND ) + ( \bigclock|Add3~70\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(15),
-	cin => \bigclock|Add3~70\,
-	sumout => \bigclock|Add3~109_sumout\,
-	cout => \bigclock|Add3~110\);
-
--- Location: FF_X40_Y2_N47
-\bigclock|minute_s[15]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~109_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(15));
-
--- Location: LABCELL_X40_Y2_N48
-\bigclock|Add3~113\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~113_sumout\ = SUM(( \bigclock|minute_s\(16) ) + ( GND ) + ( \bigclock|Add3~110\ ))
--- \bigclock|Add3~114\ = CARRY(( \bigclock|minute_s\(16) ) + ( GND ) + ( \bigclock|Add3~110\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(16),
-	cin => \bigclock|Add3~110\,
-	sumout => \bigclock|Add3~113_sumout\,
-	cout => \bigclock|Add3~114\);
-
--- Location: FF_X40_Y2_N50
-\bigclock|minute_s[16]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~113_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(16));
-
--- Location: LABCELL_X40_Y2_N51
-\bigclock|Add3~117\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~117_sumout\ = SUM(( \bigclock|minute_s\(17) ) + ( GND ) + ( \bigclock|Add3~114\ ))
--- \bigclock|Add3~118\ = CARRY(( \bigclock|minute_s\(17) ) + ( GND ) + ( \bigclock|Add3~114\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s\(17),
-	cin => \bigclock|Add3~114\,
-	sumout => \bigclock|Add3~117_sumout\,
-	cout => \bigclock|Add3~118\);
-
--- Location: FF_X40_Y2_N53
-\bigclock|minute_s[17]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~117_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(17));
-
--- Location: LABCELL_X40_Y2_N54
-\bigclock|Add3~121\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~121_sumout\ = SUM(( \bigclock|minute_s\(18) ) + ( GND ) + ( \bigclock|Add3~118\ ))
--- \bigclock|Add3~122\ = CARRY(( \bigclock|minute_s\(18) ) + ( GND ) + ( \bigclock|Add3~118\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(18),
-	cin => \bigclock|Add3~118\,
-	sumout => \bigclock|Add3~121_sumout\,
-	cout => \bigclock|Add3~122\);
-
--- Location: FF_X40_Y2_N56
-\bigclock|minute_s[18]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(18));
-
--- Location: LABCELL_X40_Y2_N57
-\bigclock|Add3~81\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~81_sumout\ = SUM(( \bigclock|minute_s\(19) ) + ( GND ) + ( \bigclock|Add3~122\ ))
--- \bigclock|Add3~82\ = CARRY(( \bigclock|minute_s\(19) ) + ( GND ) + ( \bigclock|Add3~122\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(19),
-	cin => \bigclock|Add3~122\,
-	sumout => \bigclock|Add3~81_sumout\,
-	cout => \bigclock|Add3~82\);
-
--- Location: FF_X40_Y2_N59
-\bigclock|minute_s[19]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~81_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(19));
-
--- Location: LABCELL_X40_Y1_N0
-\bigclock|Add3~85\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~85_sumout\ = SUM(( \bigclock|minute_s\(20) ) + ( GND ) + ( \bigclock|Add3~82\ ))
--- \bigclock|Add3~86\ = CARRY(( \bigclock|minute_s\(20) ) + ( GND ) + ( \bigclock|Add3~82\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(20),
-	cin => \bigclock|Add3~82\,
-	sumout => \bigclock|Add3~85_sumout\,
-	cout => \bigclock|Add3~86\);
-
--- Location: FF_X40_Y1_N2
-\bigclock|minute_s[20]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~85_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(20));
-
--- Location: LABCELL_X40_Y1_N3
-\bigclock|Add3~41\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~41_sumout\ = SUM(( \bigclock|minute_s[21]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~86\ ))
--- \bigclock|Add3~42\ = CARRY(( \bigclock|minute_s[21]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~86\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s[21]~DUPLICATE_q\,
-	cin => \bigclock|Add3~86\,
-	sumout => \bigclock|Add3~41_sumout\,
-	cout => \bigclock|Add3~42\);
-
--- Location: FF_X40_Y1_N5
-\bigclock|minute_s[21]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s[21]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y1_N6
-\bigclock|Add3~37\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~37_sumout\ = SUM(( \bigclock|minute_s\(22) ) + ( GND ) + ( \bigclock|Add3~42\ ))
--- \bigclock|Add3~38\ = CARRY(( \bigclock|minute_s\(22) ) + ( GND ) + ( \bigclock|Add3~42\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(22),
-	cin => \bigclock|Add3~42\,
-	sumout => \bigclock|Add3~37_sumout\,
-	cout => \bigclock|Add3~38\);
-
--- Location: FF_X40_Y1_N7
-\bigclock|minute_s[22]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~37_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(22));
-
--- Location: LABCELL_X40_Y1_N9
-\bigclock|Add3~33\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~33_sumout\ = SUM(( \bigclock|minute_s\(23) ) + ( GND ) + ( \bigclock|Add3~38\ ))
--- \bigclock|Add3~34\ = CARRY(( \bigclock|minute_s\(23) ) + ( GND ) + ( \bigclock|Add3~38\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(23),
-	cin => \bigclock|Add3~38\,
-	sumout => \bigclock|Add3~33_sumout\,
-	cout => \bigclock|Add3~34\);
-
--- Location: FF_X40_Y1_N11
-\bigclock|minute_s[23]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~33_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(23));
-
--- Location: LABCELL_X40_Y1_N12
-\bigclock|Add3~29\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~29_sumout\ = SUM(( \bigclock|minute_s\(24) ) + ( GND ) + ( \bigclock|Add3~34\ ))
--- \bigclock|Add3~30\ = CARRY(( \bigclock|minute_s\(24) ) + ( GND ) + ( \bigclock|Add3~34\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s\(24),
-	cin => \bigclock|Add3~34\,
-	sumout => \bigclock|Add3~29_sumout\,
-	cout => \bigclock|Add3~30\);
-
--- Location: FF_X40_Y1_N14
-\bigclock|minute_s[24]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~29_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(24));
-
--- Location: LABCELL_X40_Y1_N15
+-- Location: MLABCELL_X42_Y6_N21
 \bigclock|Add3~73\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add3~73_sumout\ = SUM(( \bigclock|minute_s\(25) ) + ( GND ) + ( \bigclock|Add3~30\ ))
--- \bigclock|Add3~74\ = CARRY(( \bigclock|minute_s\(25) ) + ( GND ) + ( \bigclock|Add3~30\ ))
+-- \bigclock|Add3~73_sumout\ = SUM(( \bigclock|minute_s\(7) ) + ( GND ) + ( \bigclock|Add3~50\ ))
+-- \bigclock|Add3~74\ = CARRY(( \bigclock|minute_s\(7) ) + ( GND ) + ( \bigclock|Add3~50\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(25),
-	cin => \bigclock|Add3~30\,
+	datad => \bigclock|ALT_INV_minute_s\(7),
+	cin => \bigclock|Add3~50\,
 	sumout => \bigclock|Add3~73_sumout\,
 	cout => \bigclock|Add3~74\);
 
--- Location: FF_X40_Y1_N17
-\bigclock|minute_s[25]\ : dffeas
+-- Location: FF_X42_Y6_N23
+\bigclock|minute_s[7]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8165,70 +6302,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~73_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s\(25));
+	q => \bigclock|minute_s\(7));
 
--- Location: FF_X40_Y2_N1
-\bigclock|minute_s[0]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~1_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s[0]~DUPLICATE_q\);
-
--- Location: FF_X40_Y2_N4
-\bigclock|minute_s[1]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~5_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(1));
-
--- Location: LABCELL_X40_Y1_N54
-\bigclock|counter24h~1\ : cyclonev_lcell_comb
+-- Location: MLABCELL_X42_Y6_N24
+\bigclock|Add3~85\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~1_combout\ = ( !\bigclock|minute_s\(1) & ( !\bigclock|minute_s\(2) & ( (!\bigclock|minute_s\(25) & (!\bigclock|minute_s\(14) & \bigclock|minute_s[0]~DUPLICATE_q\)) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000011000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s\(25),
-	datac => \bigclock|ALT_INV_minute_s\(14),
-	datad => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
-	datae => \bigclock|ALT_INV_minute_s\(1),
-	dataf => \bigclock|ALT_INV_minute_s\(2),
-	combout => \bigclock|counter24h~1_combout\);
-
--- Location: LABCELL_X40_Y1_N18
-\bigclock|Add3~25\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~25_sumout\ = SUM(( \bigclock|minute_s\(26) ) + ( GND ) + ( \bigclock|Add3~74\ ))
--- \bigclock|Add3~26\ = CARRY(( \bigclock|minute_s\(26) ) + ( GND ) + ( \bigclock|Add3~74\ ))
+-- \bigclock|Add3~85_sumout\ = SUM(( \bigclock|minute_s\(8) ) + ( GND ) + ( \bigclock|Add3~74\ ))
+-- \bigclock|Add3~86\ = CARRY(( \bigclock|minute_s\(8) ) + ( GND ) + ( \bigclock|Add3~74\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -8237,13 +6321,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(26),
+	datac => \bigclock|ALT_INV_minute_s\(8),
 	cin => \bigclock|Add3~74\,
-	sumout => \bigclock|Add3~25_sumout\,
-	cout => \bigclock|Add3~26\);
+	sumout => \bigclock|Add3~85_sumout\,
+	cout => \bigclock|Add3~86\);
 
--- Location: FF_X40_Y1_N19
-\bigclock|minute_s[26]\ : dffeas
+-- Location: FF_X42_Y6_N26
+\bigclock|minute_s[8]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8251,19 +6335,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~25_sumout\,
+	d => \bigclock|Add3~85_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s\(26));
+	q => \bigclock|minute_s\(8));
 
--- Location: LABCELL_X40_Y1_N21
-\bigclock|Add3~21\ : cyclonev_lcell_comb
+-- Location: MLABCELL_X42_Y6_N27
+\bigclock|Add3~89\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add3~21_sumout\ = SUM(( \bigclock|minute_s\(27) ) + ( GND ) + ( \bigclock|Add3~26\ ))
--- \bigclock|Add3~22\ = CARRY(( \bigclock|minute_s\(27) ) + ( GND ) + ( \bigclock|Add3~26\ ))
+-- \bigclock|Add3~89_sumout\ = SUM(( \bigclock|minute_s[9]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~86\ ))
+-- \bigclock|Add3~90\ = CARRY(( \bigclock|minute_s[9]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~86\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -8272,13 +6356,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(27),
-	cin => \bigclock|Add3~26\,
-	sumout => \bigclock|Add3~21_sumout\,
-	cout => \bigclock|Add3~22\);
+	datac => \bigclock|ALT_INV_minute_s[9]~DUPLICATE_q\,
+	cin => \bigclock|Add3~86\,
+	sumout => \bigclock|Add3~89_sumout\,
+	cout => \bigclock|Add3~90\);
 
--- Location: FF_X40_Y1_N22
-\bigclock|minute_s[27]\ : dffeas
+-- Location: FF_X42_Y6_N28
+\bigclock|minute_s[9]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8286,122 +6370,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~21_sumout\,
+	d => \bigclock|Add3~89_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s\(27));
+	q => \bigclock|minute_s[9]~DUPLICATE_q\);
 
--- Location: LABCELL_X40_Y1_N24
-\bigclock|Add3~65\ : cyclonev_lcell_comb
+-- Location: MLABCELL_X42_Y6_N30
+\bigclock|Add3~93\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add3~65_sumout\ = SUM(( \bigclock|minute_s\(28) ) + ( GND ) + ( \bigclock|Add3~22\ ))
--- \bigclock|Add3~66\ = CARRY(( \bigclock|minute_s\(28) ) + ( GND ) + ( \bigclock|Add3~22\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(28),
-	cin => \bigclock|Add3~22\,
-	sumout => \bigclock|Add3~65_sumout\,
-	cout => \bigclock|Add3~66\);
-
--- Location: FF_X40_Y1_N26
-\bigclock|minute_s[28]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(28));
-
--- Location: FF_X40_Y1_N29
-\bigclock|minute_s[29]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s[29]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y1_N27
-\bigclock|Add3~61\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~61_sumout\ = SUM(( \bigclock|minute_s[29]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~66\ ))
--- \bigclock|Add3~62\ = CARRY(( \bigclock|minute_s[29]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~66\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_minute_s[29]~DUPLICATE_q\,
-	cin => \bigclock|Add3~66\,
-	sumout => \bigclock|Add3~61_sumout\,
-	cout => \bigclock|Add3~62\);
-
--- Location: FF_X40_Y1_N28
-\bigclock|minute_s[29]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(29));
-
--- Location: FF_X40_Y2_N13
-\bigclock|minute_s[4]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~45_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(4));
-
--- Location: LABCELL_X40_Y1_N30
-\bigclock|Add3~57\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add3~57_sumout\ = SUM(( \bigclock|minute_s\(30) ) + ( GND ) + ( \bigclock|Add3~62\ ))
+-- \bigclock|Add3~93_sumout\ = SUM(( \bigclock|minute_s\(10) ) + ( GND ) + ( \bigclock|Add3~90\ ))
+-- \bigclock|Add3~94\ = CARRY(( \bigclock|minute_s\(10) ) + ( GND ) + ( \bigclock|Add3~90\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -8410,137 +6391,12 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s\(30),
-	cin => \bigclock|Add3~62\,
-	sumout => \bigclock|Add3~57_sumout\);
+	datab => \bigclock|ALT_INV_minute_s\(10),
+	cin => \bigclock|Add3~90\,
+	sumout => \bigclock|Add3~93_sumout\,
+	cout => \bigclock|Add3~94\);
 
--- Location: FF_X40_Y1_N32
-\bigclock|minute_s[30]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~57_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(30));
-
--- Location: FF_X40_Y2_N19
-\bigclock|minute_s[6]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~49_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s[6]~DUPLICATE_q\);
-
--- Location: LABCELL_X40_Y1_N42
-\bigclock|counter24h~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~0_combout\ = ( !\bigclock|minute_s[6]~DUPLICATE_q\ & ( !\bigclock|minute_s\(5) & ( (!\bigclock|minute_s\(28) & (!\bigclock|minute_s\(29) & (!\bigclock|minute_s\(4) & !\bigclock|minute_s\(30)))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s\(28),
-	datab => \bigclock|ALT_INV_minute_s\(29),
-	datac => \bigclock|ALT_INV_minute_s\(4),
-	datad => \bigclock|ALT_INV_minute_s\(30),
-	datae => \bigclock|ALT_INV_minute_s[6]~DUPLICATE_q\,
-	dataf => \bigclock|ALT_INV_minute_s\(5),
-	combout => \bigclock|counter24h~0_combout\);
-
--- Location: FF_X40_Y1_N4
-\bigclock|minute_s[21]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s\(21));
-
--- Location: FF_X40_Y1_N10
-\bigclock|minute_s[23]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~33_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
-	ena => \bigclock|minute_s[3]~6_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|minute_s[23]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y1_N24
-\bigclock|counter24h~23\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~23_combout\ = ( !\bigclock|minute_s\(24) & ( !\bigclock|minute_s\(26) & ( (!\bigclock|minute_s\(22) & (!\bigclock|minute_s\(21) & (!\bigclock|minute_s\(27) & !\bigclock|minute_s[23]~DUPLICATE_q\))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s\(22),
-	datab => \bigclock|ALT_INV_minute_s\(21),
-	datac => \bigclock|ALT_INV_minute_s\(27),
-	datad => \bigclock|ALT_INV_minute_s[23]~DUPLICATE_q\,
-	datae => \bigclock|ALT_INV_minute_s\(24),
-	dataf => \bigclock|ALT_INV_minute_s\(26),
-	combout => \bigclock|counter24h~23_combout\);
-
--- Location: LABCELL_X39_Y2_N48
-\bigclock|counter24h~3\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~3_combout\ = ( !\bigclock|minute_s\(16) & ( !\bigclock|minute_s\(17) & ( (!\bigclock|minute_s\(15) & !\bigclock|minute_s\(18)) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1111000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_minute_s\(15),
-	datad => \bigclock|ALT_INV_minute_s\(18),
-	datae => \bigclock|ALT_INV_minute_s\(16),
-	dataf => \bigclock|ALT_INV_minute_s\(17),
-	combout => \bigclock|counter24h~3_combout\);
-
--- Location: FF_X39_Y2_N29
+-- Location: FF_X42_Y6_N32
 \bigclock|minute_s[10]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -8549,15 +6405,119 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|minute_s[10]~feeder_combout\,
+	d => \bigclock|Add3~93_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|minute_s\(10));
 
--- Location: LABCELL_X39_Y2_N42
+-- Location: FF_X42_Y6_N37
+\bigclock|minute_s[12]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s[12]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y6_N33
+\bigclock|Add3~97\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~97_sumout\ = SUM(( \bigclock|minute_s\(11) ) + ( GND ) + ( \bigclock|Add3~94\ ))
+-- \bigclock|Add3~98\ = CARRY(( \bigclock|minute_s\(11) ) + ( GND ) + ( \bigclock|Add3~94\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_minute_s\(11),
+	cin => \bigclock|Add3~94\,
+	sumout => \bigclock|Add3~97_sumout\,
+	cout => \bigclock|Add3~98\);
+
+-- Location: FF_X42_Y6_N35
+\bigclock|minute_s[11]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~97_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(11));
+
+-- Location: MLABCELL_X42_Y6_N36
+\bigclock|Add3~101\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~101_sumout\ = SUM(( \bigclock|minute_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~98\ ))
+-- \bigclock|Add3~102\ = CARRY(( \bigclock|minute_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~98\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_minute_s[12]~DUPLICATE_q\,
+	cin => \bigclock|Add3~98\,
+	sumout => \bigclock|Add3~101_sumout\,
+	cout => \bigclock|Add3~102\);
+
+-- Location: FF_X42_Y6_N38
+\bigclock|minute_s[12]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(12));
+
+-- Location: FF_X42_Y6_N29
+\bigclock|minute_s[9]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~89_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(9));
+
+-- Location: LABCELL_X41_Y6_N0
 \bigclock|counter24h~2\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|counter24h~2_combout\ = ( !\bigclock|minute_s\(8) & ( (!\bigclock|minute_s\(10) & (!\bigclock|minute_s\(12) & (!\bigclock|minute_s\(11) & !\bigclock|minute_s\(9)))) ) )
@@ -8576,8 +6536,26 @@ PORT MAP (
 	dataf => \bigclock|ALT_INV_minute_s\(8),
 	combout => \bigclock|counter24h~2_combout\);
 
--- Location: FF_X40_Y2_N22
-\bigclock|minute_s[7]\ : dffeas
+-- Location: MLABCELL_X42_Y6_N39
+\bigclock|Add3~65\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~65_sumout\ = SUM(( \bigclock|minute_s\(13) ) + ( GND ) + ( \bigclock|Add3~102\ ))
+-- \bigclock|Add3~66\ = CARRY(( \bigclock|minute_s\(13) ) + ( GND ) + ( \bigclock|Add3~102\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(13),
+	cin => \bigclock|Add3~102\,
+	sumout => \bigclock|Add3~65_sumout\,
+	cout => \bigclock|Add3~66\);
+
+-- Location: FF_X42_Y6_N41
+\bigclock|minute_s[13]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8585,16 +6563,489 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~17_sumout\,
+	d => \bigclock|Add3~65_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s\(7));
+	q => \bigclock|minute_s\(13));
 
--- Location: FF_X40_Y2_N58
+-- Location: MLABCELL_X42_Y6_N42
+\bigclock|Add3~77\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~77_sumout\ = SUM(( \bigclock|minute_s\(14) ) + ( GND ) + ( \bigclock|Add3~66\ ))
+-- \bigclock|Add3~78\ = CARRY(( \bigclock|minute_s\(14) ) + ( GND ) + ( \bigclock|Add3~66\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_minute_s\(14),
+	cin => \bigclock|Add3~66\,
+	sumout => \bigclock|Add3~77_sumout\,
+	cout => \bigclock|Add3~78\);
+
+-- Location: FF_X42_Y6_N44
+\bigclock|minute_s[14]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~77_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(14));
+
+-- Location: MLABCELL_X42_Y6_N45
+\bigclock|Add3~105\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~105_sumout\ = SUM(( \bigclock|minute_s\(15) ) + ( GND ) + ( \bigclock|Add3~78\ ))
+-- \bigclock|Add3~106\ = CARRY(( \bigclock|minute_s\(15) ) + ( GND ) + ( \bigclock|Add3~78\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(15),
+	cin => \bigclock|Add3~78\,
+	sumout => \bigclock|Add3~105_sumout\,
+	cout => \bigclock|Add3~106\);
+
+-- Location: FF_X42_Y6_N47
+\bigclock|minute_s[15]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~105_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(15));
+
+-- Location: MLABCELL_X42_Y6_N48
+\bigclock|Add3~109\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~109_sumout\ = SUM(( \bigclock|minute_s\(16) ) + ( GND ) + ( \bigclock|Add3~106\ ))
+-- \bigclock|Add3~110\ = CARRY(( \bigclock|minute_s\(16) ) + ( GND ) + ( \bigclock|Add3~106\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(16),
+	cin => \bigclock|Add3~106\,
+	sumout => \bigclock|Add3~109_sumout\,
+	cout => \bigclock|Add3~110\);
+
+-- Location: FF_X42_Y6_N50
+\bigclock|minute_s[16]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~109_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(16));
+
+-- Location: MLABCELL_X42_Y6_N51
+\bigclock|Add3~113\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~113_sumout\ = SUM(( \bigclock|minute_s\(17) ) + ( GND ) + ( \bigclock|Add3~110\ ))
+-- \bigclock|Add3~114\ = CARRY(( \bigclock|minute_s\(17) ) + ( GND ) + ( \bigclock|Add3~110\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_minute_s\(17),
+	cin => \bigclock|Add3~110\,
+	sumout => \bigclock|Add3~113_sumout\,
+	cout => \bigclock|Add3~114\);
+
+-- Location: FF_X42_Y6_N53
+\bigclock|minute_s[17]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~113_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(17));
+
+-- Location: FF_X42_Y6_N55
+\bigclock|minute_s[18]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~117_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s[18]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y6_N54
+\bigclock|Add3~117\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~117_sumout\ = SUM(( \bigclock|minute_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~114\ ))
+-- \bigclock|Add3~118\ = CARRY(( \bigclock|minute_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~114\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_minute_s[18]~DUPLICATE_q\,
+	cin => \bigclock|Add3~114\,
+	sumout => \bigclock|Add3~117_sumout\,
+	cout => \bigclock|Add3~118\);
+
+-- Location: FF_X42_Y6_N56
+\bigclock|minute_s[18]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~117_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(18));
+
+-- Location: FF_X42_Y6_N59
 \bigclock|minute_s[19]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~121_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s[19]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y6_N57
+\bigclock|Add3~121\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~121_sumout\ = SUM(( \bigclock|minute_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~118\ ))
+-- \bigclock|Add3~122\ = CARRY(( \bigclock|minute_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~118\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s[19]~DUPLICATE_q\,
+	cin => \bigclock|Add3~118\,
+	sumout => \bigclock|Add3~121_sumout\,
+	cout => \bigclock|Add3~122\);
+
+-- Location: FF_X42_Y6_N58
+\bigclock|minute_s[19]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~121_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(19));
+
+-- Location: LABCELL_X41_Y6_N42
+\bigclock|counter24h~3\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~3_combout\ = ( !\bigclock|minute_s\(19) & ( (!\bigclock|minute_s\(17) & (!\bigclock|minute_s\(18) & (!\bigclock|minute_s\(15) & !\bigclock|minute_s\(16)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000100000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_minute_s\(17),
+	datab => \bigclock|ALT_INV_minute_s\(18),
+	datac => \bigclock|ALT_INV_minute_s\(15),
+	datad => \bigclock|ALT_INV_minute_s\(16),
+	dataf => \bigclock|ALT_INV_minute_s\(19),
+	combout => \bigclock|counter24h~3_combout\);
+
+-- Location: FF_X42_Y5_N31
+\bigclock|minute_s[30]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~57_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s[30]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y5_N0
+\bigclock|Add3~69\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~69_sumout\ = SUM(( \bigclock|minute_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~122\ ))
+-- \bigclock|Add3~70\ = CARRY(( \bigclock|minute_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~122\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s[20]~DUPLICATE_q\,
+	cin => \bigclock|Add3~122\,
+	sumout => \bigclock|Add3~69_sumout\,
+	cout => \bigclock|Add3~70\);
+
+-- Location: FF_X42_Y5_N1
+\bigclock|minute_s[20]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~69_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s[20]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y5_N3
+\bigclock|Add3~21\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~21_sumout\ = SUM(( \bigclock|minute_s[21]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~70\ ))
+-- \bigclock|Add3~22\ = CARRY(( \bigclock|minute_s[21]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~70\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_minute_s[21]~DUPLICATE_q\,
+	cin => \bigclock|Add3~70\,
+	sumout => \bigclock|Add3~21_sumout\,
+	cout => \bigclock|Add3~22\);
+
+-- Location: FF_X42_Y5_N5
+\bigclock|minute_s[21]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s[21]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y5_N6
+\bigclock|Add3~41\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~41_sumout\ = SUM(( \bigclock|minute_s\(22) ) + ( GND ) + ( \bigclock|Add3~22\ ))
+-- \bigclock|Add3~42\ = CARRY(( \bigclock|minute_s\(22) ) + ( GND ) + ( \bigclock|Add3~22\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(22),
+	cin => \bigclock|Add3~22\,
+	sumout => \bigclock|Add3~41_sumout\,
+	cout => \bigclock|Add3~42\);
+
+-- Location: FF_X42_Y5_N7
+\bigclock|minute_s[22]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~41_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(22));
+
+-- Location: MLABCELL_X42_Y5_N9
+\bigclock|Add3~37\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~37_sumout\ = SUM(( \bigclock|minute_s\(23) ) + ( GND ) + ( \bigclock|Add3~42\ ))
+-- \bigclock|Add3~38\ = CARRY(( \bigclock|minute_s\(23) ) + ( GND ) + ( \bigclock|Add3~42\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(23),
+	cin => \bigclock|Add3~42\,
+	sumout => \bigclock|Add3~37_sumout\,
+	cout => \bigclock|Add3~38\);
+
+-- Location: FF_X42_Y5_N11
+\bigclock|minute_s[23]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~37_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(23));
+
+-- Location: MLABCELL_X42_Y5_N12
+\bigclock|Add3~33\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~33_sumout\ = SUM(( \bigclock|minute_s\(24) ) + ( GND ) + ( \bigclock|Add3~38\ ))
+-- \bigclock|Add3~34\ = CARRY(( \bigclock|minute_s\(24) ) + ( GND ) + ( \bigclock|Add3~38\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_minute_s\(24),
+	cin => \bigclock|Add3~38\,
+	sumout => \bigclock|Add3~33_sumout\,
+	cout => \bigclock|Add3~34\);
+
+-- Location: FF_X42_Y5_N14
+\bigclock|minute_s[24]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~33_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(24));
+
+-- Location: MLABCELL_X42_Y5_N15
+\bigclock|Add3~81\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~81_sumout\ = SUM(( \bigclock|minute_s\(25) ) + ( GND ) + ( \bigclock|Add3~34\ ))
+-- \bigclock|Add3~82\ = CARRY(( \bigclock|minute_s\(25) ) + ( GND ) + ( \bigclock|Add3~34\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(25),
+	cin => \bigclock|Add3~34\,
+	sumout => \bigclock|Add3~81_sumout\,
+	cout => \bigclock|Add3~82\);
+
+-- Location: FF_X42_Y5_N17
+\bigclock|minute_s[25]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8604,70 +7055,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add3~81_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s[19]~DUPLICATE_q\);
+	q => \bigclock|minute_s\(25));
 
--- Location: LABCELL_X40_Y1_N48
-\bigclock|counter24h~24\ : cyclonev_lcell_comb
+-- Location: MLABCELL_X42_Y5_N18
+\bigclock|Add3~29\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~24_combout\ = ( !\bigclock|minute_s\(13) & ( (\bigclock|minute_s[3]~DUPLICATE_q\ & (!\bigclock|minute_s\(7) & (!\bigclock|minute_s[19]~DUPLICATE_q\ & !\bigclock|minute_s\(20)))) ) )
+-- \bigclock|Add3~29_sumout\ = SUM(( \bigclock|minute_s[26]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~82\ ))
+-- \bigclock|Add3~30\ = CARRY(( \bigclock|minute_s[26]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~82\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0100000000000000010000000000000000000000000000000000000000000000",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s[3]~DUPLICATE_q\,
-	datab => \bigclock|ALT_INV_minute_s\(7),
-	datac => \bigclock|ALT_INV_minute_s[19]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_minute_s\(20),
-	dataf => \bigclock|ALT_INV_minute_s\(13),
-	combout => \bigclock|counter24h~24_combout\);
+	datac => \bigclock|ALT_INV_minute_s[26]~DUPLICATE_q\,
+	cin => \bigclock|Add3~82\,
+	sumout => \bigclock|Add3~29_sumout\,
+	cout => \bigclock|Add3~30\);
 
--- Location: LABCELL_X40_Y1_N36
-\bigclock|counter24h~4\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~4_combout\ = ( \bigclock|counter24h~2_combout\ & ( \bigclock|counter24h~24_combout\ & ( (\bigclock|counter24h~1_combout\ & (\bigclock|counter24h~0_combout\ & (\bigclock|counter24h~23_combout\ & \bigclock|counter24h~3_combout\))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_counter24h~1_combout\,
-	datab => \bigclock|ALT_INV_counter24h~0_combout\,
-	datac => \bigclock|ALT_INV_counter24h~23_combout\,
-	datad => \bigclock|ALT_INV_counter24h~3_combout\,
-	datae => \bigclock|ALT_INV_counter24h~2_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~24_combout\,
-	combout => \bigclock|counter24h~4_combout\);
-
--- Location: LABCELL_X40_Y3_N27
-\bigclock|deci_minute_s[3]~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|deci_minute_s[3]~0_combout\ = ( \bigclock|minute_s[8]~5_combout\ & ( (\bigclock|counter24h~4_combout\ & \bigclock|clk_state_s.counting~q\) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000101000001010000010100000101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_counter24h~4_combout\,
-	datac => \bigclock|ALT_INV_clk_state_s.counting~q\,
-	dataf => \bigclock|ALT_INV_minute_s[8]~5_combout\,
-	combout => \bigclock|deci_minute_s[3]~0_combout\);
-
--- Location: FF_X41_Y5_N2
-\bigclock|deci_minute_s[0]\ : dffeas
+-- Location: FF_X42_Y5_N20
+\bigclock|minute_s[26]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8675,19 +7088,89 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~1_sumout\,
+	d => \bigclock|Add3~29_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(0));
+	q => \bigclock|minute_s[26]~DUPLICATE_q\);
 
--- Location: LABCELL_X41_Y5_N3
-\bigclock|Add2~5\ : cyclonev_lcell_comb
+-- Location: MLABCELL_X42_Y5_N21
+\bigclock|Add3~25\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add2~5_sumout\ = SUM(( \bigclock|deci_minute_s\(1) ) + ( GND ) + ( \bigclock|Add2~2\ ))
--- \bigclock|Add2~6\ = CARRY(( \bigclock|deci_minute_s\(1) ) + ( GND ) + ( \bigclock|Add2~2\ ))
+-- \bigclock|Add3~25_sumout\ = SUM(( \bigclock|minute_s\(27) ) + ( GND ) + ( \bigclock|Add3~30\ ))
+-- \bigclock|Add3~26\ = CARRY(( \bigclock|minute_s\(27) ) + ( GND ) + ( \bigclock|Add3~30\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(27),
+	cin => \bigclock|Add3~30\,
+	sumout => \bigclock|Add3~25_sumout\,
+	cout => \bigclock|Add3~26\);
+
+-- Location: FF_X42_Y5_N22
+\bigclock|minute_s[27]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~25_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(27));
+
+-- Location: MLABCELL_X42_Y5_N24
+\bigclock|Add3~17\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~17_sumout\ = SUM(( \bigclock|minute_s\(28) ) + ( GND ) + ( \bigclock|Add3~26\ ))
+-- \bigclock|Add3~18\ = CARRY(( \bigclock|minute_s\(28) ) + ( GND ) + ( \bigclock|Add3~26\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_minute_s\(28),
+	cin => \bigclock|Add3~26\,
+	sumout => \bigclock|Add3~17_sumout\,
+	cout => \bigclock|Add3~18\);
+
+-- Location: FF_X42_Y5_N26
+\bigclock|minute_s[28]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~17_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(28));
+
+-- Location: MLABCELL_X42_Y5_N27
+\bigclock|Add3~61\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add3~61_sumout\ = SUM(( \bigclock|minute_s[29]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~18\ ))
+-- \bigclock|Add3~62\ = CARRY(( \bigclock|minute_s[29]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~18\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -8696,13 +7179,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s\(1),
-	cin => \bigclock|Add2~2\,
-	sumout => \bigclock|Add2~5_sumout\,
-	cout => \bigclock|Add2~6\);
+	datad => \bigclock|ALT_INV_minute_s[29]~DUPLICATE_q\,
+	cin => \bigclock|Add3~18\,
+	sumout => \bigclock|Add3~61_sumout\,
+	cout => \bigclock|Add3~62\);
 
--- Location: FF_X41_Y5_N5
-\bigclock|deci_minute_s[1]\ : dffeas
+-- Location: FF_X42_Y5_N29
+\bigclock|minute_s[29]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8710,71 +7193,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~5_sumout\,
+	d => \bigclock|Add3~61_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(1));
+	q => \bigclock|minute_s[29]~DUPLICATE_q\);
 
--- Location: LABCELL_X41_Y5_N6
-\bigclock|Add2~9\ : cyclonev_lcell_comb
+-- Location: MLABCELL_X42_Y5_N30
+\bigclock|Add3~57\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add2~9_sumout\ = SUM(( \bigclock|deci_minute_s\(2) ) + ( GND ) + ( \bigclock|Add2~6\ ))
--- \bigclock|Add2~10\ = CARRY(( \bigclock|deci_minute_s\(2) ) + ( GND ) + ( \bigclock|Add2~6\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s\(2),
-	cin => \bigclock|Add2~6\,
-	sumout => \bigclock|Add2~9_sumout\,
-	cout => \bigclock|Add2~10\);
-
--- Location: FF_X41_Y5_N7
-\bigclock|deci_minute_s[2]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~9_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(2));
-
--- Location: FF_X41_Y5_N32
-\bigclock|deci_minute_s[10]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[10]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N9
-\bigclock|Add2~13\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~13_sumout\ = SUM(( \bigclock|deci_minute_s\(3) ) + ( GND ) + ( \bigclock|Add2~10\ ))
--- \bigclock|Add2~14\ = CARRY(( \bigclock|deci_minute_s\(3) ) + ( GND ) + ( \bigclock|Add2~10\ ))
+-- \bigclock|Add3~57_sumout\ = SUM(( \bigclock|minute_s[30]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add3~62\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -8783,13 +7213,12 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(3),
-	cin => \bigclock|Add2~10\,
-	sumout => \bigclock|Add2~13_sumout\,
-	cout => \bigclock|Add2~14\);
+	datac => \bigclock|ALT_INV_minute_s[30]~DUPLICATE_q\,
+	cin => \bigclock|Add3~62\,
+	sumout => \bigclock|Add3~57_sumout\);
 
--- Location: FF_X41_Y5_N11
-\bigclock|deci_minute_s[3]\ : dffeas
+-- Location: FF_X42_Y5_N32
+\bigclock|minute_s[30]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -8797,1087 +7226,35 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~13_sumout\,
+	d => \bigclock|Add3~57_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(3));
+	q => \bigclock|minute_s\(30));
 
--- Location: LABCELL_X41_Y5_N12
-\bigclock|Add2~25\ : cyclonev_lcell_comb
+-- Location: FF_X42_Y5_N28
+\bigclock|minute_s[29]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~61_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(29));
+
+-- Location: LABCELL_X41_Y6_N24
+\bigclock|counter24h~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add2~25_sumout\ = SUM(( \bigclock|deci_minute_s\(4) ) + ( GND ) + ( \bigclock|Add2~14\ ))
--- \bigclock|Add2~26\ = CARRY(( \bigclock|deci_minute_s\(4) ) + ( GND ) + ( \bigclock|Add2~14\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_deci_minute_s\(4),
-	cin => \bigclock|Add2~14\,
-	sumout => \bigclock|Add2~25_sumout\,
-	cout => \bigclock|Add2~26\);
-
--- Location: FF_X41_Y5_N14
-\bigclock|deci_minute_s[4]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~25_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(4));
-
--- Location: LABCELL_X41_Y5_N15
-\bigclock|Add2~21\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~21_sumout\ = SUM(( \bigclock|deci_minute_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~26\ ))
--- \bigclock|Add2~22\ = CARRY(( \bigclock|deci_minute_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~26\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s[5]~DUPLICATE_q\,
-	cin => \bigclock|Add2~26\,
-	sumout => \bigclock|Add2~21_sumout\,
-	cout => \bigclock|Add2~22\);
-
--- Location: FF_X41_Y5_N17
-\bigclock|deci_minute_s[5]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~21_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[5]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N18
-\bigclock|Add2~17\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~17_sumout\ = SUM(( \bigclock|deci_minute_s\(6) ) + ( GND ) + ( \bigclock|Add2~22\ ))
--- \bigclock|Add2~18\ = CARRY(( \bigclock|deci_minute_s\(6) ) + ( GND ) + ( \bigclock|Add2~22\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(6),
-	cin => \bigclock|Add2~22\,
-	sumout => \bigclock|Add2~17_sumout\,
-	cout => \bigclock|Add2~18\);
-
--- Location: FF_X41_Y5_N20
-\bigclock|deci_minute_s[6]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~17_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(6));
-
--- Location: LABCELL_X41_Y5_N21
-\bigclock|Add2~77\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~77_sumout\ = SUM(( \bigclock|deci_minute_s[7]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~18\ ))
--- \bigclock|Add2~78\ = CARRY(( \bigclock|deci_minute_s[7]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~18\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s[7]~DUPLICATE_q\,
-	cin => \bigclock|Add2~18\,
-	sumout => \bigclock|Add2~77_sumout\,
-	cout => \bigclock|Add2~78\);
-
--- Location: FF_X41_Y5_N23
-\bigclock|deci_minute_s[7]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[7]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N24
-\bigclock|Add2~73\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~73_sumout\ = SUM(( \bigclock|deci_minute_s\(8) ) + ( GND ) + ( \bigclock|Add2~78\ ))
--- \bigclock|Add2~74\ = CARRY(( \bigclock|deci_minute_s\(8) ) + ( GND ) + ( \bigclock|Add2~78\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(8),
-	cin => \bigclock|Add2~78\,
-	sumout => \bigclock|Add2~73_sumout\,
-	cout => \bigclock|Add2~74\);
-
--- Location: FF_X41_Y5_N26
-\bigclock|deci_minute_s[8]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~73_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(8));
-
--- Location: LABCELL_X41_Y5_N27
-\bigclock|Add2~69\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~69_sumout\ = SUM(( \bigclock|deci_minute_s[9]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~74\ ))
--- \bigclock|Add2~70\ = CARRY(( \bigclock|deci_minute_s[9]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~74\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s[9]~DUPLICATE_q\,
-	cin => \bigclock|Add2~74\,
-	sumout => \bigclock|Add2~69_sumout\,
-	cout => \bigclock|Add2~70\);
-
--- Location: FF_X41_Y4_N58
-\bigclock|deci_minute_s[9]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add2~69_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	sload => VCC,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[9]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N30
-\bigclock|Add2~61\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~61_sumout\ = SUM(( \bigclock|deci_minute_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~70\ ))
--- \bigclock|Add2~62\ = CARRY(( \bigclock|deci_minute_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~70\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_deci_minute_s[10]~DUPLICATE_q\,
-	cin => \bigclock|Add2~70\,
-	sumout => \bigclock|Add2~61_sumout\,
-	cout => \bigclock|Add2~62\);
-
--- Location: FF_X41_Y5_N31
-\bigclock|deci_minute_s[10]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~61_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(10));
-
--- Location: FF_X41_Y5_N10
-\bigclock|deci_minute_s[3]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~13_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[3]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N33
-\bigclock|Add2~117\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~117_sumout\ = SUM(( \bigclock|deci_minute_s\(11) ) + ( GND ) + ( \bigclock|Add2~62\ ))
--- \bigclock|Add2~118\ = CARRY(( \bigclock|deci_minute_s\(11) ) + ( GND ) + ( \bigclock|Add2~62\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(11),
-	cin => \bigclock|Add2~62\,
-	sumout => \bigclock|Add2~117_sumout\,
-	cout => \bigclock|Add2~118\);
-
--- Location: FF_X41_Y5_N35
-\bigclock|deci_minute_s[11]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~117_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(11));
-
--- Location: LABCELL_X41_Y5_N36
-\bigclock|Add2~113\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~113_sumout\ = SUM(( \bigclock|deci_minute_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~118\ ))
--- \bigclock|Add2~114\ = CARRY(( \bigclock|deci_minute_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~118\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s[12]~DUPLICATE_q\,
-	cin => \bigclock|Add2~118\,
-	sumout => \bigclock|Add2~113_sumout\,
-	cout => \bigclock|Add2~114\);
-
--- Location: FF_X41_Y5_N38
-\bigclock|deci_minute_s[12]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~113_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[12]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N39
-\bigclock|Add2~109\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~109_sumout\ = SUM(( \bigclock|deci_minute_s\(13) ) + ( GND ) + ( \bigclock|Add2~114\ ))
--- \bigclock|Add2~110\ = CARRY(( \bigclock|deci_minute_s\(13) ) + ( GND ) + ( \bigclock|Add2~114\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(13),
-	cin => \bigclock|Add2~114\,
-	sumout => \bigclock|Add2~109_sumout\,
-	cout => \bigclock|Add2~110\);
-
--- Location: FF_X41_Y5_N41
-\bigclock|deci_minute_s[13]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~109_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(13));
-
--- Location: LABCELL_X41_Y5_N42
-\bigclock|Add2~57\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~57_sumout\ = SUM(( \bigclock|deci_minute_s\(14) ) + ( GND ) + ( \bigclock|Add2~110\ ))
--- \bigclock|Add2~58\ = CARRY(( \bigclock|deci_minute_s\(14) ) + ( GND ) + ( \bigclock|Add2~110\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s\(14),
-	cin => \bigclock|Add2~110\,
-	sumout => \bigclock|Add2~57_sumout\,
-	cout => \bigclock|Add2~58\);
-
--- Location: FF_X41_Y5_N43
-\bigclock|deci_minute_s[14]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~57_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(14));
-
--- Location: LABCELL_X40_Y3_N33
-\bigclock|counter24h~26\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~26_combout\ = ( !\bigclock|deci_minute_s\(14) & ( (\bigclock|deci_minute_s\(2) & (!\bigclock|deci_minute_s\(10) & (!\bigclock|deci_minute_s[3]~DUPLICATE_q\ & !\bigclock|deci_minute_s\(1)))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0100000000000000010000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(2),
-	datab => \bigclock|ALT_INV_deci_minute_s\(10),
-	datac => \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_deci_minute_s\(1),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(14),
-	combout => \bigclock|counter24h~26_combout\);
-
--- Location: FF_X41_Y4_N8
-\bigclock|deci_minute_s[22]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[22]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N45
-\bigclock|Add2~89\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~89_sumout\ = SUM(( \bigclock|deci_minute_s\(15) ) + ( GND ) + ( \bigclock|Add2~58\ ))
--- \bigclock|Add2~90\ = CARRY(( \bigclock|deci_minute_s\(15) ) + ( GND ) + ( \bigclock|Add2~58\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(15),
-	cin => \bigclock|Add2~58\,
-	sumout => \bigclock|Add2~89_sumout\,
-	cout => \bigclock|Add2~90\);
-
--- Location: FF_X41_Y5_N47
-\bigclock|deci_minute_s[15]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~89_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(15));
-
--- Location: LABCELL_X41_Y5_N48
-\bigclock|Add2~105\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~105_sumout\ = SUM(( \bigclock|deci_minute_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~90\ ))
--- \bigclock|Add2~106\ = CARRY(( \bigclock|deci_minute_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~90\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s[16]~DUPLICATE_q\,
-	cin => \bigclock|Add2~90\,
-	sumout => \bigclock|Add2~105_sumout\,
-	cout => \bigclock|Add2~106\);
-
--- Location: FF_X41_Y5_N50
-\bigclock|deci_minute_s[16]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[16]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N51
-\bigclock|Add2~101\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~101_sumout\ = SUM(( \bigclock|deci_minute_s[17]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~106\ ))
--- \bigclock|Add2~102\ = CARRY(( \bigclock|deci_minute_s[17]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~106\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s[17]~DUPLICATE_q\,
-	cin => \bigclock|Add2~106\,
-	sumout => \bigclock|Add2~101_sumout\,
-	cout => \bigclock|Add2~102\);
-
--- Location: FF_X41_Y5_N53
-\bigclock|deci_minute_s[17]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~101_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[17]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N54
-\bigclock|Add2~41\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~41_sumout\ = SUM(( \bigclock|deci_minute_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~102\ ))
--- \bigclock|Add2~42\ = CARRY(( \bigclock|deci_minute_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~102\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s[18]~DUPLICATE_q\,
-	cin => \bigclock|Add2~102\,
-	sumout => \bigclock|Add2~41_sumout\,
-	cout => \bigclock|Add2~42\);
-
--- Location: FF_X41_Y5_N56
-\bigclock|deci_minute_s[18]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[18]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y5_N57
-\bigclock|Add2~65\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~65_sumout\ = SUM(( \bigclock|deci_minute_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~42\ ))
--- \bigclock|Add2~66\ = CARRY(( \bigclock|deci_minute_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~42\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s[19]~DUPLICATE_q\,
-	cin => \bigclock|Add2~42\,
-	sumout => \bigclock|Add2~65_sumout\,
-	cout => \bigclock|Add2~66\);
-
--- Location: FF_X41_Y5_N59
-\bigclock|deci_minute_s[19]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[19]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y4_N0
-\bigclock|Add2~85\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~85_sumout\ = SUM(( \bigclock|deci_minute_s\(20) ) + ( GND ) + ( \bigclock|Add2~66\ ))
--- \bigclock|Add2~86\ = CARRY(( \bigclock|deci_minute_s\(20) ) + ( GND ) + ( \bigclock|Add2~66\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(20),
-	cin => \bigclock|Add2~66\,
-	sumout => \bigclock|Add2~85_sumout\,
-	cout => \bigclock|Add2~86\);
-
--- Location: FF_X41_Y4_N2
-\bigclock|deci_minute_s[20]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~85_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(20));
-
--- Location: LABCELL_X41_Y4_N3
-\bigclock|Add2~81\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~81_sumout\ = SUM(( \bigclock|deci_minute_s\(21) ) + ( GND ) + ( \bigclock|Add2~86\ ))
--- \bigclock|Add2~82\ = CARRY(( \bigclock|deci_minute_s\(21) ) + ( GND ) + ( \bigclock|Add2~86\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s\(21),
-	cin => \bigclock|Add2~86\,
-	sumout => \bigclock|Add2~81_sumout\,
-	cout => \bigclock|Add2~82\);
-
--- Location: FF_X41_Y4_N5
-\bigclock|deci_minute_s[21]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~81_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(21));
-
--- Location: LABCELL_X41_Y4_N6
-\bigclock|Add2~121\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~121_sumout\ = SUM(( \bigclock|deci_minute_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~82\ ))
--- \bigclock|Add2~122\ = CARRY(( \bigclock|deci_minute_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~82\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_deci_minute_s[22]~DUPLICATE_q\,
-	cin => \bigclock|Add2~82\,
-	sumout => \bigclock|Add2~121_sumout\,
-	cout => \bigclock|Add2~122\);
-
--- Location: FF_X41_Y4_N7
-\bigclock|deci_minute_s[22]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~121_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(22));
-
--- Location: FF_X41_Y5_N1
-\bigclock|deci_minute_s[0]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~1_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[0]~DUPLICATE_q\);
-
--- Location: FF_X41_Y5_N37
-\bigclock|deci_minute_s[12]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~113_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(12));
-
--- Location: LABCELL_X41_Y3_N12
-\bigclock|counter24h~8\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~8_combout\ = ( !\bigclock|deci_minute_s\(13) & ( (!\bigclock|deci_minute_s\(22) & (\bigclock|deci_minute_s[0]~DUPLICATE_q\ & (!\bigclock|deci_minute_s\(11) & !\bigclock|deci_minute_s\(12)))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0010000000000000001000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(22),
-	datab => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	datac => \bigclock|ALT_INV_deci_minute_s\(11),
-	datad => \bigclock|ALT_INV_deci_minute_s\(12),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(13),
-	combout => \bigclock|counter24h~8_combout\);
-
--- Location: LABCELL_X41_Y4_N9
-\bigclock|Add2~45\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~45_sumout\ = SUM(( \bigclock|deci_minute_s\(23) ) + ( GND ) + ( \bigclock|Add2~122\ ))
--- \bigclock|Add2~46\ = CARRY(( \bigclock|deci_minute_s\(23) ) + ( GND ) + ( \bigclock|Add2~122\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s\(23),
-	cin => \bigclock|Add2~122\,
-	sumout => \bigclock|Add2~45_sumout\,
-	cout => \bigclock|Add2~46\);
-
--- Location: FF_X41_Y4_N10
-\bigclock|deci_minute_s[23]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~45_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(23));
-
--- Location: LABCELL_X41_Y4_N12
-\bigclock|Add2~37\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~37_sumout\ = SUM(( \bigclock|deci_minute_s\(24) ) + ( GND ) + ( \bigclock|Add2~46\ ))
--- \bigclock|Add2~38\ = CARRY(( \bigclock|deci_minute_s\(24) ) + ( GND ) + ( \bigclock|Add2~46\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_deci_minute_s\(24),
-	cin => \bigclock|Add2~46\,
-	sumout => \bigclock|Add2~37_sumout\,
-	cout => \bigclock|Add2~38\);
-
--- Location: FF_X41_Y4_N14
-\bigclock|deci_minute_s[24]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~37_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(24));
-
--- Location: LABCELL_X41_Y4_N15
-\bigclock|Add2~49\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~49_sumout\ = SUM(( \bigclock|deci_minute_s\(25) ) + ( GND ) + ( \bigclock|Add2~38\ ))
--- \bigclock|Add2~50\ = CARRY(( \bigclock|deci_minute_s\(25) ) + ( GND ) + ( \bigclock|Add2~38\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(25),
-	cin => \bigclock|Add2~38\,
-	sumout => \bigclock|Add2~49_sumout\,
-	cout => \bigclock|Add2~50\);
-
--- Location: FF_X41_Y4_N17
-\bigclock|deci_minute_s[25]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~49_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(25));
-
--- Location: LABCELL_X41_Y4_N18
-\bigclock|Add2~53\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~53_sumout\ = SUM(( \bigclock|deci_minute_s\(26) ) + ( GND ) + ( \bigclock|Add2~50\ ))
--- \bigclock|Add2~54\ = CARRY(( \bigclock|deci_minute_s\(26) ) + ( GND ) + ( \bigclock|Add2~50\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(26),
-	cin => \bigclock|Add2~50\,
-	sumout => \bigclock|Add2~53_sumout\,
-	cout => \bigclock|Add2~54\);
-
--- Location: FF_X41_Y4_N20
-\bigclock|deci_minute_s[26]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~53_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(26));
-
--- Location: LABCELL_X41_Y4_N21
-\bigclock|Add2~97\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~97_sumout\ = SUM(( \bigclock|deci_minute_s[27]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~54\ ))
--- \bigclock|Add2~98\ = CARRY(( \bigclock|deci_minute_s[27]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~54\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s[27]~DUPLICATE_q\,
-	cin => \bigclock|Add2~54\,
-	sumout => \bigclock|Add2~97_sumout\,
-	cout => \bigclock|Add2~98\);
-
--- Location: FF_X41_Y4_N23
-\bigclock|deci_minute_s[27]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~97_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s[27]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y4_N24
-\bigclock|Add2~93\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add2~93_sumout\ = SUM(( \bigclock|deci_minute_s\(28) ) + ( GND ) + ( \bigclock|Add2~98\ ))
--- \bigclock|Add2~94\ = CARRY(( \bigclock|deci_minute_s\(28) ) + ( GND ) + ( \bigclock|Add2~98\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s\(28),
-	cin => \bigclock|Add2~98\,
-	sumout => \bigclock|Add2~93_sumout\,
-	cout => \bigclock|Add2~94\);
-
--- Location: FF_X41_Y4_N26
-\bigclock|deci_minute_s[28]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~93_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(28));
-
--- Location: FF_X41_Y4_N22
-\bigclock|deci_minute_s[27]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~97_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(27));
-
--- Location: FF_X41_Y5_N52
-\bigclock|deci_minute_s[17]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~101_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(17));
-
--- Location: FF_X41_Y5_N49
-\bigclock|deci_minute_s[16]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(16));
-
--- Location: LABCELL_X41_Y4_N42
-\bigclock|counter24h~7\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~7_combout\ = ( !\bigclock|deci_minute_s\(17) & ( !\bigclock|deci_minute_s\(16) & ( (!\bigclock|deci_minute_s\(28) & (!\bigclock|deci_minute_s\(15) & !\bigclock|deci_minute_s\(27))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(28),
-	datac => \bigclock|ALT_INV_deci_minute_s\(15),
-	datad => \bigclock|ALT_INV_deci_minute_s\(27),
-	datae => \bigclock|ALT_INV_deci_minute_s\(17),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(16),
-	combout => \bigclock|counter24h~7_combout\);
-
--- Location: FF_X41_Y5_N55
-\bigclock|deci_minute_s[18]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~41_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(18));
-
--- Location: LABCELL_X41_Y4_N36
-\bigclock|counter24h~5\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~5_combout\ = ( !\bigclock|deci_minute_s\(23) & ( !\bigclock|deci_minute_s\(18) & ( (!\bigclock|deci_minute_s\(24) & (!\bigclock|deci_minute_s\(26) & !\bigclock|deci_minute_s\(25))) ) ) )
+-- \bigclock|counter24h~0_combout\ = ( !\bigclock|minute_s\(30) & ( !\bigclock|minute_s\(29) & ( (!\bigclock|minute_s\(6) & (!\bigclock|minute_s\(5) & !\bigclock|minute_s\(4))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
@@ -9886,33 +7263,85 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_minute_s\(24),
-	datac => \bigclock|ALT_INV_deci_minute_s\(26),
-	datad => \bigclock|ALT_INV_deci_minute_s\(25),
-	datae => \bigclock|ALT_INV_deci_minute_s\(23),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(18),
-	combout => \bigclock|counter24h~5_combout\);
+	datab => \bigclock|ALT_INV_minute_s\(6),
+	datac => \bigclock|ALT_INV_minute_s\(5),
+	datad => \bigclock|ALT_INV_minute_s\(4),
+	datae => \bigclock|ALT_INV_minute_s\(30),
+	dataf => \bigclock|ALT_INV_minute_s\(29),
+	combout => \bigclock|counter24h~0_combout\);
 
--- Location: LABCELL_X41_Y4_N27
-\bigclock|Add2~33\ : cyclonev_lcell_comb
+-- Location: FF_X42_Y6_N11
+\bigclock|minute_s[3]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~13_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(3));
+
+-- Location: FF_X42_Y5_N2
+\bigclock|minute_s[20]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~69_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(20));
+
+-- Location: FF_X42_Y5_N4
+\bigclock|minute_s[21]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s\(21));
+
+-- Location: LABCELL_X41_Y6_N6
+\bigclock|counter24h~27\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add2~33_sumout\ = SUM(( \bigclock|deci_minute_s\(29) ) + ( GND ) + ( \bigclock|Add2~94\ ))
--- \bigclock|Add2~34\ = CARRY(( \bigclock|deci_minute_s\(29) ) + ( GND ) + ( \bigclock|Add2~94\ ))
+-- \bigclock|counter24h~27_combout\ = ( !\bigclock|minute_s\(28) & ( !\bigclock|minute_s\(21) & ( (\bigclock|minute_s\(3) & (!\bigclock|minute_s\(13) & !\bigclock|minute_s\(20))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0101000000000000000000000000000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_minute_s\(29),
-	cin => \bigclock|Add2~94\,
-	sumout => \bigclock|Add2~33_sumout\,
-	cout => \bigclock|Add2~34\);
+	dataa => \bigclock|ALT_INV_minute_s\(3),
+	datac => \bigclock|ALT_INV_minute_s\(13),
+	datad => \bigclock|ALT_INV_minute_s\(20),
+	datae => \bigclock|ALT_INV_minute_s\(28),
+	dataf => \bigclock|ALT_INV_minute_s\(21),
+	combout => \bigclock|counter24h~27_combout\);
 
--- Location: FF_X41_Y4_N29
-\bigclock|deci_minute_s[29]\ : dffeas
+-- Location: FF_X42_Y5_N16
+\bigclock|minute_s[25]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -9920,32 +7349,35 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~33_sumout\,
+	d => \bigclock|Add3~81_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(29));
+	q => \bigclock|minute_s[25]~DUPLICATE_q\);
 
--- Location: LABCELL_X41_Y4_N30
-\bigclock|Add2~29\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y6_N36
+\bigclock|counter24h~1\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add2~29_sumout\ = SUM(( \bigclock|deci_minute_s\(30) ) + ( GND ) + ( \bigclock|Add2~34\ ))
+-- \bigclock|counter24h~1_combout\ = ( !\bigclock|minute_s[25]~DUPLICATE_q\ & ( (!\bigclock|minute_s[2]~DUPLICATE_q\ & (!\bigclock|minute_s\(14) & (!\bigclock|minute_s\(1) & \bigclock|minute_s\(0)))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	lut_mask => "0000000010000000000000001000000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_minute_s\(30),
-	cin => \bigclock|Add2~34\,
-	sumout => \bigclock|Add2~29_sumout\);
+	dataa => \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\,
+	datab => \bigclock|ALT_INV_minute_s\(14),
+	datac => \bigclock|ALT_INV_minute_s\(1),
+	datad => \bigclock|ALT_INV_minute_s\(0),
+	dataf => \bigclock|ALT_INV_minute_s[25]~DUPLICATE_q\,
+	combout => \bigclock|counter24h~1_combout\);
 
--- Location: FF_X41_Y4_N32
-\bigclock|deci_minute_s[30]\ : dffeas
+-- Location: FF_X42_Y5_N19
+\bigclock|minute_s[26]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -9953,52 +7385,18 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~29_sumout\,
+	d => \bigclock|Add3~29_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(30));
+	q => \bigclock|minute_s\(26));
 
--- Location: FF_X41_Y5_N16
-\bigclock|deci_minute_s[5]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~21_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(5));
-
--- Location: FF_X41_Y5_N58
-\bigclock|deci_minute_s[19]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(19));
-
--- Location: LABCELL_X41_Y4_N48
-\bigclock|counter24h~25\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y6_N12
+\bigclock|counter24h~26\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~25_combout\ = ( !\bigclock|deci_minute_s\(5) & ( !\bigclock|deci_minute_s\(19) & ( (!\bigclock|deci_minute_s\(29) & (!\bigclock|deci_minute_s\(30) & (!\bigclock|deci_minute_s\(6) & !\bigclock|deci_minute_s\(4)))) ) ) )
+-- \bigclock|counter24h~26_combout\ = ( !\bigclock|minute_s\(27) & ( !\bigclock|minute_s\(22) & ( (!\bigclock|minute_s\(7) & (!\bigclock|minute_s\(26) & (!\bigclock|minute_s\(23) & !\bigclock|minute_s\(24)))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10007,72 +7405,18 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(29),
-	datab => \bigclock|ALT_INV_deci_minute_s\(30),
-	datac => \bigclock|ALT_INV_deci_minute_s\(6),
-	datad => \bigclock|ALT_INV_deci_minute_s\(4),
-	datae => \bigclock|ALT_INV_deci_minute_s\(5),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(19),
-	combout => \bigclock|counter24h~25_combout\);
+	dataa => \bigclock|ALT_INV_minute_s\(7),
+	datab => \bigclock|ALT_INV_minute_s\(26),
+	datac => \bigclock|ALT_INV_minute_s\(23),
+	datad => \bigclock|ALT_INV_minute_s\(24),
+	datae => \bigclock|ALT_INV_minute_s\(27),
+	dataf => \bigclock|ALT_INV_minute_s\(22),
+	combout => \bigclock|counter24h~26_combout\);
 
--- Location: FF_X41_Y4_N59
-\bigclock|deci_minute_s[9]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add2~69_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	sload => VCC,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(9));
-
--- Location: FF_X41_Y5_N22
-\bigclock|deci_minute_s[7]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add2~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~10_combout\,
-	ena => \bigclock|deci_minute_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_minute_s\(7));
-
--- Location: LABCELL_X41_Y4_N54
-\bigclock|counter24h~6\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y6_N18
+\bigclock|counter24h~4\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~6_combout\ = ( !\bigclock|deci_minute_s\(8) & ( !\bigclock|deci_minute_s\(7) & ( (!\bigclock|deci_minute_s\(20) & (!\bigclock|deci_minute_s\(21) & !\bigclock|deci_minute_s\(9))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(20),
-	datac => \bigclock|ALT_INV_deci_minute_s\(21),
-	datad => \bigclock|ALT_INV_deci_minute_s\(9),
-	datae => \bigclock|ALT_INV_deci_minute_s\(8),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(7),
-	combout => \bigclock|counter24h~6_combout\);
-
--- Location: LABCELL_X40_Y3_N42
-\bigclock|counter24h~9\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~9_combout\ = ( \bigclock|counter24h~25_combout\ & ( \bigclock|counter24h~6_combout\ & ( (\bigclock|counter24h~26_combout\ & (\bigclock|counter24h~8_combout\ & (\bigclock|counter24h~7_combout\ & \bigclock|counter24h~5_combout\))) ) ) )
+-- \bigclock|counter24h~4_combout\ = ( \bigclock|counter24h~1_combout\ & ( \bigclock|counter24h~26_combout\ & ( (\bigclock|counter24h~2_combout\ & (\bigclock|counter24h~3_combout\ & (\bigclock|counter24h~0_combout\ & \bigclock|counter24h~27_combout\))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10081,106 +7425,53 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_counter24h~26_combout\,
-	datab => \bigclock|ALT_INV_counter24h~8_combout\,
-	datac => \bigclock|ALT_INV_counter24h~7_combout\,
-	datad => \bigclock|ALT_INV_counter24h~5_combout\,
-	datae => \bigclock|ALT_INV_counter24h~25_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~6_combout\,
-	combout => \bigclock|counter24h~9_combout\);
+	dataa => \bigclock|ALT_INV_counter24h~2_combout\,
+	datab => \bigclock|ALT_INV_counter24h~3_combout\,
+	datac => \bigclock|ALT_INV_counter24h~0_combout\,
+	datad => \bigclock|ALT_INV_counter24h~27_combout\,
+	datae => \bigclock|ALT_INV_counter24h~1_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~26_combout\,
+	combout => \bigclock|counter24h~4_combout\);
 
--- Location: LABCELL_X40_Y3_N12
-\bigclock|counter24h~10\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y4_N54
+\bigclock|hour_s[17]~2\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~10_combout\ = ( \bigclock|minute_s[8]~4_combout\ & ( \bigclock|counter24h~4_combout\ & ( (\bigclock|Sec_Clock|slow_clk~DUPLICATE_q\ & (!\bigclock|second_s\(16) & (\bigclock|deci_second_s[9]~4_combout\ & 
--- \bigclock|counter24h~9_combout\))) ) ) )
+-- \bigclock|hour_s[17]~2_combout\ = ( \bigclock|counter24h~14_combout\ & ( \bigclock|counter24h~9_combout\ ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000000000000000000000100",
+	lut_mask => "0000000000000000000000000000000000000000111111110000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|Sec_Clock|ALT_INV_slow_clk~DUPLICATE_q\,
-	datab => \bigclock|ALT_INV_second_s\(16),
-	datac => \bigclock|ALT_INV_deci_second_s[9]~4_combout\,
 	datad => \bigclock|ALT_INV_counter24h~9_combout\,
-	datae => \bigclock|ALT_INV_minute_s[8]~4_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~4_combout\,
-	combout => \bigclock|counter24h~10_combout\);
+	dataf => \bigclock|ALT_INV_counter24h~14_combout\,
+	combout => \bigclock|hour_s[17]~2_combout\);
 
--- Location: LABCELL_X40_Y3_N30
-\bigclock|hour_s[3]~1\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|hour_s[3]~1_combout\ = ( \bigclock|counter24h~10_combout\ & ( \bigclock|clk_state_s.counting~q\ ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000001111000011110000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_clk_state_s.counting~q\,
-	dataf => \bigclock|ALT_INV_counter24h~10_combout\,
-	combout => \bigclock|hour_s[3]~1_combout\);
-
--- Location: FF_X42_Y4_N7
-\bigclock|hour_s[2]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~9_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(2));
-
--- Location: FF_X42_Y4_N11
-\bigclock|hour_s[3]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add1~13_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|hour_s[17]~0_combout\,
-	ena => \bigclock|hour_s[3]~1_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|hour_s\(3));
-
--- Location: LABCELL_X41_Y3_N18
+-- Location: LABCELL_X40_Y4_N0
 \bigclock|hour_s[17]~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|hour_s[17]~0_combout\ = ( \bigclock|counter24h~20_combout\ & ( \bigclock|counter24h~10_combout\ & ( (\bigclock|counter24h~15_combout\ & ((!\bigclock|hour_s\(3)) # (\bigclock|hour_s[1]~DUPLICATE_q\))) ) ) ) # ( !\bigclock|counter24h~20_combout\ & 
--- ( \bigclock|counter24h~10_combout\ & ( (\bigclock|hour_s\(3) & (!\bigclock|hour_s[1]~DUPLICATE_q\ & \bigclock|counter24h~15_combout\)) ) ) )
+-- \bigclock|hour_s[17]~0_combout\ = ( \bigclock|hour_s[17]~2_combout\ & ( \bigclock|counter24h~23_combout\ & ( (!\bigclock|counter24h~4_combout\) # ((!\bigclock|minute_s[8]~4_combout\) # ((!\bigclock|counter24h~21_combout\) # 
+-- (!\bigclock|Equal6~6_combout\))) ) ) ) # ( !\bigclock|hour_s[17]~2_combout\ & ( \bigclock|counter24h~23_combout\ ) ) # ( \bigclock|hour_s[17]~2_combout\ & ( !\bigclock|counter24h~23_combout\ & ( (\bigclock|counter24h~4_combout\ & 
+-- (\bigclock|minute_s[8]~4_combout\ & (\bigclock|counter24h~21_combout\ & \bigclock|Equal6~6_combout\))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000001100000000000011001111",
+	lut_mask => "0000000000000000000000000000000111111111111111111111111111111110",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_counter24h~15_combout\,
-	datae => \bigclock|ALT_INV_counter24h~20_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~10_combout\,
+	dataa => \bigclock|ALT_INV_counter24h~4_combout\,
+	datab => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	datac => \bigclock|ALT_INV_counter24h~21_combout\,
+	datad => \bigclock|ALT_INV_Equal6~6_combout\,
+	datae => \bigclock|ALT_INV_hour_s[17]~2_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~23_combout\,
 	combout => \bigclock|hour_s[17]~0_combout\);
 
--- Location: FF_X42_Y4_N2
+-- Location: FF_X41_Y3_N2
 \bigclock|hour_s[0]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10197,7 +7488,7 @@ PORT MAP (
 	devpor => ww_devpor,
 	q => \bigclock|hour_s\(0));
 
--- Location: FF_X42_Y4_N5
+-- Location: FF_X41_Y3_N5
 \bigclock|hour_s[1]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10214,28 +7505,44 @@ PORT MAP (
 	devpor => ww_devpor,
 	q => \bigclock|hour_s[1]~DUPLICATE_q\);
 
--- Location: LABCELL_X41_Y3_N48
-\bigclock|deci_hour_s[3]~0\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y6_N3
+\bigclock|Add0~5\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|deci_hour_s[3]~0_combout\ = ( \bigclock|counter24h~20_combout\ & ( \bigclock|counter24h~10_combout\ & ( (\bigclock|counter24h~15_combout\ & \bigclock|clk_state_s.counting~q\) ) ) ) # ( !\bigclock|counter24h~20_combout\ & ( 
--- \bigclock|counter24h~10_combout\ & ( (!\bigclock|hour_s[1]~DUPLICATE_q\ & (\bigclock|counter24h~15_combout\ & (\bigclock|clk_state_s.counting~q\ & \bigclock|hour_s\(3)))) ) ) )
+-- \bigclock|Add0~5_sumout\ = SUM(( \bigclock|deci_hour_s\(1) ) + ( GND ) + ( \bigclock|Add0~2\ ))
+-- \bigclock|Add0~6\ = CARRY(( \bigclock|deci_hour_s\(1) ) + ( GND ) + ( \bigclock|Add0~2\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000000100000001100000011",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
-	datab => \bigclock|ALT_INV_counter24h~15_combout\,
-	datac => \bigclock|ALT_INV_clk_state_s.counting~q\,
-	datad => \bigclock|ALT_INV_hour_s\(3),
-	datae => \bigclock|ALT_INV_counter24h~20_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~10_combout\,
+	datad => \bigclock|ALT_INV_deci_hour_s\(1),
+	cin => \bigclock|Add0~2\,
+	sumout => \bigclock|Add0~5_sumout\,
+	cout => \bigclock|Add0~6\);
+
+-- Location: LABCELL_X41_Y4_N36
+\bigclock|deci_hour_s[3]~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|deci_hour_s[3]~0_combout\ = ( \bigclock|counter24h~22_combout\ & ( (\bigclock|clk_state_s.counting~q\ & \bigclock|Sec_Clock|slow_clk~q\) ) ) # ( !\bigclock|counter24h~22_combout\ & ( (\bigclock|clk_state_s.counting~q\ & 
+-- (\bigclock|Sec_Clock|slow_clk~q\ & \bigclock|counter24h~23_combout\)) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000011000000000000001100000011000000110000001100000011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_clk_state_s.counting~q\,
+	datac => \bigclock|Sec_Clock|ALT_INV_slow_clk~q\,
+	datad => \bigclock|ALT_INV_counter24h~23_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~22_combout\,
 	combout => \bigclock|deci_hour_s[3]~0_combout\);
 
--- Location: FF_X42_Y2_N5
+-- Location: FF_X40_Y6_N5
 \bigclock|deci_hour_s[1]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10246,17 +7553,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~5_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(1));
 
--- Location: MLABCELL_X42_Y2_N6
+-- Location: LABCELL_X40_Y6_N6
 \bigclock|Add0~9\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~9_sumout\ = SUM(( \bigclock|deci_hour_s\(2) ) + ( GND ) + ( \bigclock|Add0~6\ ))
--- \bigclock|Add0~10\ = CARRY(( \bigclock|deci_hour_s\(2) ) + ( GND ) + ( \bigclock|Add0~6\ ))
+-- \bigclock|Add0~9_sumout\ = SUM(( \bigclock|deci_hour_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~6\ ))
+-- \bigclock|Add0~10\ = CARRY(( \bigclock|deci_hour_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~6\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10265,13 +7572,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_hour_s\(2),
+	datad => \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\,
 	cin => \bigclock|Add0~6\,
 	sumout => \bigclock|Add0~9_sumout\,
 	cout => \bigclock|Add0~10\);
 
--- Location: FF_X42_Y2_N7
-\bigclock|deci_hour_s[2]\ : dffeas
+-- Location: FF_X40_Y5_N49
+\bigclock|deci_hour_s[2]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10279,15 +7586,16 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~9_sumout\,
+	asdata => \bigclock|Add0~9_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
+	sload => VCC,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(2));
+	q => \bigclock|deci_hour_s[2]~DUPLICATE_q\);
 
--- Location: MLABCELL_X42_Y2_N9
+-- Location: LABCELL_X40_Y6_N9
 \bigclock|Add0~13\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~13_sumout\ = SUM(( \bigclock|deci_hour_s\(3) ) + ( GND ) + ( \bigclock|Add0~10\ ))
@@ -10305,7 +7613,7 @@ PORT MAP (
 	sumout => \bigclock|Add0~13_sumout\,
 	cout => \bigclock|Add0~14\);
 
--- Location: FF_X42_Y2_N11
+-- Location: FF_X40_Y6_N11
 \bigclock|deci_hour_s[3]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10316,13 +7624,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~13_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(3));
 
--- Location: MLABCELL_X42_Y2_N12
+-- Location: LABCELL_X40_Y6_N12
 \bigclock|Add0~41\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~41_sumout\ = SUM(( \bigclock|deci_hour_s\(4) ) + ( GND ) + ( \bigclock|Add0~14\ ))
@@ -10331,16 +7639,16 @@ PORT MAP (
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_hour_s\(4),
+	datab => \bigclock|ALT_INV_deci_hour_s\(4),
 	cin => \bigclock|Add0~14\,
 	sumout => \bigclock|Add0~41_sumout\,
 	cout => \bigclock|Add0~42\);
 
--- Location: FF_X41_Y2_N38
+-- Location: FF_X40_Y6_N14
 \bigclock|deci_hour_s[4]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10349,33 +7657,15 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add0~41_sumout\,
+	d => \bigclock|Add0~41_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	sload => VCC,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(4));
 
--- Location: FF_X42_Y1_N14
-\bigclock|deci_hour_s[24]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~37_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(24));
-
--- Location: MLABCELL_X42_Y2_N15
+-- Location: LABCELL_X40_Y6_N15
 \bigclock|Add0~45\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~45_sumout\ = SUM(( \bigclock|deci_hour_s\(5) ) + ( GND ) + ( \bigclock|Add0~42\ ))
@@ -10393,7 +7683,7 @@ PORT MAP (
 	sumout => \bigclock|Add0~45_sumout\,
 	cout => \bigclock|Add0~46\);
 
--- Location: FF_X42_Y2_N17
+-- Location: FF_X40_Y6_N17
 \bigclock|deci_hour_s[5]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10404,13 +7694,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~45_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(5));
 
--- Location: MLABCELL_X42_Y2_N18
+-- Location: LABCELL_X40_Y6_N18
 \bigclock|Add0~49\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~49_sumout\ = SUM(( \bigclock|deci_hour_s\(6) ) + ( GND ) + ( \bigclock|Add0~46\ ))
@@ -10428,7 +7718,7 @@ PORT MAP (
 	sumout => \bigclock|Add0~49_sumout\,
 	cout => \bigclock|Add0~50\);
 
--- Location: FF_X42_Y2_N20
+-- Location: FF_X40_Y6_N20
 \bigclock|deci_hour_s[6]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10439,13 +7729,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~49_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(6));
 
--- Location: MLABCELL_X42_Y2_N21
+-- Location: LABCELL_X40_Y6_N21
 \bigclock|Add0~53\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~53_sumout\ = SUM(( \bigclock|deci_hour_s[7]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~50\ ))
@@ -10463,7 +7753,7 @@ PORT MAP (
 	sumout => \bigclock|Add0~53_sumout\,
 	cout => \bigclock|Add0~54\);
 
--- Location: FF_X42_Y2_N23
+-- Location: FF_X40_Y6_N23
 \bigclock|deci_hour_s[7]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10474,17 +7764,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~53_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s[7]~DUPLICATE_q\);
 
--- Location: MLABCELL_X42_Y2_N24
+-- Location: LABCELL_X40_Y6_N24
 \bigclock|Add0~17\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~17_sumout\ = SUM(( \bigclock|deci_hour_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~54\ ))
--- \bigclock|Add0~18\ = CARRY(( \bigclock|deci_hour_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~54\ ))
+-- \bigclock|Add0~17_sumout\ = SUM(( \bigclock|deci_hour_s\(8) ) + ( GND ) + ( \bigclock|Add0~54\ ))
+-- \bigclock|Add0~18\ = CARRY(( \bigclock|deci_hour_s\(8) ) + ( GND ) + ( \bigclock|Add0~54\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10493,13 +7783,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s[8]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_deci_hour_s\(8),
 	cin => \bigclock|Add0~54\,
 	sumout => \bigclock|Add0~17_sumout\,
 	cout => \bigclock|Add0~18\);
 
--- Location: FF_X42_Y2_N26
-\bigclock|deci_hour_s[8]~DUPLICATE\ : dffeas
+-- Location: FF_X40_Y6_N26
+\bigclock|deci_hour_s[8]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10509,13 +7799,30 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~17_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s[8]~DUPLICATE_q\);
+	q => \bigclock|deci_hour_s\(8));
 
--- Location: MLABCELL_X42_Y2_N27
+-- Location: FF_X40_Y6_N38
+\bigclock|deci_hour_s[12]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~33_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(12));
+
+-- Location: LABCELL_X40_Y6_N27
 \bigclock|Add0~21\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~21_sumout\ = SUM(( \bigclock|deci_hour_s\(9) ) + ( GND ) + ( \bigclock|Add0~18\ ))
@@ -10524,16 +7831,16 @@ PORT MAP (
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_hour_s\(9),
+	datac => \bigclock|ALT_INV_deci_hour_s\(9),
 	cin => \bigclock|Add0~18\,
 	sumout => \bigclock|Add0~21_sumout\,
 	cout => \bigclock|Add0~22\);
 
--- Location: FF_X42_Y2_N29
+-- Location: FF_X40_Y6_N28
 \bigclock|deci_hour_s[9]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10544,17 +7851,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~21_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(9));
 
--- Location: MLABCELL_X42_Y2_N30
+-- Location: LABCELL_X40_Y6_N30
 \bigclock|Add0~25\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~25_sumout\ = SUM(( \bigclock|deci_hour_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~22\ ))
--- \bigclock|Add0~26\ = CARRY(( \bigclock|deci_hour_s[10]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~22\ ))
+-- \bigclock|Add0~25_sumout\ = SUM(( \bigclock|deci_hour_s\(10) ) + ( GND ) + ( \bigclock|Add0~22\ ))
+-- \bigclock|Add0~26\ = CARRY(( \bigclock|deci_hour_s\(10) ) + ( GND ) + ( \bigclock|Add0~22\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10563,13 +7870,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s[10]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_deci_hour_s\(10),
 	cin => \bigclock|Add0~22\,
 	sumout => \bigclock|Add0~25_sumout\,
 	cout => \bigclock|Add0~26\);
 
--- Location: FF_X42_Y2_N31
-\bigclock|deci_hour_s[10]~DUPLICATE\ : dffeas
+-- Location: FF_X40_Y6_N31
+\bigclock|deci_hour_s[10]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10579,13 +7886,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~25_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s[10]~DUPLICATE_q\);
+	q => \bigclock|deci_hour_s\(10));
 
--- Location: MLABCELL_X42_Y2_N33
+-- Location: LABCELL_X40_Y6_N33
 \bigclock|Add0~29\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~29_sumout\ = SUM(( \bigclock|deci_hour_s\(11) ) + ( GND ) + ( \bigclock|Add0~26\ ))
@@ -10603,7 +7910,7 @@ PORT MAP (
 	sumout => \bigclock|Add0~29_sumout\,
 	cout => \bigclock|Add0~30\);
 
--- Location: FF_X42_Y2_N35
+-- Location: FF_X40_Y6_N35
 \bigclock|deci_hour_s[11]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -10614,13 +7921,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~29_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(11));
 
--- Location: MLABCELL_X42_Y2_N36
+-- Location: LABCELL_X40_Y6_N36
 \bigclock|Add0~33\ : cyclonev_lcell_comb
 -- Equation(s):
 -- \bigclock|Add0~33_sumout\ = SUM(( \bigclock|deci_hour_s\(12) ) + ( GND ) + ( \bigclock|Add0~30\ ))
@@ -10638,8 +7945,8 @@ PORT MAP (
 	sumout => \bigclock|Add0~33_sumout\,
 	cout => \bigclock|Add0~34\);
 
--- Location: FF_X41_Y2_N7
-\bigclock|deci_hour_s[12]\ : dffeas
+-- Location: FF_X40_Y6_N37
+\bigclock|deci_hour_s[12]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10647,20 +7954,38 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	asdata => \bigclock|Add0~33_sumout\,
+	d => \bigclock|Add0~33_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	sload => VCC,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(12));
+	q => \bigclock|deci_hour_s[12]~DUPLICATE_q\);
 
--- Location: MLABCELL_X42_Y2_N39
-\bigclock|Add0~101\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y5_N36
+\bigclock|counter24h~15\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~101_sumout\ = SUM(( \bigclock|deci_hour_s\(13) ) + ( GND ) + ( \bigclock|Add0~34\ ))
--- \bigclock|Add0~102\ = CARRY(( \bigclock|deci_hour_s\(13) ) + ( GND ) + ( \bigclock|Add0~34\ ))
+-- \bigclock|counter24h~15_combout\ = ( !\bigclock|deci_hour_s\(11) & ( !\bigclock|deci_hour_s\(9) & ( (!\bigclock|deci_hour_s[12]~DUPLICATE_q\ & (!\bigclock|hour_s\(3) & !\bigclock|deci_hour_s\(10))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_hour_s[12]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_hour_s\(3),
+	datad => \bigclock|ALT_INV_deci_hour_s\(10),
+	datae => \bigclock|ALT_INV_deci_hour_s\(11),
+	dataf => \bigclock|ALT_INV_deci_hour_s\(9),
+	combout => \bigclock|counter24h~15_combout\);
+
+-- Location: LABCELL_X40_Y6_N39
+\bigclock|Add0~97\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add0~97_sumout\ = SUM(( \bigclock|deci_hour_s\(13) ) + ( GND ) + ( \bigclock|Add0~34\ ))
+-- \bigclock|Add0~98\ = CARRY(( \bigclock|deci_hour_s\(13) ) + ( GND ) + ( \bigclock|Add0~34\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10671,186 +7996,11 @@ GENERIC MAP (
 PORT MAP (
 	datac => \bigclock|ALT_INV_deci_hour_s\(13),
 	cin => \bigclock|Add0~34\,
-	sumout => \bigclock|Add0~101_sumout\,
-	cout => \bigclock|Add0~102\);
-
--- Location: FF_X42_Y2_N41
-\bigclock|deci_hour_s[13]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~101_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(13));
-
--- Location: MLABCELL_X42_Y2_N42
-\bigclock|Add0~105\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~105_sumout\ = SUM(( \bigclock|deci_hour_s\(14) ) + ( GND ) + ( \bigclock|Add0~102\ ))
--- \bigclock|Add0~106\ = CARRY(( \bigclock|deci_hour_s\(14) ) + ( GND ) + ( \bigclock|Add0~102\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_deci_hour_s\(14),
-	cin => \bigclock|Add0~102\,
-	sumout => \bigclock|Add0~105_sumout\,
-	cout => \bigclock|Add0~106\);
-
--- Location: FF_X42_Y2_N44
-\bigclock|deci_hour_s[14]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~105_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(14));
-
--- Location: MLABCELL_X42_Y2_N45
-\bigclock|Add0~77\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~77_sumout\ = SUM(( \bigclock|deci_hour_s\(15) ) + ( GND ) + ( \bigclock|Add0~106\ ))
--- \bigclock|Add0~78\ = CARRY(( \bigclock|deci_hour_s\(15) ) + ( GND ) + ( \bigclock|Add0~106\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(15),
-	cin => \bigclock|Add0~106\,
-	sumout => \bigclock|Add0~77_sumout\,
-	cout => \bigclock|Add0~78\);
-
--- Location: FF_X42_Y2_N47
-\bigclock|deci_hour_s[15]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~77_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(15));
-
--- Location: MLABCELL_X42_Y2_N48
-\bigclock|Add0~109\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~109_sumout\ = SUM(( \bigclock|deci_hour_s\(16) ) + ( GND ) + ( \bigclock|Add0~78\ ))
--- \bigclock|Add0~110\ = CARRY(( \bigclock|deci_hour_s\(16) ) + ( GND ) + ( \bigclock|Add0~78\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datad => \bigclock|ALT_INV_deci_hour_s\(16),
-	cin => \bigclock|Add0~78\,
-	sumout => \bigclock|Add0~109_sumout\,
-	cout => \bigclock|Add0~110\);
-
--- Location: FF_X42_Y2_N49
-\bigclock|deci_hour_s[16]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~109_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(16));
-
--- Location: MLABCELL_X42_Y2_N51
-\bigclock|Add0~113\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~113_sumout\ = SUM(( \bigclock|deci_hour_s\(17) ) + ( GND ) + ( \bigclock|Add0~110\ ))
--- \bigclock|Add0~114\ = CARRY(( \bigclock|deci_hour_s\(17) ) + ( GND ) + ( \bigclock|Add0~110\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(17),
-	cin => \bigclock|Add0~110\,
-	sumout => \bigclock|Add0~113_sumout\,
-	cout => \bigclock|Add0~114\);
-
--- Location: FF_X42_Y2_N53
-\bigclock|deci_hour_s[17]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~113_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(17));
-
--- Location: MLABCELL_X42_Y2_N54
-\bigclock|Add0~97\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~97_sumout\ = SUM(( \bigclock|deci_hour_s\(18) ) + ( GND ) + ( \bigclock|Add0~114\ ))
--- \bigclock|Add0~98\ = CARRY(( \bigclock|deci_hour_s\(18) ) + ( GND ) + ( \bigclock|Add0~114\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(18),
-	cin => \bigclock|Add0~114\,
 	sumout => \bigclock|Add0~97_sumout\,
 	cout => \bigclock|Add0~98\);
 
--- Location: FF_X42_Y2_N56
-\bigclock|deci_hour_s[18]\ : dffeas
+-- Location: FF_X40_Y6_N40
+\bigclock|deci_hour_s[13]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10860,32 +8010,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~97_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(18));
+	q => \bigclock|deci_hour_s\(13));
 
--- Location: MLABCELL_X42_Y2_N57
-\bigclock|Add0~61\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y6_N42
+\bigclock|Add0~101\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~61_sumout\ = SUM(( \bigclock|deci_hour_s\(19) ) + ( GND ) + ( \bigclock|Add0~98\ ))
--- \bigclock|Add0~62\ = CARRY(( \bigclock|deci_hour_s\(19) ) + ( GND ) + ( \bigclock|Add0~98\ ))
+-- \bigclock|Add0~101_sumout\ = SUM(( \bigclock|deci_hour_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~98\ ))
+-- \bigclock|Add0~102\ = CARRY(( \bigclock|deci_hour_s[14]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~98\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(19),
+	datab => \bigclock|ALT_INV_deci_hour_s[14]~DUPLICATE_q\,
 	cin => \bigclock|Add0~98\,
-	sumout => \bigclock|Add0~61_sumout\,
-	cout => \bigclock|Add0~62\);
+	sumout => \bigclock|Add0~101_sumout\,
+	cout => \bigclock|Add0~102\);
 
--- Location: FF_X42_Y2_N59
-\bigclock|deci_hour_s[19]\ : dffeas
+-- Location: FF_X40_Y6_N44
+\bigclock|deci_hour_s[14]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10893,19 +8043,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~61_sumout\,
+	d => \bigclock|Add0~101_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(19));
+	q => \bigclock|deci_hour_s[14]~DUPLICATE_q\);
 
--- Location: MLABCELL_X42_Y1_N0
+-- Location: LABCELL_X40_Y6_N45
 \bigclock|Add0~57\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~57_sumout\ = SUM(( \bigclock|deci_hour_s\(20) ) + ( GND ) + ( \bigclock|Add0~62\ ))
--- \bigclock|Add0~58\ = CARRY(( \bigclock|deci_hour_s\(20) ) + ( GND ) + ( \bigclock|Add0~62\ ))
+-- \bigclock|Add0~57_sumout\ = SUM(( \bigclock|deci_hour_s\(15) ) + ( GND ) + ( \bigclock|Add0~102\ ))
+-- \bigclock|Add0~58\ = CARRY(( \bigclock|deci_hour_s\(15) ) + ( GND ) + ( \bigclock|Add0~102\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10914,13 +8064,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(20),
-	cin => \bigclock|Add0~62\,
+	datac => \bigclock|ALT_INV_deci_hour_s\(15),
+	cin => \bigclock|Add0~102\,
 	sumout => \bigclock|Add0~57_sumout\,
 	cout => \bigclock|Add0~58\);
 
--- Location: FF_X42_Y1_N1
-\bigclock|deci_hour_s[20]\ : dffeas
+-- Location: FF_X40_Y6_N47
+\bigclock|deci_hour_s[15]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10930,17 +8080,192 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~57_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(15));
+
+-- Location: LABCELL_X40_Y6_N48
+\bigclock|Add0~105\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add0~105_sumout\ = SUM(( \bigclock|deci_hour_s\(16) ) + ( GND ) + ( \bigclock|Add0~58\ ))
+-- \bigclock|Add0~106\ = CARRY(( \bigclock|deci_hour_s\(16) ) + ( GND ) + ( \bigclock|Add0~58\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_hour_s\(16),
+	cin => \bigclock|Add0~58\,
+	sumout => \bigclock|Add0~105_sumout\,
+	cout => \bigclock|Add0~106\);
+
+-- Location: FF_X40_Y6_N50
+\bigclock|deci_hour_s[16]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~105_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(16));
+
+-- Location: LABCELL_X40_Y6_N51
+\bigclock|Add0~109\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add0~109_sumout\ = SUM(( \bigclock|deci_hour_s\(17) ) + ( GND ) + ( \bigclock|Add0~106\ ))
+-- \bigclock|Add0~110\ = CARRY(( \bigclock|deci_hour_s\(17) ) + ( GND ) + ( \bigclock|Add0~106\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_hour_s\(17),
+	cin => \bigclock|Add0~106\,
+	sumout => \bigclock|Add0~109_sumout\,
+	cout => \bigclock|Add0~110\);
+
+-- Location: FF_X40_Y6_N52
+\bigclock|deci_hour_s[17]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~109_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(17));
+
+-- Location: LABCELL_X40_Y6_N54
+\bigclock|Add0~93\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add0~93_sumout\ = SUM(( \bigclock|deci_hour_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~110\ ))
+-- \bigclock|Add0~94\ = CARRY(( \bigclock|deci_hour_s[18]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~110\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_hour_s[18]~DUPLICATE_q\,
+	cin => \bigclock|Add0~110\,
+	sumout => \bigclock|Add0~93_sumout\,
+	cout => \bigclock|Add0~94\);
+
+-- Location: FF_X40_Y6_N56
+\bigclock|deci_hour_s[18]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~93_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s[18]~DUPLICATE_q\);
+
+-- Location: LABCELL_X40_Y6_N57
+\bigclock|Add0~65\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add0~65_sumout\ = SUM(( \bigclock|deci_hour_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~94\ ))
+-- \bigclock|Add0~66\ = CARRY(( \bigclock|deci_hour_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~94\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_hour_s[19]~DUPLICATE_q\,
+	cin => \bigclock|Add0~94\,
+	sumout => \bigclock|Add0~65_sumout\,
+	cout => \bigclock|Add0~66\);
+
+-- Location: FF_X40_Y6_N59
+\bigclock|deci_hour_s[19]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~65_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s[19]~DUPLICATE_q\);
+
+-- Location: LABCELL_X40_Y5_N0
+\bigclock|Add0~81\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add0~81_sumout\ = SUM(( \bigclock|deci_hour_s\(20) ) + ( GND ) + ( \bigclock|Add0~66\ ))
+-- \bigclock|Add0~82\ = CARRY(( \bigclock|deci_hour_s\(20) ) + ( GND ) + ( \bigclock|Add0~66\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_hour_s\(20),
+	cin => \bigclock|Add0~66\,
+	sumout => \bigclock|Add0~81_sumout\,
+	cout => \bigclock|Add0~82\);
+
+-- Location: FF_X40_Y5_N2
+\bigclock|deci_hour_s[20]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~81_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(20));
 
--- Location: MLABCELL_X42_Y1_N3
-\bigclock|Add0~73\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y5_N3
+\bigclock|Add0~77\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~73_sumout\ = SUM(( \bigclock|deci_hour_s\(21) ) + ( GND ) + ( \bigclock|Add0~58\ ))
--- \bigclock|Add0~74\ = CARRY(( \bigclock|deci_hour_s\(21) ) + ( GND ) + ( \bigclock|Add0~58\ ))
+-- \bigclock|Add0~77_sumout\ = SUM(( \bigclock|deci_hour_s\(21) ) + ( GND ) + ( \bigclock|Add0~82\ ))
+-- \bigclock|Add0~78\ = CARRY(( \bigclock|deci_hour_s\(21) ) + ( GND ) + ( \bigclock|Add0~82\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10950,12 +8275,47 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datad => \bigclock|ALT_INV_deci_hour_s\(21),
-	cin => \bigclock|Add0~58\,
+	cin => \bigclock|Add0~82\,
+	sumout => \bigclock|Add0~77_sumout\,
+	cout => \bigclock|Add0~78\);
+
+-- Location: FF_X40_Y5_N5
+\bigclock|deci_hour_s[21]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~77_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(21));
+
+-- Location: LABCELL_X40_Y5_N6
+\bigclock|Add0~73\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add0~73_sumout\ = SUM(( \bigclock|deci_hour_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~78\ ))
+-- \bigclock|Add0~74\ = CARRY(( \bigclock|deci_hour_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~78\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_hour_s[22]~DUPLICATE_q\,
+	cin => \bigclock|Add0~78\,
 	sumout => \bigclock|Add0~73_sumout\,
 	cout => \bigclock|Add0~74\);
 
--- Location: FF_X42_Y1_N5
-\bigclock|deci_hour_s[21]\ : dffeas
+-- Location: FF_X40_Y5_N8
+\bigclock|deci_hour_s[22]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10965,17 +8325,17 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~73_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(21));
+	q => \bigclock|deci_hour_s[22]~DUPLICATE_q\);
 
--- Location: MLABCELL_X42_Y1_N6
-\bigclock|Add0~69\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y5_N9
+\bigclock|Add0~85\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~69_sumout\ = SUM(( \bigclock|deci_hour_s\(22) ) + ( GND ) + ( \bigclock|Add0~74\ ))
--- \bigclock|Add0~70\ = CARRY(( \bigclock|deci_hour_s\(22) ) + ( GND ) + ( \bigclock|Add0~74\ ))
+-- \bigclock|Add0~85_sumout\ = SUM(( \bigclock|deci_hour_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~74\ ))
+-- \bigclock|Add0~86\ = CARRY(( \bigclock|deci_hour_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~74\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -10984,13 +8344,13 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(22),
+	datac => \bigclock|ALT_INV_deci_hour_s[23]~DUPLICATE_q\,
 	cin => \bigclock|Add0~74\,
-	sumout => \bigclock|Add0~69_sumout\,
-	cout => \bigclock|Add0~70\);
+	sumout => \bigclock|Add0~85_sumout\,
+	cout => \bigclock|Add0~86\);
 
--- Location: FF_X42_Y1_N7
-\bigclock|deci_hour_s[22]\ : dffeas
+-- Location: FF_X40_Y5_N11
+\bigclock|deci_hour_s[23]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -10998,54 +8358,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~69_sumout\,
+	d => \bigclock|Add0~85_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(22));
+	q => \bigclock|deci_hour_s[23]~DUPLICATE_q\);
 
--- Location: MLABCELL_X42_Y1_N9
-\bigclock|Add0~89\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~89_sumout\ = SUM(( \bigclock|deci_hour_s\(23) ) + ( GND ) + ( \bigclock|Add0~70\ ))
--- \bigclock|Add0~90\ = CARRY(( \bigclock|deci_hour_s\(23) ) + ( GND ) + ( \bigclock|Add0~70\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(23),
-	cin => \bigclock|Add0~70\,
-	sumout => \bigclock|Add0~89_sumout\,
-	cout => \bigclock|Add0~90\);
-
--- Location: FF_X42_Y1_N11
-\bigclock|deci_hour_s[23]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~89_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(23));
-
--- Location: MLABCELL_X42_Y1_N12
+-- Location: LABCELL_X40_Y5_N12
 \bigclock|Add0~37\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~37_sumout\ = SUM(( \bigclock|deci_hour_s\(24) ) + ( GND ) + ( \bigclock|Add0~90\ ))
--- \bigclock|Add0~38\ = CARRY(( \bigclock|deci_hour_s\(24) ) + ( GND ) + ( \bigclock|Add0~90\ ))
+-- \bigclock|Add0~37_sumout\ = SUM(( \bigclock|deci_hour_s\(24) ) + ( GND ) + ( \bigclock|Add0~86\ ))
+-- \bigclock|Add0~38\ = CARRY(( \bigclock|deci_hour_s\(24) ) + ( GND ) + ( \bigclock|Add0~86\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -11055,12 +8380,12 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datab => \bigclock|ALT_INV_deci_hour_s\(24),
-	cin => \bigclock|Add0~90\,
+	cin => \bigclock|Add0~86\,
 	sumout => \bigclock|Add0~37_sumout\,
 	cout => \bigclock|Add0~38\);
 
--- Location: FF_X42_Y1_N13
-\bigclock|deci_hour_s[24]~DUPLICATE\ : dffeas
+-- Location: FF_X40_Y5_N14
+\bigclock|deci_hour_s[24]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -11070,13 +8395,13 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~37_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s[24]~DUPLICATE_q\);
+	q => \bigclock|deci_hour_s\(24));
 
--- Location: FF_X42_Y2_N22
+-- Location: FF_X40_Y6_N22
 \bigclock|deci_hour_s[7]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -11087,33 +8412,14 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~53_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(7));
 
--- Location: LABCELL_X41_Y2_N33
-\bigclock|counter24h~17\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~17_combout\ = ( !\bigclock|deci_hour_s\(5) & ( !\bigclock|deci_hour_s\(6) & ( (!\bigclock|deci_hour_s\(4) & (!\bigclock|deci_hour_s[24]~DUPLICATE_q\ & !\bigclock|deci_hour_s\(7))) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(4),
-	datac => \bigclock|ALT_INV_deci_hour_s[24]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_deci_hour_s\(7),
-	datae => \bigclock|ALT_INV_deci_hour_s\(5),
-	dataf => \bigclock|ALT_INV_deci_hour_s\(6),
-	combout => \bigclock|counter24h~17_combout\);
-
--- Location: FF_X42_Y2_N25
-\bigclock|deci_hour_s[8]\ : dffeas
+-- Location: FF_X40_Y6_N13
+\bigclock|deci_hour_s[4]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -11121,72 +8427,124 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~17_sumout\,
+	d => \bigclock|Add0~41_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(8));
+	q => \bigclock|deci_hour_s[4]~DUPLICATE_q\);
 
--- Location: FF_X42_Y2_N32
-\bigclock|deci_hour_s[10]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~25_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(10));
-
--- Location: LABCELL_X41_Y2_N9
+-- Location: LABCELL_X39_Y5_N0
 \bigclock|counter24h~16\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~16_combout\ = ( !\bigclock|deci_hour_s\(10) & ( !\bigclock|hour_s\(3) & ( (!\bigclock|deci_hour_s\(11) & (!\bigclock|deci_hour_s\(9) & !\bigclock|deci_hour_s\(12))) ) ) )
+-- \bigclock|counter24h~16_combout\ = ( !\bigclock|deci_hour_s\(7) & ( !\bigclock|deci_hour_s[4]~DUPLICATE_q\ & ( (!\bigclock|deci_hour_s\(24) & (!\bigclock|deci_hour_s\(6) & !\bigclock|deci_hour_s\(5))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "1000100000000000000000000000000000000000000000000000000000000000",
+	lut_mask => "1100000000000000000000000000000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(11),
-	datab => \bigclock|ALT_INV_deci_hour_s\(9),
-	datad => \bigclock|ALT_INV_deci_hour_s\(12),
-	datae => \bigclock|ALT_INV_deci_hour_s\(10),
-	dataf => \bigclock|ALT_INV_hour_s\(3),
+	datab => \bigclock|ALT_INV_deci_hour_s\(24),
+	datac => \bigclock|ALT_INV_deci_hour_s\(6),
+	datad => \bigclock|ALT_INV_deci_hour_s\(5),
+	datae => \bigclock|ALT_INV_deci_hour_s\(7),
+	dataf => \bigclock|ALT_INV_deci_hour_s[4]~DUPLICATE_q\,
 	combout => \bigclock|counter24h~16_combout\);
 
--- Location: LABCELL_X41_Y2_N51
+-- Location: FF_X40_Y6_N4
+\bigclock|deci_hour_s[1]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~5_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s[1]~DUPLICATE_q\);
+
+-- Location: FF_X40_Y5_N50
+\bigclock|deci_hour_s[2]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add0~9_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	sload => VCC,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(2));
+
+-- Location: LABCELL_X40_Y5_N57
 \bigclock|display0|Mux4~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display0|Mux4~0_combout\ = ( !\bigclock|deci_hour_s\(0) & ( !\bigclock|deci_hour_s\(2) & ( \bigclock|deci_hour_s\(1) ) ) )
+-- \bigclock|display0|Mux4~0_combout\ = ( !\bigclock|deci_hour_s\(2) & ( (\bigclock|deci_hour_s[1]~DUPLICATE_q\ & !\bigclock|deci_hour_s\(0)) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000011111111000000000000000000000000000000000000000000000000",
+	lut_mask => "0000111100000000000011110000000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datad => \bigclock|ALT_INV_deci_hour_s\(1),
-	datae => \bigclock|ALT_INV_deci_hour_s\(0),
+	datac => \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_deci_hour_s\(0),
 	dataf => \bigclock|ALT_INV_deci_hour_s\(2),
 	combout => \bigclock|display0|Mux4~0_combout\);
 
--- Location: MLABCELL_X42_Y1_N15
-\bigclock|Add0~65\ : cyclonev_lcell_comb
+-- Location: FF_X40_Y6_N58
+\bigclock|deci_hour_s[19]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~65_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(19));
+
+-- Location: FF_X40_Y5_N23
+\bigclock|deci_hour_s[27]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~121_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s[27]~DUPLICATE_q\);
+
+-- Location: LABCELL_X40_Y5_N15
+\bigclock|Add0~69\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~65_sumout\ = SUM(( \bigclock|deci_hour_s\(25) ) + ( GND ) + ( \bigclock|Add0~38\ ))
--- \bigclock|Add0~66\ = CARRY(( \bigclock|deci_hour_s\(25) ) + ( GND ) + ( \bigclock|Add0~38\ ))
+-- \bigclock|Add0~69_sumout\ = SUM(( \bigclock|deci_hour_s\(25) ) + ( GND ) + ( \bigclock|Add0~38\ ))
+-- \bigclock|Add0~70\ = CARRY(( \bigclock|deci_hour_s\(25) ) + ( GND ) + ( \bigclock|Add0~38\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -11197,10 +8555,10 @@ GENERIC MAP (
 PORT MAP (
 	datac => \bigclock|ALT_INV_deci_hour_s\(25),
 	cin => \bigclock|Add0~38\,
-	sumout => \bigclock|Add0~65_sumout\,
-	cout => \bigclock|Add0~66\);
+	sumout => \bigclock|Add0~69_sumout\,
+	cout => \bigclock|Add0~70\);
 
--- Location: FF_X42_Y1_N17
+-- Location: FF_X40_Y5_N17
 \bigclock|deci_hour_s[25]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -11209,19 +8567,19 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~65_sumout\,
+	d => \bigclock|Add0~69_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(25));
 
--- Location: MLABCELL_X42_Y1_N18
-\bigclock|Add0~85\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y5_N18
+\bigclock|Add0~61\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~85_sumout\ = SUM(( \bigclock|deci_hour_s\(26) ) + ( GND ) + ( \bigclock|Add0~66\ ))
--- \bigclock|Add0~86\ = CARRY(( \bigclock|deci_hour_s\(26) ) + ( GND ) + ( \bigclock|Add0~66\ ))
+-- \bigclock|Add0~61_sumout\ = SUM(( \bigclock|deci_hour_s\(26) ) + ( GND ) + ( \bigclock|Add0~70\ ))
+-- \bigclock|Add0~62\ = CARRY(( \bigclock|deci_hour_s\(26) ) + ( GND ) + ( \bigclock|Add0~70\ ))
 
 -- pragma translate_off
 GENERIC MAP (
@@ -11231,11 +8589,11 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	datac => \bigclock|ALT_INV_deci_hour_s\(26),
-	cin => \bigclock|Add0~66\,
-	sumout => \bigclock|Add0~85_sumout\,
-	cout => \bigclock|Add0~86\);
+	cin => \bigclock|Add0~70\,
+	sumout => \bigclock|Add0~61_sumout\,
+	cout => \bigclock|Add0~62\);
 
--- Location: FF_X42_Y1_N20
+-- Location: FF_X40_Y5_N20
 \bigclock|deci_hour_s[26]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -11244,69 +8602,34 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~85_sumout\,
+	d => \bigclock|Add0~61_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(26));
 
--- Location: MLABCELL_X42_Y1_N21
-\bigclock|Add0~81\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~81_sumout\ = SUM(( \bigclock|deci_hour_s\(27) ) + ( GND ) + ( \bigclock|Add0~86\ ))
--- \bigclock|Add0~82\ = CARRY(( \bigclock|deci_hour_s\(27) ) + ( GND ) + ( \bigclock|Add0~86\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(27),
-	cin => \bigclock|Add0~86\,
-	sumout => \bigclock|Add0~81_sumout\,
-	cout => \bigclock|Add0~82\);
-
--- Location: FF_X42_Y1_N22
-\bigclock|deci_hour_s[27]\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~81_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(27));
-
--- Location: MLABCELL_X42_Y1_N24
+-- Location: LABCELL_X40_Y5_N21
 \bigclock|Add0~121\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~121_sumout\ = SUM(( \bigclock|deci_hour_s\(28) ) + ( GND ) + ( \bigclock|Add0~82\ ))
--- \bigclock|Add0~122\ = CARRY(( \bigclock|deci_hour_s\(28) ) + ( GND ) + ( \bigclock|Add0~82\ ))
+-- \bigclock|Add0~121_sumout\ = SUM(( \bigclock|deci_hour_s[27]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~62\ ))
+-- \bigclock|Add0~122\ = CARRY(( \bigclock|deci_hour_s[27]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~62\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(28),
-	cin => \bigclock|Add0~82\,
+	datad => \bigclock|ALT_INV_deci_hour_s[27]~DUPLICATE_q\,
+	cin => \bigclock|Add0~62\,
 	sumout => \bigclock|Add0~121_sumout\,
 	cout => \bigclock|Add0~122\);
 
--- Location: FF_X42_Y1_N26
-\bigclock|deci_hour_s[28]\ : dffeas
+-- Location: FF_X40_Y5_N22
+\bigclock|deci_hour_s[27]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -11316,32 +8639,14 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~121_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(28));
+	q => \bigclock|deci_hour_s\(27));
 
--- Location: MLABCELL_X42_Y1_N27
-\bigclock|Add0~93\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|Add0~93_sumout\ = SUM(( \bigclock|deci_hour_s\(29) ) + ( GND ) + ( \bigclock|Add0~122\ ))
--- \bigclock|Add0~94\ = CARRY(( \bigclock|deci_hour_s\(29) ) + ( GND ) + ( \bigclock|Add0~122\ ))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(29),
-	cin => \bigclock|Add0~122\,
-	sumout => \bigclock|Add0~93_sumout\,
-	cout => \bigclock|Add0~94\);
-
--- Location: FF_X42_Y1_N28
-\bigclock|deci_hour_s[29]\ : dffeas
+-- Location: FF_X40_Y5_N32
+\bigclock|deci_hour_s[30]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -11349,32 +8654,34 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~93_sumout\,
+	d => \bigclock|Add0~113_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(29));
+	q => \bigclock|deci_hour_s[30]~DUPLICATE_q\);
 
--- Location: MLABCELL_X42_Y1_N30
+-- Location: LABCELL_X40_Y5_N24
 \bigclock|Add0~117\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|Add0~117_sumout\ = SUM(( \bigclock|deci_hour_s\(30) ) + ( GND ) + ( \bigclock|Add0~94\ ))
+-- \bigclock|Add0~117_sumout\ = SUM(( \bigclock|deci_hour_s\(28) ) + ( GND ) + ( \bigclock|Add0~122\ ))
+-- \bigclock|Add0~118\ = CARRY(( \bigclock|deci_hour_s\(28) ) + ( GND ) + ( \bigclock|Add0~122\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(30),
-	cin => \bigclock|Add0~94\,
-	sumout => \bigclock|Add0~117_sumout\);
+	datab => \bigclock|ALT_INV_deci_hour_s\(28),
+	cin => \bigclock|Add0~122\,
+	sumout => \bigclock|Add0~117_sumout\,
+	cout => \bigclock|Add0~118\);
 
--- Location: FF_X42_Y1_N31
-\bigclock|deci_hour_s[30]\ : dffeas
+-- Location: FF_X40_Y5_N25
+\bigclock|deci_hour_s[28]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -11384,68 +8691,32 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~117_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s\(30));
+	q => \bigclock|deci_hour_s\(28));
 
--- Location: LABCELL_X41_Y2_N54
-\bigclock|counter24h~18\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y5_N27
+\bigclock|Add0~89\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~18_combout\ = ( !\bigclock|deci_hour_s\(30) & ( (!\bigclock|deci_hour_s\(28) & (!\bigclock|deci_hour_s\(17) & !\bigclock|deci_hour_s\(16))) ) )
+-- \bigclock|Add0~89_sumout\ = SUM(( \bigclock|deci_hour_s[29]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~118\ ))
+-- \bigclock|Add0~90\ = CARRY(( \bigclock|deci_hour_s[29]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~118\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "1100000000000000110000000000000000000000000000000000000000000000",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_hour_s\(28),
-	datac => \bigclock|ALT_INV_deci_hour_s\(17),
-	datad => \bigclock|ALT_INV_deci_hour_s\(16),
-	dataf => \bigclock|ALT_INV_deci_hour_s\(30),
-	combout => \bigclock|counter24h~18_combout\);
+	datad => \bigclock|ALT_INV_deci_hour_s[29]~DUPLICATE_q\,
+	cin => \bigclock|Add0~118\,
+	sumout => \bigclock|Add0~89_sumout\,
+	cout => \bigclock|Add0~90\);
 
--- Location: FF_X42_Y1_N16
-\bigclock|deci_hour_s[25]~DUPLICATE\ : dffeas
--- pragma translate_off
-GENERIC MAP (
-	is_wysiwyg => "true",
-	power_up => "low")
--- pragma translate_on
-PORT MAP (
-	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~65_sumout\,
-	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
-	ena => \bigclock|deci_hour_s[3]~0_combout\,
-	devclrn => ww_devclrn,
-	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s[25]~DUPLICATE_q\);
-
--- Location: LABCELL_X41_Y2_N0
-\bigclock|counter24h~30\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|counter24h~30_combout\ = ( !\bigclock|deci_hour_s[25]~DUPLICATE_q\ & ( (!\bigclock|deci_hour_s\(3) & (!\bigclock|deci_hour_s\(22) & (!\bigclock|deci_hour_s\(26) & !\bigclock|deci_hour_s\(27)))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "1000000000000000100000000000000000000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(3),
-	datab => \bigclock|ALT_INV_deci_hour_s\(22),
-	datac => \bigclock|ALT_INV_deci_hour_s\(26),
-	datad => \bigclock|ALT_INV_deci_hour_s\(27),
-	dataf => \bigclock|ALT_INV_deci_hour_s[25]~DUPLICATE_q\,
-	combout => \bigclock|counter24h~30_combout\);
-
--- Location: FF_X42_Y1_N10
-\bigclock|deci_hour_s[23]~DUPLICATE\ : dffeas
+-- Location: FF_X40_Y5_N29
+\bigclock|deci_hour_s[29]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -11455,36 +8726,208 @@ PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
 	d => \bigclock|Add0~89_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|deci_hour_s[23]~DUPLICATE_q\);
+	q => \bigclock|deci_hour_s[29]~DUPLICATE_q\);
 
--- Location: LABCELL_X41_Y2_N18
-\bigclock|counter24h~29\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y5_N30
+\bigclock|Add0~113\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~29_combout\ = ( !\bigclock|deci_hour_s\(29) & ( !\bigclock|deci_hour_s\(21) & ( (!\bigclock|deci_hour_s\(13) & (!\bigclock|deci_hour_s\(14) & (!\bigclock|deci_hour_s[23]~DUPLICATE_q\ & !\bigclock|deci_hour_s\(18)))) ) ) )
+-- \bigclock|Add0~113_sumout\ = SUM(( \bigclock|deci_hour_s[30]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add0~90\ ))
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(13),
-	datab => \bigclock|ALT_INV_deci_hour_s\(14),
-	datac => \bigclock|ALT_INV_deci_hour_s[23]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_deci_hour_s\(18),
-	datae => \bigclock|ALT_INV_deci_hour_s\(29),
-	dataf => \bigclock|ALT_INV_deci_hour_s\(21),
-	combout => \bigclock|counter24h~29_combout\);
+	datab => \bigclock|ALT_INV_deci_hour_s[30]~DUPLICATE_q\,
+	cin => \bigclock|Add0~90\,
+	sumout => \bigclock|Add0~113_sumout\);
 
--- Location: LABCELL_X41_Y2_N12
+-- Location: FF_X40_Y5_N31
+\bigclock|deci_hour_s[30]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~113_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(30));
+
+-- Location: FF_X40_Y6_N49
+\bigclock|deci_hour_s[16]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~105_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s[16]~DUPLICATE_q\);
+
+-- Location: LABCELL_X41_Y5_N18
 \bigclock|counter24h~19\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~19_combout\ = ( \bigclock|counter24h~30_combout\ & ( \bigclock|counter24h~29_combout\ & ( (!\bigclock|deci_hour_s\(15) & (!\bigclock|deci_hour_s\(19) & (\bigclock|counter24h~18_combout\ & !\bigclock|deci_hour_s\(20)))) ) ) )
+-- \bigclock|counter24h~19_combout\ = ( !\bigclock|deci_hour_s\(17) & ( !\bigclock|deci_hour_s[16]~DUPLICATE_q\ & ( (!\bigclock|deci_hour_s\(27) & (!\bigclock|deci_hour_s\(30) & !\bigclock|deci_hour_s\(28))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_hour_s\(27),
+	datac => \bigclock|ALT_INV_deci_hour_s\(30),
+	datad => \bigclock|ALT_INV_deci_hour_s\(28),
+	datae => \bigclock|ALT_INV_deci_hour_s\(17),
+	dataf => \bigclock|ALT_INV_deci_hour_s[16]~DUPLICATE_q\,
+	combout => \bigclock|counter24h~19_combout\);
+
+-- Location: FF_X40_Y5_N7
+\bigclock|deci_hour_s[22]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~73_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(22));
+
+-- Location: LABCELL_X40_Y5_N54
+\bigclock|counter24h~17\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~17_combout\ = ( !\bigclock|deci_hour_s\(3) & ( (!\bigclock|deci_hour_s\(21) & (!\bigclock|deci_hour_s\(25) & (!\bigclock|deci_hour_s\(22) & !\bigclock|deci_hour_s\(20)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000100000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_hour_s\(21),
+	datab => \bigclock|ALT_INV_deci_hour_s\(25),
+	datac => \bigclock|ALT_INV_deci_hour_s\(22),
+	datad => \bigclock|ALT_INV_deci_hour_s\(20),
+	dataf => \bigclock|ALT_INV_deci_hour_s\(3),
+	combout => \bigclock|counter24h~17_combout\);
+
+-- Location: FF_X40_Y6_N55
+\bigclock|deci_hour_s[18]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~93_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(18));
+
+-- Location: FF_X40_Y5_N28
+\bigclock|deci_hour_s[29]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~89_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(29));
+
+-- Location: FF_X40_Y5_N10
+\bigclock|deci_hour_s[23]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(23));
+
+-- Location: FF_X40_Y6_N43
+\bigclock|deci_hour_s[14]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add0~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~22_combout\,
+	ena => \bigclock|deci_hour_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_hour_s\(14));
+
+-- Location: LABCELL_X41_Y5_N12
+\bigclock|counter24h~18\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~18_combout\ = ( !\bigclock|deci_hour_s\(13) & ( !\bigclock|deci_hour_s\(14) & ( (!\bigclock|deci_hour_s\(18) & (!\bigclock|deci_hour_s\(29) & !\bigclock|deci_hour_s\(23))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1100000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_hour_s\(18),
+	datac => \bigclock|ALT_INV_deci_hour_s\(29),
+	datad => \bigclock|ALT_INV_deci_hour_s\(23),
+	datae => \bigclock|ALT_INV_deci_hour_s\(13),
+	dataf => \bigclock|ALT_INV_deci_hour_s\(14),
+	combout => \bigclock|counter24h~18_combout\);
+
+-- Location: LABCELL_X40_Y5_N51
+\bigclock|counter24h~20\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~20_combout\ = ( \bigclock|counter24h~17_combout\ & ( \bigclock|counter24h~18_combout\ & ( (!\bigclock|deci_hour_s\(15) & (!\bigclock|deci_hour_s\(19) & (\bigclock|counter24h~19_combout\ & !\bigclock|deci_hour_s\(26)))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
@@ -11495,16 +8938,16 @@ GENERIC MAP (
 PORT MAP (
 	dataa => \bigclock|ALT_INV_deci_hour_s\(15),
 	datab => \bigclock|ALT_INV_deci_hour_s\(19),
-	datac => \bigclock|ALT_INV_counter24h~18_combout\,
-	datad => \bigclock|ALT_INV_deci_hour_s\(20),
-	datae => \bigclock|ALT_INV_counter24h~30_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~29_combout\,
-	combout => \bigclock|counter24h~19_combout\);
+	datac => \bigclock|ALT_INV_counter24h~19_combout\,
+	datad => \bigclock|ALT_INV_deci_hour_s\(26),
+	datae => \bigclock|ALT_INV_counter24h~17_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~18_combout\,
+	combout => \bigclock|counter24h~20_combout\);
 
--- Location: LABCELL_X41_Y2_N45
-\bigclock|counter24h~20\ : cyclonev_lcell_comb
+-- Location: LABCELL_X40_Y5_N42
+\bigclock|counter24h~21\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~20_combout\ = ( \bigclock|hour_s[1]~DUPLICATE_q\ & ( \bigclock|counter24h~19_combout\ & ( (\bigclock|counter24h~17_combout\ & (!\bigclock|deci_hour_s\(8) & (\bigclock|counter24h~16_combout\ & \bigclock|display0|Mux4~0_combout\))) ) ) 
+-- \bigclock|counter24h~21_combout\ = ( \bigclock|display0|Mux4~0_combout\ & ( \bigclock|counter24h~20_combout\ & ( (\bigclock|hour_s[1]~DUPLICATE_q\ & (!\bigclock|deci_hour_s\(8) & (\bigclock|counter24h~15_combout\ & \bigclock|counter24h~16_combout\))) ) ) 
 -- )
 
 -- pragma translate_off
@@ -11514,32 +8957,3051 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_counter24h~17_combout\,
+	dataa => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
 	datab => \bigclock|ALT_INV_deci_hour_s\(8),
-	datac => \bigclock|ALT_INV_counter24h~16_combout\,
-	datad => \bigclock|display0|ALT_INV_Mux4~0_combout\,
-	datae => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
-	dataf => \bigclock|ALT_INV_counter24h~19_combout\,
-	combout => \bigclock|counter24h~20_combout\);
+	datac => \bigclock|ALT_INV_counter24h~15_combout\,
+	datad => \bigclock|ALT_INV_counter24h~16_combout\,
+	datae => \bigclock|display0|ALT_INV_Mux4~0_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~20_combout\,
+	combout => \bigclock|counter24h~21_combout\);
 
--- Location: LABCELL_X41_Y2_N27
-\bigclock|counter24h~21\ : cyclonev_lcell_comb
+-- Location: LABCELL_X41_Y4_N48
+\bigclock|minute_s[8]~7\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|counter24h~21_combout\ = ( \bigclock|counter24h~10_combout\ & ( (\bigclock|counter24h~20_combout\ & \bigclock|counter24h~15_combout\) ) )
+-- \bigclock|minute_s[8]~7_combout\ = ( \bigclock|counter24h~23_combout\ & ( \bigclock|minute_s[8]~5_combout\ ) ) # ( !\bigclock|counter24h~23_combout\ & ( \bigclock|minute_s[8]~5_combout\ ) ) # ( \bigclock|counter24h~23_combout\ & ( 
+-- !\bigclock|minute_s[8]~5_combout\ ) ) # ( !\bigclock|counter24h~23_combout\ & ( !\bigclock|minute_s[8]~5_combout\ & ( (\bigclock|minute_s[8]~4_combout\ & (\bigclock|counter24h~21_combout\ & (\bigclock|Equal6~6_combout\ & 
+-- \bigclock|deci_minute_s[15]~2_combout\))) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000000000000000011110000000000001111",
+	lut_mask => "0000000000000001111111111111111111111111111111111111111111111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_counter24h~20_combout\,
-	datad => \bigclock|ALT_INV_counter24h~15_combout\,
-	dataf => \bigclock|ALT_INV_counter24h~10_combout\,
-	combout => \bigclock|counter24h~21_combout\);
+	dataa => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	datab => \bigclock|ALT_INV_counter24h~21_combout\,
+	datac => \bigclock|ALT_INV_Equal6~6_combout\,
+	datad => \bigclock|ALT_INV_deci_minute_s[15]~2_combout\,
+	datae => \bigclock|ALT_INV_counter24h~23_combout\,
+	dataf => \bigclock|ALT_INV_minute_s[8]~5_combout\,
+	combout => \bigclock|minute_s[8]~7_combout\);
 
--- Location: FF_X42_Y2_N2
+-- Location: LABCELL_X43_Y4_N54
+\bigclock|deci_second_s[3]~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|deci_second_s[3]~0_combout\ = ( \bigclock|Equal6~0_combout\ & ( \bigclock|Equal6~5_combout\ & ( (!\bigclock|second_s[16]~DUPLICATE_q\ & (\bigclock|Equal6~1_combout\ & (\bigclock|Sec_Clock|slow_clk~q\ & \bigclock|clk_state_s.counting~q\))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000010",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s[16]~DUPLICATE_q\,
+	datab => \bigclock|ALT_INV_Equal6~1_combout\,
+	datac => \bigclock|Sec_Clock|ALT_INV_slow_clk~q\,
+	datad => \bigclock|ALT_INV_clk_state_s.counting~q\,
+	datae => \bigclock|ALT_INV_Equal6~0_combout\,
+	dataf => \bigclock|ALT_INV_Equal6~5_combout\,
+	combout => \bigclock|deci_second_s[3]~0_combout\);
+
+-- Location: FF_X44_Y5_N38
+\bigclock|deci_second_s[12]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[12]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y5_N0
+\bigclock|Add4~1\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~1_sumout\ = SUM(( \bigclock|deci_second_s\(0) ) + ( VCC ) + ( !VCC ))
+-- \bigclock|Add4~2\ = CARRY(( \bigclock|deci_second_s\(0) ) + ( VCC ) + ( !VCC ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(0),
+	cin => GND,
+	sumout => \bigclock|Add4~1_sumout\,
+	cout => \bigclock|Add4~2\);
+
+-- Location: FF_X44_Y5_N2
+\bigclock|deci_second_s[0]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~1_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(0));
+
+-- Location: LABCELL_X44_Y5_N3
+\bigclock|Add4~5\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~5_sumout\ = SUM(( \bigclock|deci_second_s\(1) ) + ( GND ) + ( \bigclock|Add4~2\ ))
+-- \bigclock|Add4~6\ = CARRY(( \bigclock|deci_second_s\(1) ) + ( GND ) + ( \bigclock|Add4~2\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(1),
+	cin => \bigclock|Add4~2\,
+	sumout => \bigclock|Add4~5_sumout\,
+	cout => \bigclock|Add4~6\);
+
+-- Location: FF_X44_Y5_N5
+\bigclock|deci_second_s[1]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~5_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(1));
+
+-- Location: LABCELL_X44_Y5_N6
+\bigclock|Add4~9\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~9_sumout\ = SUM(( \bigclock|deci_second_s\(2) ) + ( GND ) + ( \bigclock|Add4~6\ ))
+-- \bigclock|Add4~10\ = CARRY(( \bigclock|deci_second_s\(2) ) + ( GND ) + ( \bigclock|Add4~6\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(2),
+	cin => \bigclock|Add4~6\,
+	sumout => \bigclock|Add4~9_sumout\,
+	cout => \bigclock|Add4~10\);
+
+-- Location: FF_X44_Y5_N7
+\bigclock|deci_second_s[2]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~9_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(2));
+
+-- Location: LABCELL_X44_Y5_N9
+\bigclock|Add4~13\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~13_sumout\ = SUM(( \bigclock|deci_second_s\(3) ) + ( GND ) + ( \bigclock|Add4~10\ ))
+-- \bigclock|Add4~14\ = CARRY(( \bigclock|deci_second_s\(3) ) + ( GND ) + ( \bigclock|Add4~10\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(3),
+	cin => \bigclock|Add4~10\,
+	sumout => \bigclock|Add4~13_sumout\,
+	cout => \bigclock|Add4~14\);
+
+-- Location: FF_X44_Y5_N11
+\bigclock|deci_second_s[3]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~13_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(3));
+
+-- Location: LABCELL_X44_Y5_N12
+\bigclock|Add4~81\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~81_sumout\ = SUM(( \bigclock|deci_second_s[4]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~14\ ))
+-- \bigclock|Add4~82\ = CARRY(( \bigclock|deci_second_s[4]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~14\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_second_s[4]~DUPLICATE_q\,
+	cin => \bigclock|Add4~14\,
+	sumout => \bigclock|Add4~81_sumout\,
+	cout => \bigclock|Add4~82\);
+
+-- Location: FF_X44_Y5_N14
+\bigclock|deci_second_s[4]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~81_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[4]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y5_N15
+\bigclock|Add4~109\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~109_sumout\ = SUM(( \bigclock|deci_second_s\(5) ) + ( GND ) + ( \bigclock|Add4~82\ ))
+-- \bigclock|Add4~110\ = CARRY(( \bigclock|deci_second_s\(5) ) + ( GND ) + ( \bigclock|Add4~82\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(5),
+	cin => \bigclock|Add4~82\,
+	sumout => \bigclock|Add4~109_sumout\,
+	cout => \bigclock|Add4~110\);
+
+-- Location: FF_X44_Y5_N17
+\bigclock|deci_second_s[5]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~109_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(5));
+
+-- Location: LABCELL_X44_Y5_N18
+\bigclock|Add4~105\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~105_sumout\ = SUM(( \bigclock|deci_second_s\(6) ) + ( GND ) + ( \bigclock|Add4~110\ ))
+-- \bigclock|Add4~106\ = CARRY(( \bigclock|deci_second_s\(6) ) + ( GND ) + ( \bigclock|Add4~110\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(6),
+	cin => \bigclock|Add4~110\,
+	sumout => \bigclock|Add4~105_sumout\,
+	cout => \bigclock|Add4~106\);
+
+-- Location: FF_X44_Y5_N20
+\bigclock|deci_second_s[6]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~105_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(6));
+
+-- Location: LABCELL_X44_Y5_N21
+\bigclock|Add4~101\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~101_sumout\ = SUM(( \bigclock|deci_second_s\(7) ) + ( GND ) + ( \bigclock|Add4~106\ ))
+-- \bigclock|Add4~102\ = CARRY(( \bigclock|deci_second_s\(7) ) + ( GND ) + ( \bigclock|Add4~106\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(7),
+	cin => \bigclock|Add4~106\,
+	sumout => \bigclock|Add4~101_sumout\,
+	cout => \bigclock|Add4~102\);
+
+-- Location: FF_X44_Y5_N23
+\bigclock|deci_second_s[7]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(7));
+
+-- Location: LABCELL_X44_Y5_N24
+\bigclock|Add4~97\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~97_sumout\ = SUM(( \bigclock|deci_second_s\(8) ) + ( GND ) + ( \bigclock|Add4~102\ ))
+-- \bigclock|Add4~98\ = CARRY(( \bigclock|deci_second_s\(8) ) + ( GND ) + ( \bigclock|Add4~102\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(8),
+	cin => \bigclock|Add4~102\,
+	sumout => \bigclock|Add4~97_sumout\,
+	cout => \bigclock|Add4~98\);
+
+-- Location: FF_X44_Y5_N26
+\bigclock|deci_second_s[8]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~97_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(8));
+
+-- Location: LABCELL_X44_Y5_N27
+\bigclock|Add4~93\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~93_sumout\ = SUM(( \bigclock|deci_second_s\(9) ) + ( GND ) + ( \bigclock|Add4~98\ ))
+-- \bigclock|Add4~94\ = CARRY(( \bigclock|deci_second_s\(9) ) + ( GND ) + ( \bigclock|Add4~98\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(9),
+	cin => \bigclock|Add4~98\,
+	sumout => \bigclock|Add4~93_sumout\,
+	cout => \bigclock|Add4~94\);
+
+-- Location: FF_X44_Y5_N29
+\bigclock|deci_second_s[9]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~93_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(9));
+
+-- Location: LABCELL_X44_Y5_N30
+\bigclock|Add4~29\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~29_sumout\ = SUM(( \bigclock|deci_second_s\(10) ) + ( GND ) + ( \bigclock|Add4~94\ ))
+-- \bigclock|Add4~30\ = CARRY(( \bigclock|deci_second_s\(10) ) + ( GND ) + ( \bigclock|Add4~94\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_second_s\(10),
+	cin => \bigclock|Add4~94\,
+	sumout => \bigclock|Add4~29_sumout\,
+	cout => \bigclock|Add4~30\);
+
+-- Location: FF_X44_Y5_N32
+\bigclock|deci_second_s[10]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~29_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(10));
+
+-- Location: LABCELL_X44_Y5_N33
+\bigclock|Add4~25\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~25_sumout\ = SUM(( \bigclock|deci_second_s\(11) ) + ( GND ) + ( \bigclock|Add4~30\ ))
+-- \bigclock|Add4~26\ = CARRY(( \bigclock|deci_second_s\(11) ) + ( GND ) + ( \bigclock|Add4~30\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_second_s\(11),
+	cin => \bigclock|Add4~30\,
+	sumout => \bigclock|Add4~25_sumout\,
+	cout => \bigclock|Add4~26\);
+
+-- Location: FF_X44_Y5_N35
+\bigclock|deci_second_s[11]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~25_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(11));
+
+-- Location: LABCELL_X44_Y5_N36
+\bigclock|Add4~21\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~21_sumout\ = SUM(( \bigclock|deci_second_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~26\ ))
+-- \bigclock|Add4~22\ = CARRY(( \bigclock|deci_second_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~26\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s[12]~DUPLICATE_q\,
+	cin => \bigclock|Add4~26\,
+	sumout => \bigclock|Add4~21_sumout\,
+	cout => \bigclock|Add4~22\);
+
+-- Location: FF_X44_Y5_N37
+\bigclock|deci_second_s[12]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(12));
+
+-- Location: LABCELL_X44_Y5_N39
+\bigclock|Add4~113\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~113_sumout\ = SUM(( \bigclock|deci_second_s[13]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~22\ ))
+-- \bigclock|Add4~114\ = CARRY(( \bigclock|deci_second_s[13]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~22\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s[13]~DUPLICATE_q\,
+	cin => \bigclock|Add4~22\,
+	sumout => \bigclock|Add4~113_sumout\,
+	cout => \bigclock|Add4~114\);
+
+-- Location: FF_X44_Y5_N41
+\bigclock|deci_second_s[13]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~113_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[13]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y5_N42
+\bigclock|Add4~17\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~17_sumout\ = SUM(( \bigclock|deci_second_s\(14) ) + ( GND ) + ( \bigclock|Add4~114\ ))
+-- \bigclock|Add4~18\ = CARRY(( \bigclock|deci_second_s\(14) ) + ( GND ) + ( \bigclock|Add4~114\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(14),
+	cin => \bigclock|Add4~114\,
+	sumout => \bigclock|Add4~17_sumout\,
+	cout => \bigclock|Add4~18\);
+
+-- Location: FF_X44_Y5_N43
+\bigclock|deci_second_s[14]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~17_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(14));
+
+-- Location: LABCELL_X44_Y5_N45
+\bigclock|Add4~53\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~53_sumout\ = SUM(( \bigclock|deci_second_s[15]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~18\ ))
+-- \bigclock|Add4~54\ = CARRY(( \bigclock|deci_second_s[15]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~18\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s[15]~DUPLICATE_q\,
+	cin => \bigclock|Add4~18\,
+	sumout => \bigclock|Add4~53_sumout\,
+	cout => \bigclock|Add4~54\);
+
+-- Location: FF_X44_Y5_N47
+\bigclock|deci_second_s[15]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~53_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[15]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y5_N48
+\bigclock|Add4~49\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~49_sumout\ = SUM(( \bigclock|deci_second_s\(16) ) + ( GND ) + ( \bigclock|Add4~54\ ))
+-- \bigclock|Add4~50\ = CARRY(( \bigclock|deci_second_s\(16) ) + ( GND ) + ( \bigclock|Add4~54\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(16),
+	cin => \bigclock|Add4~54\,
+	sumout => \bigclock|Add4~49_sumout\,
+	cout => \bigclock|Add4~50\);
+
+-- Location: FF_X44_Y5_N50
+\bigclock|deci_second_s[16]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~49_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(16));
+
+-- Location: LABCELL_X44_Y5_N51
+\bigclock|Add4~45\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~45_sumout\ = SUM(( \bigclock|deci_second_s[17]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~50\ ))
+-- \bigclock|Add4~46\ = CARRY(( \bigclock|deci_second_s[17]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~50\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s[17]~DUPLICATE_q\,
+	cin => \bigclock|Add4~50\,
+	sumout => \bigclock|Add4~45_sumout\,
+	cout => \bigclock|Add4~46\);
+
+-- Location: FF_X44_Y5_N52
+\bigclock|deci_second_s[17]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[17]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y5_N54
+\bigclock|Add4~41\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~41_sumout\ = SUM(( \bigclock|deci_second_s\(18) ) + ( GND ) + ( \bigclock|Add4~46\ ))
+-- \bigclock|Add4~42\ = CARRY(( \bigclock|deci_second_s\(18) ) + ( GND ) + ( \bigclock|Add4~46\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(18),
+	cin => \bigclock|Add4~46\,
+	sumout => \bigclock|Add4~41_sumout\,
+	cout => \bigclock|Add4~42\);
+
+-- Location: FF_X44_Y5_N56
+\bigclock|deci_second_s[18]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~41_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(18));
+
+-- Location: LABCELL_X44_Y5_N57
+\bigclock|Add4~37\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~37_sumout\ = SUM(( \bigclock|deci_second_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~42\ ))
+-- \bigclock|Add4~38\ = CARRY(( \bigclock|deci_second_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~42\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s[19]~DUPLICATE_q\,
+	cin => \bigclock|Add4~42\,
+	sumout => \bigclock|Add4~37_sumout\,
+	cout => \bigclock|Add4~38\);
+
+-- Location: FF_X44_Y5_N59
+\bigclock|deci_second_s[19]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~37_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[19]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y4_N0
+\bigclock|Add4~33\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~33_sumout\ = SUM(( \bigclock|deci_second_s\(20) ) + ( GND ) + ( \bigclock|Add4~38\ ))
+-- \bigclock|Add4~34\ = CARRY(( \bigclock|deci_second_s\(20) ) + ( GND ) + ( \bigclock|Add4~38\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(20),
+	cin => \bigclock|Add4~38\,
+	sumout => \bigclock|Add4~33_sumout\,
+	cout => \bigclock|Add4~34\);
+
+-- Location: FF_X44_Y4_N2
+\bigclock|deci_second_s[20]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~33_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(20));
+
+-- Location: LABCELL_X44_Y4_N3
+\bigclock|Add4~77\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~77_sumout\ = SUM(( \bigclock|deci_second_s\(21) ) + ( GND ) + ( \bigclock|Add4~34\ ))
+-- \bigclock|Add4~78\ = CARRY(( \bigclock|deci_second_s\(21) ) + ( GND ) + ( \bigclock|Add4~34\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(21),
+	cin => \bigclock|Add4~34\,
+	sumout => \bigclock|Add4~77_sumout\,
+	cout => \bigclock|Add4~78\);
+
+-- Location: FF_X44_Y4_N5
+\bigclock|deci_second_s[21]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~77_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(21));
+
+-- Location: LABCELL_X44_Y4_N6
+\bigclock|Add4~73\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~73_sumout\ = SUM(( \bigclock|deci_second_s\(22) ) + ( GND ) + ( \bigclock|Add4~78\ ))
+-- \bigclock|Add4~74\ = CARRY(( \bigclock|deci_second_s\(22) ) + ( GND ) + ( \bigclock|Add4~78\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_second_s\(22),
+	cin => \bigclock|Add4~78\,
+	sumout => \bigclock|Add4~73_sumout\,
+	cout => \bigclock|Add4~74\);
+
+-- Location: FF_X44_Y4_N8
+\bigclock|deci_second_s[22]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~73_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(22));
+
+-- Location: LABCELL_X44_Y4_N9
+\bigclock|Add4~69\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~69_sumout\ = SUM(( \bigclock|deci_second_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~74\ ))
+-- \bigclock|Add4~70\ = CARRY(( \bigclock|deci_second_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~74\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s[23]~DUPLICATE_q\,
+	cin => \bigclock|Add4~74\,
+	sumout => \bigclock|Add4~69_sumout\,
+	cout => \bigclock|Add4~70\);
+
+-- Location: FF_X44_Y4_N11
+\bigclock|deci_second_s[23]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~69_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[23]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y4_N12
+\bigclock|Add4~65\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~65_sumout\ = SUM(( \bigclock|deci_second_s\(24) ) + ( GND ) + ( \bigclock|Add4~70\ ))
+-- \bigclock|Add4~66\ = CARRY(( \bigclock|deci_second_s\(24) ) + ( GND ) + ( \bigclock|Add4~70\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_second_s\(24),
+	cin => \bigclock|Add4~70\,
+	sumout => \bigclock|Add4~65_sumout\,
+	cout => \bigclock|Add4~66\);
+
+-- Location: FF_X44_Y4_N14
+\bigclock|deci_second_s[24]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~65_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(24));
+
+-- Location: LABCELL_X44_Y4_N15
+\bigclock|Add4~61\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~61_sumout\ = SUM(( \bigclock|deci_second_s\(25) ) + ( GND ) + ( \bigclock|Add4~66\ ))
+-- \bigclock|Add4~62\ = CARRY(( \bigclock|deci_second_s\(25) ) + ( GND ) + ( \bigclock|Add4~66\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(25),
+	cin => \bigclock|Add4~66\,
+	sumout => \bigclock|Add4~61_sumout\,
+	cout => \bigclock|Add4~62\);
+
+-- Location: FF_X44_Y4_N17
+\bigclock|deci_second_s[25]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~61_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(25));
+
+-- Location: LABCELL_X44_Y4_N18
+\bigclock|Add4~57\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~57_sumout\ = SUM(( \bigclock|deci_second_s\(26) ) + ( GND ) + ( \bigclock|Add4~62\ ))
+-- \bigclock|Add4~58\ = CARRY(( \bigclock|deci_second_s\(26) ) + ( GND ) + ( \bigclock|Add4~62\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(26),
+	cin => \bigclock|Add4~62\,
+	sumout => \bigclock|Add4~57_sumout\,
+	cout => \bigclock|Add4~58\);
+
+-- Location: FF_X44_Y4_N20
+\bigclock|deci_second_s[26]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~57_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(26));
+
+-- Location: LABCELL_X44_Y4_N21
+\bigclock|Add4~89\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~89_sumout\ = SUM(( \bigclock|deci_second_s\(27) ) + ( GND ) + ( \bigclock|Add4~58\ ))
+-- \bigclock|Add4~90\ = CARRY(( \bigclock|deci_second_s\(27) ) + ( GND ) + ( \bigclock|Add4~58\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(27),
+	cin => \bigclock|Add4~58\,
+	sumout => \bigclock|Add4~89_sumout\,
+	cout => \bigclock|Add4~90\);
+
+-- Location: FF_X44_Y4_N22
+\bigclock|deci_second_s[27]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~89_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(27));
+
+-- Location: MLABCELL_X42_Y4_N21
+\bigclock|minute_s[8]~8\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~8_combout\ = ( \bigclock|deci_second_s\(0) & ( !\bigclock|deci_second_s\(11) & ( (!\bigclock|deci_second_s\(12) & (!\bigclock|deci_second_s\(27) & (!\bigclock|deci_second_s\(10) & !\bigclock|deci_second_s\(14)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000100000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_second_s\(12),
+	datab => \bigclock|ALT_INV_deci_second_s\(27),
+	datac => \bigclock|ALT_INV_deci_second_s\(10),
+	datad => \bigclock|ALT_INV_deci_second_s\(14),
+	datae => \bigclock|ALT_INV_deci_second_s\(0),
+	dataf => \bigclock|ALT_INV_deci_second_s\(11),
+	combout => \bigclock|minute_s[8]~8_combout\);
+
+-- Location: LABCELL_X44_Y4_N24
+\bigclock|Add4~85\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~85_sumout\ = SUM(( \bigclock|deci_second_s[28]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~90\ ))
+-- \bigclock|Add4~86\ = CARRY(( \bigclock|deci_second_s[28]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add4~90\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s[28]~DUPLICATE_q\,
+	cin => \bigclock|Add4~90\,
+	sumout => \bigclock|Add4~85_sumout\,
+	cout => \bigclock|Add4~86\);
+
+-- Location: FF_X44_Y4_N26
+\bigclock|deci_second_s[28]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[28]~DUPLICATE_q\);
+
+-- Location: LABCELL_X44_Y4_N27
+\bigclock|Add4~121\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~121_sumout\ = SUM(( \bigclock|deci_second_s\(29) ) + ( GND ) + ( \bigclock|Add4~86\ ))
+-- \bigclock|Add4~122\ = CARRY(( \bigclock|deci_second_s\(29) ) + ( GND ) + ( \bigclock|Add4~86\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_second_s\(29),
+	cin => \bigclock|Add4~86\,
+	sumout => \bigclock|Add4~121_sumout\,
+	cout => \bigclock|Add4~122\);
+
+-- Location: FF_X44_Y4_N29
+\bigclock|deci_second_s[29]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~121_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(29));
+
+-- Location: LABCELL_X44_Y4_N30
+\bigclock|Add4~117\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add4~117_sumout\ = SUM(( \bigclock|deci_second_s\(30) ) + ( GND ) + ( \bigclock|Add4~122\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_second_s\(30),
+	cin => \bigclock|Add4~122\,
+	sumout => \bigclock|Add4~117_sumout\);
+
+-- Location: FF_X44_Y4_N31
+\bigclock|deci_second_s[30]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~117_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(30));
+
+-- Location: FF_X44_Y5_N40
+\bigclock|deci_second_s[13]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~113_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(13));
+
+-- Location: LABCELL_X41_Y4_N57
+\bigclock|minute_s[8]~3\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~3_combout\ = ( !\bigclock|deci_second_s\(13) & ( (!\bigclock|deci_second_s\(30) & (!\bigclock|deci_second_s\(3) & !\bigclock|deci_second_s\(29))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1010000000000000101000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_second_s\(30),
+	datac => \bigclock|ALT_INV_deci_second_s\(3),
+	datad => \bigclock|ALT_INV_deci_second_s\(29),
+	dataf => \bigclock|ALT_INV_deci_second_s\(13),
+	combout => \bigclock|minute_s[8]~3_combout\);
+
+-- Location: FF_X44_Y4_N10
+\bigclock|deci_second_s[23]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~69_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(23));
+
+-- Location: LABCELL_X44_Y4_N36
+\bigclock|minute_s[8]~1\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~1_combout\ = ( !\bigclock|deci_second_s\(23) & ( !\bigclock|deci_second_s\(25) & ( (!\bigclock|deci_second_s\(21) & (!\bigclock|deci_second_s\(22) & (!\bigclock|deci_second_s\(26) & !\bigclock|deci_second_s\(24)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_second_s\(21),
+	datab => \bigclock|ALT_INV_deci_second_s\(22),
+	datac => \bigclock|ALT_INV_deci_second_s\(26),
+	datad => \bigclock|ALT_INV_deci_second_s\(24),
+	datae => \bigclock|ALT_INV_deci_second_s\(23),
+	dataf => \bigclock|ALT_INV_deci_second_s\(25),
+	combout => \bigclock|minute_s[8]~1_combout\);
+
+-- Location: FF_X44_Y4_N25
+\bigclock|deci_second_s[28]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(28));
+
+-- Location: FF_X44_Y5_N13
+\bigclock|deci_second_s[4]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~81_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(4));
+
+-- Location: LABCELL_X41_Y4_N39
+\bigclock|minute_s[8]~9\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~9_combout\ = ( \bigclock|deci_second_s\(2) & ( (!\bigclock|deci_second_s\(1) & (!\bigclock|deci_second_s\(28) & !\bigclock|deci_second_s\(4))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000010100000000000001010000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_second_s\(1),
+	datac => \bigclock|ALT_INV_deci_second_s\(28),
+	datad => \bigclock|ALT_INV_deci_second_s\(4),
+	dataf => \bigclock|ALT_INV_deci_second_s\(2),
+	combout => \bigclock|minute_s[8]~9_combout\);
+
+-- Location: FF_X44_Y5_N22
+\bigclock|deci_second_s[7]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s[7]~DUPLICATE_q\);
+
+-- Location: MLABCELL_X42_Y5_N36
+\bigclock|minute_s[8]~2\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~2_combout\ = ( !\bigclock|deci_second_s\(6) & ( !\bigclock|deci_second_s\(5) & ( (!\bigclock|deci_second_s\(8) & (!\bigclock|deci_second_s[7]~DUPLICATE_q\ & !\bigclock|deci_second_s\(9))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1100000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_second_s\(8),
+	datac => \bigclock|ALT_INV_deci_second_s[7]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_deci_second_s\(9),
+	datae => \bigclock|ALT_INV_deci_second_s\(6),
+	dataf => \bigclock|ALT_INV_deci_second_s\(5),
+	combout => \bigclock|minute_s[8]~2_combout\);
+
+-- Location: FF_X44_Y5_N53
+\bigclock|deci_second_s[17]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(17));
+
+-- Location: FF_X44_Y5_N46
+\bigclock|deci_second_s[15]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~53_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(15));
+
+-- Location: FF_X44_Y5_N58
+\bigclock|deci_second_s[19]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add4~37_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|minute_s[8]~7_combout\,
+	ena => \bigclock|deci_second_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_second_s\(19));
+
+-- Location: LABCELL_X43_Y4_N39
+\bigclock|minute_s[8]~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~0_combout\ = ( !\bigclock|deci_second_s\(15) & ( !\bigclock|deci_second_s\(19) & ( (!\bigclock|deci_second_s\(20) & (!\bigclock|deci_second_s\(17) & (!\bigclock|deci_second_s\(18) & !\bigclock|deci_second_s\(16)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_second_s\(20),
+	datab => \bigclock|ALT_INV_deci_second_s\(17),
+	datac => \bigclock|ALT_INV_deci_second_s\(18),
+	datad => \bigclock|ALT_INV_deci_second_s\(16),
+	datae => \bigclock|ALT_INV_deci_second_s\(15),
+	dataf => \bigclock|ALT_INV_deci_second_s\(19),
+	combout => \bigclock|minute_s[8]~0_combout\);
+
+-- Location: LABCELL_X41_Y4_N24
+\bigclock|minute_s[8]~4\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|minute_s[8]~4_combout\ = ( \bigclock|minute_s[8]~2_combout\ & ( \bigclock|minute_s[8]~0_combout\ & ( (\bigclock|minute_s[8]~8_combout\ & (\bigclock|minute_s[8]~3_combout\ & (\bigclock|minute_s[8]~1_combout\ & \bigclock|minute_s[8]~9_combout\))) 
+-- ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_minute_s[8]~8_combout\,
+	datab => \bigclock|ALT_INV_minute_s[8]~3_combout\,
+	datac => \bigclock|ALT_INV_minute_s[8]~1_combout\,
+	datad => \bigclock|ALT_INV_minute_s[8]~9_combout\,
+	datae => \bigclock|ALT_INV_minute_s[8]~2_combout\,
+	dataf => \bigclock|ALT_INV_minute_s[8]~0_combout\,
+	combout => \bigclock|minute_s[8]~4_combout\);
+
+-- Location: LABCELL_X41_Y4_N12
+\bigclock|counter24h~24\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~24_combout\ = ( \bigclock|Equal6~5_combout\ & ( \bigclock|counter24h~4_combout\ & ( (!\bigclock|second_s\(16) & (\bigclock|Equal6~1_combout\ & (\bigclock|minute_s[8]~4_combout\ & \bigclock|Equal6~0_combout\))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000010",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_second_s\(16),
+	datab => \bigclock|ALT_INV_Equal6~1_combout\,
+	datac => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	datad => \bigclock|ALT_INV_Equal6~0_combout\,
+	datae => \bigclock|ALT_INV_Equal6~5_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~4_combout\,
+	combout => \bigclock|counter24h~24_combout\);
+
+-- Location: LABCELL_X40_Y4_N6
+\bigclock|counter24h~25\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~25_combout\ = ( \bigclock|counter24h~24_combout\ & ( \bigclock|counter24h~9_combout\ ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000111111110000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_counter24h~9_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~24_combout\,
+	combout => \bigclock|counter24h~25_combout\);
+
+-- Location: LABCELL_X40_Y4_N18
+\bigclock|deci_minute_s[3]~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|deci_minute_s[3]~0_combout\ = ( \bigclock|deci_minute_s[3]~3_combout\ & ( \bigclock|counter24h~23_combout\ & ( \bigclock|deci_hour_s[3]~1_combout\ ) ) ) # ( !\bigclock|deci_minute_s[3]~3_combout\ & ( \bigclock|counter24h~23_combout\ & ( 
+-- \bigclock|deci_hour_s[3]~1_combout\ ) ) ) # ( \bigclock|deci_minute_s[3]~3_combout\ & ( !\bigclock|counter24h~23_combout\ & ( (\bigclock|deci_hour_s[3]~1_combout\ & (((\bigclock|Equal6~6_combout\ & \bigclock|counter24h~21_combout\)) # 
+-- (\bigclock|counter24h~24_combout\))) ) ) ) # ( !\bigclock|deci_minute_s[3]~3_combout\ & ( !\bigclock|counter24h~23_combout\ & ( (\bigclock|deci_hour_s[3]~1_combout\ & \bigclock|counter24h~24_combout\) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000001010101000000010101010101010101010101010101010101010101",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_hour_s[3]~1_combout\,
+	datab => \bigclock|ALT_INV_Equal6~6_combout\,
+	datac => \bigclock|ALT_INV_counter24h~21_combout\,
+	datad => \bigclock|ALT_INV_counter24h~24_combout\,
+	datae => \bigclock|ALT_INV_deci_minute_s[3]~3_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~23_combout\,
+	combout => \bigclock|deci_minute_s[3]~0_combout\);
+
+-- Location: FF_X39_Y4_N2
+\bigclock|deci_minute_s[0]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~1_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[0]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N3
+\bigclock|Add2~5\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~5_sumout\ = SUM(( \bigclock|deci_minute_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~2\ ))
+-- \bigclock|Add2~6\ = CARRY(( \bigclock|deci_minute_s[1]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~2\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[1]~DUPLICATE_q\,
+	cin => \bigclock|Add2~2\,
+	sumout => \bigclock|Add2~5_sumout\,
+	cout => \bigclock|Add2~6\);
+
+-- Location: FF_X39_Y4_N5
+\bigclock|deci_minute_s[1]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~5_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[1]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N6
+\bigclock|Add2~9\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~9_sumout\ = SUM(( \bigclock|deci_minute_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~6\ ))
+-- \bigclock|Add2~10\ = CARRY(( \bigclock|deci_minute_s[2]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~6\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[2]~DUPLICATE_q\,
+	cin => \bigclock|Add2~6\,
+	sumout => \bigclock|Add2~9_sumout\,
+	cout => \bigclock|Add2~10\);
+
+-- Location: FF_X40_Y4_N23
+\bigclock|deci_minute_s[2]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add2~9_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	sload => VCC,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[2]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N9
+\bigclock|Add2~13\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~13_sumout\ = SUM(( \bigclock|deci_minute_s[3]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~10\ ))
+-- \bigclock|Add2~14\ = CARRY(( \bigclock|deci_minute_s[3]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~10\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\,
+	cin => \bigclock|Add2~10\,
+	sumout => \bigclock|Add2~13_sumout\,
+	cout => \bigclock|Add2~14\);
+
+-- Location: FF_X39_Y4_N11
+\bigclock|deci_minute_s[3]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~13_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[3]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N12
+\bigclock|Add2~25\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~25_sumout\ = SUM(( \bigclock|deci_minute_s[4]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~14\ ))
+-- \bigclock|Add2~26\ = CARRY(( \bigclock|deci_minute_s[4]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~14\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_minute_s[4]~DUPLICATE_q\,
+	cin => \bigclock|Add2~14\,
+	sumout => \bigclock|Add2~25_sumout\,
+	cout => \bigclock|Add2~26\);
+
+-- Location: FF_X39_Y4_N14
+\bigclock|deci_minute_s[4]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~25_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[4]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N15
+\bigclock|Add2~21\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~21_sumout\ = SUM(( \bigclock|deci_minute_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~26\ ))
+-- \bigclock|Add2~22\ = CARRY(( \bigclock|deci_minute_s[5]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~26\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[5]~DUPLICATE_q\,
+	cin => \bigclock|Add2~26\,
+	sumout => \bigclock|Add2~21_sumout\,
+	cout => \bigclock|Add2~22\);
+
+-- Location: FF_X39_Y4_N17
+\bigclock|deci_minute_s[5]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[5]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N18
+\bigclock|Add2~17\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~17_sumout\ = SUM(( \bigclock|deci_minute_s\(6) ) + ( GND ) + ( \bigclock|Add2~22\ ))
+-- \bigclock|Add2~18\ = CARRY(( \bigclock|deci_minute_s\(6) ) + ( GND ) + ( \bigclock|Add2~22\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s\(6),
+	cin => \bigclock|Add2~22\,
+	sumout => \bigclock|Add2~17_sumout\,
+	cout => \bigclock|Add2~18\);
+
+-- Location: FF_X39_Y4_N20
+\bigclock|deci_minute_s[6]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~17_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(6));
+
+-- Location: LABCELL_X39_Y4_N21
+\bigclock|Add2~77\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~77_sumout\ = SUM(( \bigclock|deci_minute_s\(7) ) + ( GND ) + ( \bigclock|Add2~18\ ))
+-- \bigclock|Add2~78\ = CARRY(( \bigclock|deci_minute_s\(7) ) + ( GND ) + ( \bigclock|Add2~18\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s\(7),
+	cin => \bigclock|Add2~18\,
+	sumout => \bigclock|Add2~77_sumout\,
+	cout => \bigclock|Add2~78\);
+
+-- Location: FF_X39_Y4_N23
+\bigclock|deci_minute_s[7]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~77_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(7));
+
+-- Location: LABCELL_X39_Y4_N24
+\bigclock|Add2~73\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~73_sumout\ = SUM(( \bigclock|deci_minute_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~78\ ))
+-- \bigclock|Add2~74\ = CARRY(( \bigclock|deci_minute_s[8]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~78\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[8]~DUPLICATE_q\,
+	cin => \bigclock|Add2~78\,
+	sumout => \bigclock|Add2~73_sumout\,
+	cout => \bigclock|Add2~74\);
+
+-- Location: FF_X39_Y4_N26
+\bigclock|deci_minute_s[8]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~73_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[8]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N27
+\bigclock|Add2~69\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~69_sumout\ = SUM(( \bigclock|deci_minute_s\(9) ) + ( GND ) + ( \bigclock|Add2~74\ ))
+-- \bigclock|Add2~70\ = CARRY(( \bigclock|deci_minute_s\(9) ) + ( GND ) + ( \bigclock|Add2~74\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s\(9),
+	cin => \bigclock|Add2~74\,
+	sumout => \bigclock|Add2~69_sumout\,
+	cout => \bigclock|Add2~70\);
+
+-- Location: FF_X40_Y4_N5
+\bigclock|deci_minute_s[9]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add2~69_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	sload => VCC,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(9));
+
+-- Location: LABCELL_X39_Y4_N30
+\bigclock|Add2~61\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~61_sumout\ = SUM(( \bigclock|deci_minute_s\(10) ) + ( GND ) + ( \bigclock|Add2~70\ ))
+-- \bigclock|Add2~62\ = CARRY(( \bigclock|deci_minute_s\(10) ) + ( GND ) + ( \bigclock|Add2~70\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_minute_s\(10),
+	cin => \bigclock|Add2~70\,
+	sumout => \bigclock|Add2~61_sumout\,
+	cout => \bigclock|Add2~62\);
+
+-- Location: FF_X39_Y4_N32
+\bigclock|deci_minute_s[10]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~61_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(10));
+
+-- Location: LABCELL_X39_Y4_N33
+\bigclock|Add2~117\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~117_sumout\ = SUM(( \bigclock|deci_minute_s[11]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~62\ ))
+-- \bigclock|Add2~118\ = CARRY(( \bigclock|deci_minute_s[11]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~62\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000101010101010101",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s[11]~DUPLICATE_q\,
+	cin => \bigclock|Add2~62\,
+	sumout => \bigclock|Add2~117_sumout\,
+	cout => \bigclock|Add2~118\);
+
+-- Location: FF_X39_Y4_N35
+\bigclock|deci_minute_s[11]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~117_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[11]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N36
+\bigclock|Add2~113\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~113_sumout\ = SUM(( \bigclock|deci_minute_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~118\ ))
+-- \bigclock|Add2~114\ = CARRY(( \bigclock|deci_minute_s[12]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~118\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[12]~DUPLICATE_q\,
+	cin => \bigclock|Add2~118\,
+	sumout => \bigclock|Add2~113_sumout\,
+	cout => \bigclock|Add2~114\);
+
+-- Location: FF_X39_Y4_N38
+\bigclock|deci_minute_s[12]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~113_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[12]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N39
+\bigclock|Add2~109\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~109_sumout\ = SUM(( \bigclock|deci_minute_s[13]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~114\ ))
+-- \bigclock|Add2~110\ = CARRY(( \bigclock|deci_minute_s[13]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~114\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[13]~DUPLICATE_q\,
+	cin => \bigclock|Add2~114\,
+	sumout => \bigclock|Add2~109_sumout\,
+	cout => \bigclock|Add2~110\);
+
+-- Location: FF_X39_Y4_N41
+\bigclock|deci_minute_s[13]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~109_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[13]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N42
+\bigclock|Add2~57\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~57_sumout\ = SUM(( \bigclock|deci_minute_s\(14) ) + ( GND ) + ( \bigclock|Add2~110\ ))
+-- \bigclock|Add2~58\ = CARRY(( \bigclock|deci_minute_s\(14) ) + ( GND ) + ( \bigclock|Add2~110\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s\(14),
+	cin => \bigclock|Add2~110\,
+	sumout => \bigclock|Add2~57_sumout\,
+	cout => \bigclock|Add2~58\);
+
+-- Location: FF_X39_Y4_N43
+\bigclock|deci_minute_s[14]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~57_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(14));
+
+-- Location: LABCELL_X39_Y4_N45
+\bigclock|Add2~89\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~89_sumout\ = SUM(( \bigclock|deci_minute_s[15]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~58\ ))
+-- \bigclock|Add2~90\ = CARRY(( \bigclock|deci_minute_s[15]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~58\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[15]~DUPLICATE_q\,
+	cin => \bigclock|Add2~58\,
+	sumout => \bigclock|Add2~89_sumout\,
+	cout => \bigclock|Add2~90\);
+
+-- Location: FF_X39_Y4_N47
+\bigclock|deci_minute_s[15]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~89_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[15]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N48
+\bigclock|Add2~105\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~105_sumout\ = SUM(( \bigclock|deci_minute_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~90\ ))
+-- \bigclock|Add2~106\ = CARRY(( \bigclock|deci_minute_s[16]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~90\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[16]~DUPLICATE_q\,
+	cin => \bigclock|Add2~90\,
+	sumout => \bigclock|Add2~105_sumout\,
+	cout => \bigclock|Add2~106\);
+
+-- Location: FF_X39_Y4_N50
+\bigclock|deci_minute_s[16]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~105_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[16]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y4_N51
+\bigclock|Add2~101\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~101_sumout\ = SUM(( \bigclock|deci_minute_s\(17) ) + ( GND ) + ( \bigclock|Add2~106\ ))
+-- \bigclock|Add2~102\ = CARRY(( \bigclock|deci_minute_s\(17) ) + ( GND ) + ( \bigclock|Add2~106\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s\(17),
+	cin => \bigclock|Add2~106\,
+	sumout => \bigclock|Add2~101_sumout\,
+	cout => \bigclock|Add2~102\);
+
+-- Location: FF_X39_Y4_N52
+\bigclock|deci_minute_s[17]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~101_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(17));
+
+-- Location: FF_X39_Y4_N49
+\bigclock|deci_minute_s[16]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~105_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(16));
+
+-- Location: FF_X39_Y4_N46
+\bigclock|deci_minute_s[15]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~89_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(15));
+
+-- Location: LABCELL_X39_Y4_N54
+\bigclock|Add2~41\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~41_sumout\ = SUM(( \bigclock|deci_minute_s\(18) ) + ( GND ) + ( \bigclock|Add2~102\ ))
+-- \bigclock|Add2~42\ = CARRY(( \bigclock|deci_minute_s\(18) ) + ( GND ) + ( \bigclock|Add2~102\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s\(18),
+	cin => \bigclock|Add2~102\,
+	sumout => \bigclock|Add2~41_sumout\,
+	cout => \bigclock|Add2~42\);
+
+-- Location: FF_X39_Y4_N56
+\bigclock|deci_minute_s[18]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~41_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(18));
+
+-- Location: LABCELL_X39_Y4_N57
+\bigclock|Add2~65\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~65_sumout\ = SUM(( \bigclock|deci_minute_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~42\ ))
+-- \bigclock|Add2~66\ = CARRY(( \bigclock|deci_minute_s[19]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~42\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[19]~DUPLICATE_q\,
+	cin => \bigclock|Add2~42\,
+	sumout => \bigclock|Add2~65_sumout\,
+	cout => \bigclock|Add2~66\);
+
+-- Location: FF_X39_Y4_N59
+\bigclock|deci_minute_s[19]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~65_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[19]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N0
+\bigclock|Add2~85\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~85_sumout\ = SUM(( \bigclock|deci_minute_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~66\ ))
+-- \bigclock|Add2~86\ = CARRY(( \bigclock|deci_minute_s[20]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~66\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[20]~DUPLICATE_q\,
+	cin => \bigclock|Add2~66\,
+	sumout => \bigclock|Add2~85_sumout\,
+	cout => \bigclock|Add2~86\);
+
+-- Location: FF_X39_Y3_N2
+\bigclock|deci_minute_s[20]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[20]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N3
+\bigclock|Add2~81\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~81_sumout\ = SUM(( \bigclock|deci_minute_s[21]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~86\ ))
+-- \bigclock|Add2~82\ = CARRY(( \bigclock|deci_minute_s[21]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~86\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[21]~DUPLICATE_q\,
+	cin => \bigclock|Add2~86\,
+	sumout => \bigclock|Add2~81_sumout\,
+	cout => \bigclock|Add2~82\);
+
+-- Location: FF_X39_Y3_N5
+\bigclock|deci_minute_s[21]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~81_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[21]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N6
+\bigclock|Add2~121\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~121_sumout\ = SUM(( \bigclock|deci_minute_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~82\ ))
+-- \bigclock|Add2~122\ = CARRY(( \bigclock|deci_minute_s[22]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~82\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s[22]~DUPLICATE_q\,
+	cin => \bigclock|Add2~82\,
+	sumout => \bigclock|Add2~121_sumout\,
+	cout => \bigclock|Add2~122\);
+
+-- Location: FF_X39_Y3_N7
+\bigclock|deci_minute_s[22]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~121_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[22]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N9
+\bigclock|Add2~45\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~45_sumout\ = SUM(( \bigclock|deci_minute_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~122\ ))
+-- \bigclock|Add2~46\ = CARRY(( \bigclock|deci_minute_s[23]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~122\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[23]~DUPLICATE_q\,
+	cin => \bigclock|Add2~122\,
+	sumout => \bigclock|Add2~45_sumout\,
+	cout => \bigclock|Add2~46\);
+
+-- Location: FF_X39_Y3_N11
+\bigclock|deci_minute_s[23]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[23]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N12
+\bigclock|Add2~37\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~37_sumout\ = SUM(( \bigclock|deci_minute_s[24]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~46\ ))
+-- \bigclock|Add2~38\ = CARRY(( \bigclock|deci_minute_s[24]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~46\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000011001100110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_minute_s[24]~DUPLICATE_q\,
+	cin => \bigclock|Add2~46\,
+	sumout => \bigclock|Add2~37_sumout\,
+	cout => \bigclock|Add2~38\);
+
+-- Location: FF_X39_Y3_N14
+\bigclock|deci_minute_s[24]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~37_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[24]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N15
+\bigclock|Add2~49\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~49_sumout\ = SUM(( \bigclock|deci_minute_s[25]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~38\ ))
+-- \bigclock|Add2~50\ = CARRY(( \bigclock|deci_minute_s[25]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~38\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[25]~DUPLICATE_q\,
+	cin => \bigclock|Add2~38\,
+	sumout => \bigclock|Add2~49_sumout\,
+	cout => \bigclock|Add2~50\);
+
+-- Location: FF_X39_Y3_N17
+\bigclock|deci_minute_s[25]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~49_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[25]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N18
+\bigclock|Add2~53\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~53_sumout\ = SUM(( \bigclock|deci_minute_s[26]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~50\ ))
+-- \bigclock|Add2~54\ = CARRY(( \bigclock|deci_minute_s[26]~DUPLICATE_q\ ) + ( GND ) + ( \bigclock|Add2~50\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[26]~DUPLICATE_q\,
+	cin => \bigclock|Add2~50\,
+	sumout => \bigclock|Add2~53_sumout\,
+	cout => \bigclock|Add2~54\);
+
+-- Location: FF_X39_Y3_N20
+\bigclock|deci_minute_s[26]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~53_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[26]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y3_N21
+\bigclock|Add2~97\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~97_sumout\ = SUM(( \bigclock|deci_minute_s\(27) ) + ( GND ) + ( \bigclock|Add2~54\ ))
+-- \bigclock|Add2~98\ = CARRY(( \bigclock|deci_minute_s\(27) ) + ( GND ) + ( \bigclock|Add2~54\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s\(27),
+	cin => \bigclock|Add2~54\,
+	sumout => \bigclock|Add2~97_sumout\,
+	cout => \bigclock|Add2~98\);
+
+-- Location: FF_X39_Y3_N23
+\bigclock|deci_minute_s[27]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~97_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(27));
+
+-- Location: LABCELL_X39_Y3_N24
+\bigclock|Add2~93\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~93_sumout\ = SUM(( \bigclock|deci_minute_s\(28) ) + ( GND ) + ( \bigclock|Add2~98\ ))
+-- \bigclock|Add2~94\ = CARRY(( \bigclock|deci_minute_s\(28) ) + ( GND ) + ( \bigclock|Add2~98\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s\(28),
+	cin => \bigclock|Add2~98\,
+	sumout => \bigclock|Add2~93_sumout\,
+	cout => \bigclock|Add2~94\);
+
+-- Location: FF_X39_Y3_N26
+\bigclock|deci_minute_s[28]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~93_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(28));
+
+-- Location: LABCELL_X40_Y4_N39
+\bigclock|counter24h~7\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~7_combout\ = ( !\bigclock|deci_minute_s\(28) & ( !\bigclock|deci_minute_s\(27) & ( (!\bigclock|deci_minute_s\(17) & (!\bigclock|deci_minute_s\(16) & !\bigclock|deci_minute_s\(15))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1010000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s\(17),
+	datac => \bigclock|ALT_INV_deci_minute_s\(16),
+	datad => \bigclock|ALT_INV_deci_minute_s\(15),
+	datae => \bigclock|ALT_INV_deci_minute_s\(28),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(27),
+	combout => \bigclock|counter24h~7_combout\);
+
+-- Location: FF_X39_Y4_N13
+\bigclock|deci_minute_s[4]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~25_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(4));
+
+-- Location: LABCELL_X39_Y3_N27
+\bigclock|Add2~33\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~33_sumout\ = SUM(( \bigclock|deci_minute_s\(29) ) + ( GND ) + ( \bigclock|Add2~94\ ))
+-- \bigclock|Add2~34\ = CARRY(( \bigclock|deci_minute_s\(29) ) + ( GND ) + ( \bigclock|Add2~94\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000000011111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datad => \bigclock|ALT_INV_deci_minute_s\(29),
+	cin => \bigclock|Add2~94\,
+	sumout => \bigclock|Add2~33_sumout\,
+	cout => \bigclock|Add2~34\);
+
+-- Location: FF_X40_Y4_N32
+\bigclock|deci_minute_s[29]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add2~33_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	sload => VCC,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(29));
+
+-- Location: LABCELL_X39_Y3_N30
+\bigclock|Add2~29\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|Add2~29_sumout\ = SUM(( \bigclock|deci_minute_s\(30) ) + ( GND ) + ( \bigclock|Add2~34\ ))
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111100000000000000000000111100001111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s\(30),
+	cin => \bigclock|Add2~34\,
+	sumout => \bigclock|Add2~29_sumout\);
+
+-- Location: FF_X39_Y3_N31
+\bigclock|deci_minute_s[30]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~29_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(30));
+
+-- Location: FF_X40_Y4_N31
+\bigclock|deci_minute_s[29]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add2~33_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	sload => VCC,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s[29]~DUPLICATE_q\);
+
+-- Location: FF_X39_Y4_N16
+\bigclock|deci_minute_s[5]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~21_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(5));
+
+-- Location: FF_X39_Y4_N58
+\bigclock|deci_minute_s[19]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~65_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(19));
+
+-- Location: LABCELL_X40_Y4_N24
+\bigclock|counter24h~28\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~28_combout\ = ( !\bigclock|deci_minute_s\(19) & ( !\bigclock|deci_minute_s\(6) & ( (!\bigclock|deci_minute_s\(4) & (!\bigclock|deci_minute_s\(30) & (!\bigclock|deci_minute_s[29]~DUPLICATE_q\ & !\bigclock|deci_minute_s\(5)))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s\(4),
+	datab => \bigclock|ALT_INV_deci_minute_s\(30),
+	datac => \bigclock|ALT_INV_deci_minute_s[29]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_deci_minute_s\(5),
+	datae => \bigclock|ALT_INV_deci_minute_s\(19),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(6),
+	combout => \bigclock|counter24h~28_combout\);
+
+-- Location: FF_X39_Y4_N4
+\bigclock|deci_minute_s[1]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~5_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(1));
+
+-- Location: FF_X39_Y4_N10
+\bigclock|deci_minute_s[3]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~13_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(3));
+
+-- Location: LABCELL_X40_Y4_N15
+\bigclock|counter24h~29\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~29_combout\ = ( !\bigclock|deci_minute_s\(14) & ( !\bigclock|deci_minute_s\(10) & ( (!\bigclock|deci_minute_s\(1) & (!\bigclock|deci_minute_s\(3) & \bigclock|deci_minute_s[2]~DUPLICATE_q\)) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000011000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_minute_s\(1),
+	datac => \bigclock|ALT_INV_deci_minute_s\(3),
+	datad => \bigclock|ALT_INV_deci_minute_s[2]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_deci_minute_s\(14),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(10),
+	combout => \bigclock|counter24h~29_combout\);
+
+-- Location: FF_X39_Y3_N4
+\bigclock|deci_minute_s[21]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~81_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(21));
+
+-- Location: FF_X39_Y4_N25
+\bigclock|deci_minute_s[8]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~73_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(8));
+
+-- Location: FF_X39_Y3_N1
+\bigclock|deci_minute_s[20]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~85_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(20));
+
+-- Location: LABCELL_X40_Y4_N51
+\bigclock|counter24h~6\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~6_combout\ = ( !\bigclock|deci_minute_s\(20) & ( (!\bigclock|deci_minute_s\(21) & (!\bigclock|deci_minute_s\(8) & (!\bigclock|deci_minute_s\(7) & !\bigclock|deci_minute_s\(9)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1000000000000000100000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s\(21),
+	datab => \bigclock|ALT_INV_deci_minute_s\(8),
+	datac => \bigclock|ALT_INV_deci_minute_s\(7),
+	datad => \bigclock|ALT_INV_deci_minute_s\(9),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(20),
+	combout => \bigclock|counter24h~6_combout\);
+
+-- Location: FF_X39_Y4_N40
+\bigclock|deci_minute_s[13]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~109_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(13));
+
+-- Location: FF_X39_Y4_N37
+\bigclock|deci_minute_s[12]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~113_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(12));
+
+-- Location: FF_X39_Y4_N1
+\bigclock|deci_minute_s[0]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~1_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(0));
+
+-- Location: FF_X39_Y4_N34
+\bigclock|deci_minute_s[11]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~117_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(11));
+
+-- Location: FF_X39_Y3_N8
+\bigclock|deci_minute_s[22]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~121_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(22));
+
+-- Location: LABCELL_X40_Y4_N42
+\bigclock|counter24h~8\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~8_combout\ = ( !\bigclock|deci_minute_s\(11) & ( !\bigclock|deci_minute_s\(22) & ( (!\bigclock|deci_minute_s\(13) & (!\bigclock|deci_minute_s\(12) & \bigclock|deci_minute_s\(0))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000010100000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s\(13),
+	datac => \bigclock|ALT_INV_deci_minute_s\(12),
+	datad => \bigclock|ALT_INV_deci_minute_s\(0),
+	datae => \bigclock|ALT_INV_deci_minute_s\(11),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(22),
+	combout => \bigclock|counter24h~8_combout\);
+
+-- Location: FF_X39_Y3_N16
+\bigclock|deci_minute_s[25]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~49_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(25));
+
+-- Location: FF_X39_Y3_N10
+\bigclock|deci_minute_s[23]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~45_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(23));
+
+-- Location: FF_X39_Y3_N13
+\bigclock|deci_minute_s[24]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~37_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(24));
+
+-- Location: FF_X39_Y3_N19
+\bigclock|deci_minute_s[26]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add2~53_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(26));
+
+-- Location: LABCELL_X40_Y3_N9
+\bigclock|counter24h~5\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~5_combout\ = ( !\bigclock|deci_minute_s\(26) & ( !\bigclock|deci_minute_s\(18) & ( (!\bigclock|deci_minute_s\(25) & (!\bigclock|deci_minute_s\(23) & !\bigclock|deci_minute_s\(24))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "1100000000000000000000000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_minute_s\(25),
+	datac => \bigclock|ALT_INV_deci_minute_s\(23),
+	datad => \bigclock|ALT_INV_deci_minute_s\(24),
+	datae => \bigclock|ALT_INV_deci_minute_s\(26),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(18),
+	combout => \bigclock|counter24h~5_combout\);
+
+-- Location: LABCELL_X41_Y4_N3
+\bigclock|counter24h~9\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~9_combout\ = ( \bigclock|counter24h~8_combout\ & ( \bigclock|counter24h~5_combout\ & ( (\bigclock|counter24h~7_combout\ & (\bigclock|counter24h~28_combout\ & (\bigclock|counter24h~29_combout\ & \bigclock|counter24h~6_combout\))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_counter24h~7_combout\,
+	datab => \bigclock|ALT_INV_counter24h~28_combout\,
+	datac => \bigclock|ALT_INV_counter24h~29_combout\,
+	datad => \bigclock|ALT_INV_counter24h~6_combout\,
+	datae => \bigclock|ALT_INV_counter24h~8_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~5_combout\,
+	combout => \bigclock|counter24h~9_combout\);
+
+-- Location: LABCELL_X41_Y4_N42
+\bigclock|counter24h~22\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|counter24h~22_combout\ = ( \bigclock|Equal6~6_combout\ & ( \bigclock|counter24h~21_combout\ & ( (\bigclock|counter24h~9_combout\ & (\bigclock|counter24h~4_combout\ & (\bigclock|minute_s[8]~4_combout\ & \bigclock|counter24h~14_combout\))) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000000000000000000000000000000000001",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_counter24h~9_combout\,
+	datab => \bigclock|ALT_INV_counter24h~4_combout\,
+	datac => \bigclock|ALT_INV_minute_s[8]~4_combout\,
+	datad => \bigclock|ALT_INV_counter24h~14_combout\,
+	datae => \bigclock|ALT_INV_Equal6~6_combout\,
+	dataf => \bigclock|ALT_INV_counter24h~21_combout\,
+	combout => \bigclock|counter24h~22_combout\);
+
+-- Location: FF_X41_Y4_N22
 \bigclock|deci_hour_s[0]\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
@@ -11548,181 +12010,57 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add0~1_sumout\,
+	asdata => \bigclock|Add0~1_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~21_combout\,
+	sclr => \bigclock|counter24h~22_combout\,
+	sload => VCC,
 	ena => \bigclock|deci_hour_s[3]~0_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
 	q => \bigclock|deci_hour_s\(0));
 
--- Location: LABCELL_X41_Y2_N57
+-- Location: LABCELL_X39_Y5_N24
 \bigclock|display0|Mux6~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display0|Mux6~0_combout\ = ( \bigclock|deci_hour_s\(2) & ( (!\bigclock|deci_hour_s\(0) & (!\bigclock|deci_hour_s\(1) & !\bigclock|deci_hour_s\(3))) ) ) # ( !\bigclock|deci_hour_s\(2) & ( (\bigclock|deci_hour_s\(0) & (!\bigclock|deci_hour_s\(1) & 
--- !\bigclock|deci_hour_s\(3))) ) )
+-- \bigclock|display0|Mux6~0_combout\ = ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( (!\bigclock|deci_hour_s\(0) & !\bigclock|deci_hour_s\(3)) ) ) ) # ( !\bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( 
+-- !\bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( (\bigclock|deci_hour_s\(0) & !\bigclock|deci_hour_s\(3)) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0101000000000000010100000000000010100000000000001010000000000000",
+	lut_mask => "0011000000110000110000001100000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(0),
-	datac => \bigclock|ALT_INV_deci_hour_s\(1),
-	datad => \bigclock|ALT_INV_deci_hour_s\(3),
-	dataf => \bigclock|ALT_INV_deci_hour_s\(2),
+	datab => \bigclock|ALT_INV_deci_hour_s\(0),
+	datac => \bigclock|ALT_INV_deci_hour_s\(3),
+	datae => \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\,
 	combout => \bigclock|display0|Mux6~0_combout\);
 
--- Location: LABCELL_X39_Y2_N36
+-- Location: LABCELL_X39_Y5_N57
 \bigclock|display0|Mux5~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display0|Mux5~0_combout\ = ( \bigclock|deci_hour_s\(2) & ( !\bigclock|deci_hour_s\(0) $ (!\bigclock|deci_hour_s\(1)) ) )
+-- \bigclock|display0|Mux5~0_combout\ = ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( \bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s\(0) ) ) ) # ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( 
+-- \bigclock|deci_hour_s\(0) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000010110100101101000000000000000000101101001011010",
+	lut_mask => "0000000000000000000011110000111100000000000000001111000011110000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(0),
-	datac => \bigclock|ALT_INV_deci_hour_s\(1),
-	datae => \bigclock|ALT_INV_deci_hour_s\(2),
+	datac => \bigclock|ALT_INV_deci_hour_s\(0),
+	datae => \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\,
 	combout => \bigclock|display0|Mux5~0_combout\);
 
--- Location: LABCELL_X41_Y2_N24
+-- Location: LABCELL_X41_Y5_N3
 \bigclock|display0|Mux3~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display0|Mux3~0_combout\ = ( \bigclock|deci_hour_s\(2) & ( (!\bigclock|deci_hour_s\(3) & (!\bigclock|deci_hour_s\(1) $ (\bigclock|deci_hour_s\(0)))) ) ) # ( !\bigclock|deci_hour_s\(2) & ( (!\bigclock|deci_hour_s\(1) & (\bigclock|deci_hour_s\(0) 
--- & !\bigclock|deci_hour_s\(3))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000101000000000000010100000000010100101000000001010010100000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(1),
-	datac => \bigclock|ALT_INV_deci_hour_s\(0),
-	datad => \bigclock|ALT_INV_deci_hour_s\(3),
-	dataf => \bigclock|ALT_INV_deci_hour_s\(2),
-	combout => \bigclock|display0|Mux3~0_combout\);
-
--- Location: LABCELL_X41_Y2_N3
-\bigclock|display0|Mux2~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display0|Mux2~0_combout\ = ( \bigclock|deci_hour_s\(2) & ( (!\bigclock|deci_hour_s\(1)) # (\bigclock|deci_hour_s\(0)) ) ) # ( !\bigclock|deci_hour_s\(2) & ( \bigclock|deci_hour_s\(0) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000011111111000000001111111111110000111111111111000011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_hour_s\(1),
-	datad => \bigclock|ALT_INV_deci_hour_s\(0),
-	dataf => \bigclock|ALT_INV_deci_hour_s\(2),
-	combout => \bigclock|display0|Mux2~0_combout\);
-
--- Location: LABCELL_X41_Y2_N36
-\bigclock|display0|Mux1~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display0|Mux1~0_combout\ = ( \bigclock|deci_hour_s\(2) & ( (\bigclock|deci_hour_s\(0) & (\bigclock|deci_hour_s\(1) & !\bigclock|deci_hour_s\(3))) ) ) # ( !\bigclock|deci_hour_s\(2) & ( (!\bigclock|deci_hour_s\(3) & ((\bigclock|deci_hour_s\(1)) # 
--- (\bigclock|deci_hour_s\(0)))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0111000001110000011100000111000000010000000100000001000000010000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(0),
-	datab => \bigclock|ALT_INV_deci_hour_s\(1),
-	datac => \bigclock|ALT_INV_deci_hour_s\(3),
-	dataf => \bigclock|ALT_INV_deci_hour_s\(2),
-	combout => \bigclock|display0|Mux1~0_combout\);
-
--- Location: LABCELL_X41_Y2_N39
-\bigclock|display0|Mux0~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display0|Mux0~0_combout\ = ((!\bigclock|deci_hour_s\(1) & ((\bigclock|deci_hour_s\(2)))) # (\bigclock|deci_hour_s\(1) & ((!\bigclock|deci_hour_s\(0)) # (!\bigclock|deci_hour_s\(2))))) # (\bigclock|deci_hour_s\(3))
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0011111011111111001111101111111100111110111111110011111011111111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_hour_s\(0),
-	datab => \bigclock|ALT_INV_deci_hour_s\(1),
-	datac => \bigclock|ALT_INV_deci_hour_s\(2),
-	datad => \bigclock|ALT_INV_deci_hour_s\(3),
-	combout => \bigclock|display0|Mux0~0_combout\);
-
--- Location: MLABCELL_X42_Y3_N39
-\bigclock|display1|Mux6~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display1|Mux6~0_combout\ = ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(1) & (!\bigclock|hour_s\(3) & !\bigclock|hour_s\(2))) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(1) & (!\bigclock|hour_s\(3) & 
--- \bigclock|hour_s\(2))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000010001000000000001000100010001000000000001000100000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(1),
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datad => \bigclock|ALT_INV_hour_s\(2),
-	dataf => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	combout => \bigclock|display1|Mux6~0_combout\);
-
--- Location: LABCELL_X43_Y2_N36
-\bigclock|display1|Mux5~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display1|Mux5~0_combout\ = ( !\bigclock|hour_s\(1) & ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( \bigclock|hour_s\(2) ) ) ) # ( \bigclock|hour_s\(1) & ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( \bigclock|hour_s\(2) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000001100110011001100110011001100110000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(2),
-	datae => \bigclock|ALT_INV_hour_s\(1),
-	dataf => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	combout => \bigclock|display1|Mux5~0_combout\);
-
--- Location: LABCELL_X39_Y2_N45
-\bigclock|display1|Mux4~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display1|Mux4~0_combout\ = ( \bigclock|hour_s[1]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(2) & !\bigclock|hour_s[0]~DUPLICATE_q\) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000011110000000000001111000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_hour_s\(2),
-	datad => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	dataf => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
-	combout => \bigclock|display1|Mux4~0_combout\);
-
--- Location: MLABCELL_X42_Y3_N36
-\bigclock|display1|Mux3~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display1|Mux3~0_combout\ = ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(3) & (!\bigclock|hour_s\(1) $ (\bigclock|hour_s\(2)))) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(1) & (!\bigclock|hour_s\(3) & 
--- \bigclock|hour_s\(2))) ) )
+-- \bigclock|display0|Mux3~0_combout\ = ( \bigclock|deci_hour_s\(0) & ( (!\bigclock|deci_hour_s\(3) & (!\bigclock|deci_hour_s[1]~DUPLICATE_q\ $ (\bigclock|deci_hour_s[2]~DUPLICATE_q\))) ) ) # ( !\bigclock|deci_hour_s\(0) & ( 
+-- (!\bigclock|deci_hour_s[1]~DUPLICATE_q\ & (!\bigclock|deci_hour_s\(3) & \bigclock|deci_hour_s[2]~DUPLICATE_q\)) ) )
 
 -- pragma translate_off
 GENERIC MAP (
@@ -11731,197 +12069,71 @@ GENERIC MAP (
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s\(1),
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_hour_s\(2),
-	dataf => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	combout => \bigclock|display1|Mux3~0_combout\);
+	dataa => \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\,
+	datab => \bigclock|ALT_INV_deci_hour_s\(3),
+	datac => \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_hour_s\(0),
+	combout => \bigclock|display0|Mux3~0_combout\);
 
--- Location: LABCELL_X41_Y3_N24
-\bigclock|display1|Mux2~0\ : cyclonev_lcell_comb
+-- Location: LABCELL_X39_Y5_N15
+\bigclock|display0|Mux2~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display1|Mux2~0_combout\ = ( \bigclock|hour_s[1]~DUPLICATE_q\ & ( \bigclock|hour_s[0]~DUPLICATE_q\ ) ) # ( !\bigclock|hour_s[1]~DUPLICATE_q\ & ( (\bigclock|hour_s\(2)) # (\bigclock|hour_s[0]~DUPLICATE_q\) ) )
+-- \bigclock|display0|Mux2~0_combout\ = ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( \bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( \bigclock|deci_hour_s\(0) ) ) ) # ( !\bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( \bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( 
+-- \bigclock|deci_hour_s\(0) ) ) ) # ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s[1]~DUPLICATE_q\ ) ) # ( !\bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( \bigclock|deci_hour_s\(0) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0111011101110111011101110111011101010101010101010101010101010101",
+	lut_mask => "0000111100001111111111111111111100001111000011110000111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	datab => \bigclock|ALT_INV_hour_s\(2),
-	dataf => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
-	combout => \bigclock|display1|Mux2~0_combout\);
+	datac => \bigclock|ALT_INV_deci_hour_s\(0),
+	datae => \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\,
+	combout => \bigclock|display0|Mux2~0_combout\);
 
--- Location: MLABCELL_X42_Y3_N42
-\bigclock|display1|Mux1~0\ : cyclonev_lcell_comb
+-- Location: LABCELL_X39_Y5_N30
+\bigclock|display0|Mux1~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display1|Mux1~0_combout\ = ( \bigclock|hour_s\(2) & ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(3) & \bigclock|hour_s\(1)) ) ) ) # ( !\bigclock|hour_s\(2) & ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(3) ) ) ) # ( 
--- !\bigclock|hour_s\(2) & ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(3) & \bigclock|hour_s\(1)) ) ) )
+-- \bigclock|display0|Mux1~0_combout\ = ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( \bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( (\bigclock|deci_hour_s\(0) & !\bigclock|deci_hour_s\(3)) ) ) ) # ( !\bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( 
+-- \bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s\(3) ) ) ) # ( !\bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s[1]~DUPLICATE_q\ & ( (\bigclock|deci_hour_s\(0) & !\bigclock|deci_hour_s\(3)) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000110000001100000000000000000011001100110011000000110000001100",
+	lut_mask => "0011000000110000000000000000000011110000111100000011000000110000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_hour_s\(1),
-	datae => \bigclock|ALT_INV_hour_s\(2),
-	dataf => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	combout => \bigclock|display1|Mux1~0_combout\);
+	datab => \bigclock|ALT_INV_deci_hour_s\(0),
+	datac => \bigclock|ALT_INV_deci_hour_s\(3),
+	datae => \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\,
+	combout => \bigclock|display0|Mux1~0_combout\);
 
--- Location: MLABCELL_X42_Y3_N48
-\bigclock|display1|Mux0~0\ : cyclonev_lcell_comb
+-- Location: LABCELL_X39_Y5_N51
+\bigclock|display0|Mux0~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display1|Mux0~0_combout\ = ( \bigclock|hour_s\(2) & ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( (!\bigclock|hour_s\(1)) # (\bigclock|hour_s\(3)) ) ) ) # ( !\bigclock|hour_s\(2) & ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( (\bigclock|hour_s\(1)) # 
--- (\bigclock|hour_s\(3)) ) ) ) # ( \bigclock|hour_s\(2) & ( !\bigclock|hour_s[0]~DUPLICATE_q\ ) ) # ( !\bigclock|hour_s\(2) & ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( (\bigclock|hour_s\(1)) # (\bigclock|hour_s\(3)) ) ) )
+-- \bigclock|display0|Mux0~0_combout\ = ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( \bigclock|deci_hour_s\(0) & ( (!\bigclock|deci_hour_s[1]~DUPLICATE_q\) # (\bigclock|deci_hour_s\(3)) ) ) ) # ( !\bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( 
+-- \bigclock|deci_hour_s\(0) & ( (\bigclock|deci_hour_s[1]~DUPLICATE_q\) # (\bigclock|deci_hour_s\(3)) ) ) ) # ( \bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( !\bigclock|deci_hour_s\(0) ) ) # ( !\bigclock|deci_hour_s[2]~DUPLICATE_q\ & ( 
+-- !\bigclock|deci_hour_s\(0) & ( (\bigclock|deci_hour_s[1]~DUPLICATE_q\) # (\bigclock|deci_hour_s\(3)) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0011111100111111111111111111111100111111001111111111001111110011",
+	lut_mask => "0111011101110111111111111111111101110111011101111101110111011101",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_hour_s\(3),
-	datac => \bigclock|ALT_INV_hour_s\(1),
-	datae => \bigclock|ALT_INV_hour_s\(2),
-	dataf => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
-	combout => \bigclock|display1|Mux0~0_combout\);
+	dataa => \bigclock|ALT_INV_deci_hour_s\(3),
+	datab => \bigclock|ALT_INV_deci_hour_s[1]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_deci_hour_s[2]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_hour_s\(0),
+	combout => \bigclock|display0|Mux0~0_combout\);
 
--- Location: MLABCELL_X42_Y1_N39
-\bigclock|display2|Mux6~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display2|Mux6~0_combout\ = ( !\bigclock|deci_minute_s\(1) & ( \bigclock|deci_minute_s\(2) & ( (!\bigclock|deci_minute_s[3]~DUPLICATE_q\ & !\bigclock|deci_minute_s[0]~DUPLICATE_q\) ) ) ) # ( !\bigclock|deci_minute_s\(1) & ( 
--- !\bigclock|deci_minute_s\(2) & ( (!\bigclock|deci_minute_s[3]~DUPLICATE_q\ & \bigclock|deci_minute_s[0]~DUPLICATE_q\) ) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000101000001010000000000000000010100000101000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\,
-	datac => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	datae => \bigclock|ALT_INV_deci_minute_s\(1),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(2),
-	combout => \bigclock|display2|Mux6~0_combout\);
-
--- Location: LABCELL_X41_Y3_N9
-\bigclock|display2|Mux5~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display2|Mux5~0_combout\ = ( \bigclock|deci_minute_s\(1) & ( (!\bigclock|deci_minute_s[0]~DUPLICATE_q\ & \bigclock|deci_minute_s\(2)) ) ) # ( !\bigclock|deci_minute_s\(1) & ( (\bigclock|deci_minute_s[0]~DUPLICATE_q\ & 
--- \bigclock|deci_minute_s\(2)) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000001111000000000000111100000000111100000000000011110000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datac => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_deci_minute_s\(2),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(1),
-	combout => \bigclock|display2|Mux5~0_combout\);
-
--- Location: LABCELL_X41_Y3_N15
-\bigclock|display2|Mux4~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display2|Mux4~0_combout\ = ( \bigclock|deci_minute_s\(1) & ( (!\bigclock|deci_minute_s[0]~DUPLICATE_q\ & !\bigclock|deci_minute_s\(2)) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000011001100000000001100110000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	datab => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_deci_minute_s\(2),
-	dataf => \bigclock|ALT_INV_deci_minute_s\(1),
-	combout => \bigclock|display2|Mux4~0_combout\);
-
--- Location: LABCELL_X40_Y3_N18
-\bigclock|display2|Mux3~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display2|Mux3~0_combout\ = ( !\bigclock|deci_minute_s[3]~DUPLICATE_q\ & ( (!\bigclock|deci_minute_s[0]~DUPLICATE_q\ & (\bigclock|deci_minute_s\(2) & !\bigclock|deci_minute_s\(1))) # (\bigclock|deci_minute_s[0]~DUPLICATE_q\ & 
--- (!\bigclock|deci_minute_s\(2) $ (\bigclock|deci_minute_s\(1)))) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0101101000000101010110100000010100000000000000000000000000000000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	datac => \bigclock|ALT_INV_deci_minute_s\(2),
-	datad => \bigclock|ALT_INV_deci_minute_s\(1),
-	dataf => \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\,
-	combout => \bigclock|display2|Mux3~0_combout\);
-
--- Location: LABCELL_X41_Y3_N45
-\bigclock|display2|Mux2~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display2|Mux2~0_combout\ = ( \bigclock|deci_minute_s\(1) & ( \bigclock|deci_minute_s[0]~DUPLICATE_q\ ) ) # ( !\bigclock|deci_minute_s\(1) & ( (\bigclock|deci_minute_s[0]~DUPLICATE_q\) # (\bigclock|deci_minute_s\(2)) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0101111101011111010111110101111100001111000011110000111100001111",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(2),
-	datac => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	dataf => \bigclock|ALT_INV_deci_minute_s\(1),
-	combout => \bigclock|display2|Mux2~0_combout\);
-
--- Location: LABCELL_X41_Y3_N39
-\bigclock|display2|Mux1~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display2|Mux1~0_combout\ = ( \bigclock|deci_minute_s\(1) & ( (!\bigclock|deci_minute_s[3]~DUPLICATE_q\ & ((!\bigclock|deci_minute_s\(2)) # (\bigclock|deci_minute_s[0]~DUPLICATE_q\))) ) ) # ( !\bigclock|deci_minute_s\(1) & ( 
--- (!\bigclock|deci_minute_s\(2) & (!\bigclock|deci_minute_s[3]~DUPLICATE_q\ & \bigclock|deci_minute_s[0]~DUPLICATE_q\)) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0000000010100000000000001010000010100000111100001010000011110000",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(2),
-	datac => \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	dataf => \bigclock|ALT_INV_deci_minute_s\(1),
-	combout => \bigclock|display2|Mux1~0_combout\);
-
--- Location: LABCELL_X41_Y3_N54
-\bigclock|display2|Mux0~0\ : cyclonev_lcell_comb
--- Equation(s):
--- \bigclock|display2|Mux0~0_combout\ = ( \bigclock|deci_minute_s[0]~DUPLICATE_q\ & ( (!\bigclock|deci_minute_s\(2) $ (!\bigclock|deci_minute_s\(1))) # (\bigclock|deci_minute_s[3]~DUPLICATE_q\) ) ) # ( !\bigclock|deci_minute_s[0]~DUPLICATE_q\ & ( 
--- ((\bigclock|deci_minute_s\(1)) # (\bigclock|deci_minute_s[3]~DUPLICATE_q\)) # (\bigclock|deci_minute_s\(2)) ) )
-
--- pragma translate_off
-GENERIC MAP (
-	extended_lut => "off",
-	lut_mask => "0111111101111111011111110111111101111011011110110111101101111011",
-	shared_arith => "off")
--- pragma translate_on
-PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_minute_s\(2),
-	datab => \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\,
-	datac => \bigclock|ALT_INV_deci_minute_s\(1),
-	dataf => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
-	combout => \bigclock|display2|Mux0~0_combout\);
-
--- Location: FF_X40_Y2_N10
-\bigclock|minute_s[3]\ : dffeas
+-- Location: FF_X41_Y3_N1
+\bigclock|hour_s[0]~DUPLICATE\ : dffeas
 -- pragma translate_off
 GENERIC MAP (
 	is_wysiwyg => "true",
@@ -11929,392 +12141,707 @@ GENERIC MAP (
 -- pragma translate_on
 PORT MAP (
 	clk => \clk~inputCLKENA0_outclk\,
-	d => \bigclock|Add3~13_sumout\,
+	d => \bigclock|Add1~1_sumout\,
 	clrn => \rst_n~inputCLKENA0_outclk\,
-	sclr => \bigclock|counter24h~22_combout\,
+	sclr => \bigclock|hour_s[17]~0_combout\,
+	ena => \bigclock|hour_s[3]~1_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|hour_s[0]~DUPLICATE_q\);
+
+-- Location: LABCELL_X39_Y5_N21
+\bigclock|display1|Mux6~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display1|Mux6~0_combout\ = ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(3) & ( (!\bigclock|hour_s\(2) & !\bigclock|hour_s[1]~DUPLICATE_q\) ) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(3) & ( 
+-- (\bigclock|hour_s\(2) & !\bigclock|hour_s[1]~DUPLICATE_q\) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000111100000000111100000000000000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(2),
+	datad => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_hour_s\(3),
+	combout => \bigclock|display1|Mux6~0_combout\);
+
+-- Location: LABCELL_X40_Y3_N3
+\bigclock|display1|Mux5~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display1|Mux5~0_combout\ = ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( (\bigclock|hour_s\(2) & !\bigclock|hour_s[1]~DUPLICATE_q\) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( (\bigclock|hour_s\(2) & \bigclock|hour_s[1]~DUPLICATE_q\) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000001111000000000000111100001111000000000000111100000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(2),
+	datad => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
+	combout => \bigclock|display1|Mux5~0_combout\);
+
+-- Location: LABCELL_X39_Y5_N39
+\bigclock|display1|Mux4~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display1|Mux4~0_combout\ = ( \bigclock|hour_s[1]~DUPLICATE_q\ & ( !\bigclock|hour_s\(2) & ( !\bigclock|hour_s[0]~DUPLICATE_q\ ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000101010101010101000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_hour_s\(2),
+	combout => \bigclock|display1|Mux4~0_combout\);
+
+-- Location: MLABCELL_X42_Y3_N15
+\bigclock|display1|Mux3~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display1|Mux3~0_combout\ = ( \bigclock|hour_s\(2) & ( !\bigclock|hour_s\(3) & ( !\bigclock|hour_s\(1) $ (\bigclock|hour_s[0]~DUPLICATE_q\) ) ) ) # ( !\bigclock|hour_s\(2) & ( !\bigclock|hour_s\(3) & ( (!\bigclock|hour_s\(1) & 
+-- \bigclock|hour_s[0]~DUPLICATE_q\) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000110000001100110000111100001100000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_hour_s\(1),
+	datac => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_hour_s\(2),
+	dataf => \bigclock|ALT_INV_hour_s\(3),
+	combout => \bigclock|display1|Mux3~0_combout\);
+
+-- Location: LABCELL_X39_Y2_N39
+\bigclock|display1|Mux2~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display1|Mux2~0_combout\ = ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( \bigclock|hour_s\(1) ) ) # ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(1) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(1) & ( 
+-- \bigclock|hour_s\(2) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0101010101010101111111111111111100000000000000001111111111111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_hour_s\(2),
+	datae => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_hour_s\(1),
+	combout => \bigclock|display1|Mux2~0_combout\);
+
+-- Location: LABCELL_X39_Y5_N9
+\bigclock|display1|Mux1~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display1|Mux1~0_combout\ = ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(3) & ( (!\bigclock|hour_s\(2)) # (\bigclock|hour_s[1]~DUPLICATE_q\) ) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(3) & ( 
+-- (!\bigclock|hour_s\(2) & \bigclock|hour_s[1]~DUPLICATE_q\) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000011110000111100001111111100000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_hour_s\(2),
+	datad => \bigclock|ALT_INV_hour_s[1]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_hour_s\(3),
+	combout => \bigclock|display1|Mux1~0_combout\);
+
+-- Location: LABCELL_X39_Y2_N45
+\bigclock|display1|Mux0~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display1|Mux0~0_combout\ = ( \bigclock|hour_s[0]~DUPLICATE_q\ & ( \bigclock|hour_s\(1) & ( (!\bigclock|hour_s\(2)) # (\bigclock|hour_s\(3)) ) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( \bigclock|hour_s\(1) ) ) # ( 
+-- \bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(1) & ( (\bigclock|hour_s\(3)) # (\bigclock|hour_s\(2)) ) ) ) # ( !\bigclock|hour_s[0]~DUPLICATE_q\ & ( !\bigclock|hour_s\(1) & ( (\bigclock|hour_s\(3)) # (\bigclock|hour_s\(2)) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0111011101110111011101110111011111111111111111111011101110111011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_hour_s\(2),
+	datab => \bigclock|ALT_INV_hour_s\(3),
+	datae => \bigclock|ALT_INV_hour_s[0]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_hour_s\(1),
+	combout => \bigclock|display1|Mux0~0_combout\);
+
+-- Location: FF_X40_Y4_N22
+\bigclock|deci_minute_s[2]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add2~9_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|counter24h~25_combout\,
+	sload => VCC,
+	ena => \bigclock|deci_minute_s[3]~0_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|deci_minute_s\(2));
+
+-- Location: LABCELL_X40_Y3_N21
+\bigclock|display2|Mux6~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display2|Mux6~0_combout\ = ( !\bigclock|deci_minute_s\(1) & ( (!\bigclock|deci_minute_s\(3) & (!\bigclock|deci_minute_s\(0) $ (!\bigclock|deci_minute_s\(2)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0100100001001000010010000100100000000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s\(0),
+	datab => \bigclock|ALT_INV_deci_minute_s\(3),
+	datac => \bigclock|ALT_INV_deci_minute_s\(2),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(1),
+	combout => \bigclock|display2|Mux6~0_combout\);
+
+-- Location: LABCELL_X40_Y4_N9
+\bigclock|display2|Mux5~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display2|Mux5~0_combout\ = ( \bigclock|deci_minute_s\(1) & ( (\bigclock|deci_minute_s[2]~DUPLICATE_q\ & !\bigclock|deci_minute_s\(0)) ) ) # ( !\bigclock|deci_minute_s\(1) & ( (\bigclock|deci_minute_s[2]~DUPLICATE_q\ & 
+-- \bigclock|deci_minute_s\(0)) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000010100000101000001010000010101010000010100000101000001010000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s[2]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_deci_minute_s\(0),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(1),
+	combout => \bigclock|display2|Mux5~0_combout\);
+
+-- Location: LABCELL_X40_Y4_N48
+\bigclock|display2|Mux4~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display2|Mux4~0_combout\ = ( \bigclock|deci_minute_s\(1) & ( (!\bigclock|deci_minute_s[2]~DUPLICATE_q\ & !\bigclock|deci_minute_s[0]~DUPLICATE_q\) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000000000000000000011110000000000001111000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s[2]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_minute_s\(1),
+	combout => \bigclock|display2|Mux4~0_combout\);
+
+-- Location: LABCELL_X40_Y4_N57
+\bigclock|display2|Mux3~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display2|Mux3~0_combout\ = ( !\bigclock|deci_minute_s\(3) & ( (!\bigclock|deci_minute_s[2]~DUPLICATE_q\ & (!\bigclock|deci_minute_s\(1) & \bigclock|deci_minute_s\(0))) # (\bigclock|deci_minute_s[2]~DUPLICATE_q\ & (!\bigclock|deci_minute_s\(1) $ 
+-- (\bigclock|deci_minute_s\(0)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0100100101001001010010010100100100000000000000000000000000000000",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	dataa => \bigclock|ALT_INV_deci_minute_s[2]~DUPLICATE_q\,
+	datab => \bigclock|ALT_INV_deci_minute_s\(1),
+	datac => \bigclock|ALT_INV_deci_minute_s\(0),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(3),
+	combout => \bigclock|display2|Mux3~0_combout\);
+
+-- Location: MLABCELL_X42_Y3_N33
+\bigclock|display2|Mux2~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display2|Mux2~0_combout\ = ( \bigclock|deci_minute_s\(0) & ( \bigclock|deci_minute_s\(2) ) ) # ( !\bigclock|deci_minute_s\(0) & ( \bigclock|deci_minute_s\(2) & ( !\bigclock|deci_minute_s\(1) ) ) ) # ( \bigclock|deci_minute_s\(0) & ( 
+-- !\bigclock|deci_minute_s\(2) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000000000000000111111111111111111110000111100001111111111111111",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datac => \bigclock|ALT_INV_deci_minute_s\(1),
+	datae => \bigclock|ALT_INV_deci_minute_s\(0),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(2),
+	combout => \bigclock|display2|Mux2~0_combout\);
+
+-- Location: MLABCELL_X42_Y4_N36
+\bigclock|display2|Mux1~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display2|Mux1~0_combout\ = ( \bigclock|deci_minute_s\(2) & ( (!\bigclock|deci_minute_s[3]~DUPLICATE_q\ & (\bigclock|deci_minute_s\(1) & \bigclock|deci_minute_s[0]~DUPLICATE_q\)) ) ) # ( !\bigclock|deci_minute_s\(2) & ( 
+-- (!\bigclock|deci_minute_s[3]~DUPLICATE_q\ & ((\bigclock|deci_minute_s[0]~DUPLICATE_q\) # (\bigclock|deci_minute_s\(1)))) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0000110011001100000000000000110000001100110011000000000000001100",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_minute_s[3]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_deci_minute_s\(1),
+	datad => \bigclock|ALT_INV_deci_minute_s[0]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_deci_minute_s\(2),
+	combout => \bigclock|display2|Mux1~0_combout\);
+
+-- Location: MLABCELL_X42_Y3_N57
+\bigclock|display2|Mux0~0\ : cyclonev_lcell_comb
+-- Equation(s):
+-- \bigclock|display2|Mux0~0_combout\ = ( \bigclock|deci_minute_s\(0) & ( \bigclock|deci_minute_s\(2) & ( (!\bigclock|deci_minute_s\(1)) # (\bigclock|deci_minute_s\(3)) ) ) ) # ( !\bigclock|deci_minute_s\(0) & ( \bigclock|deci_minute_s\(2) ) ) # ( 
+-- \bigclock|deci_minute_s\(0) & ( !\bigclock|deci_minute_s\(2) & ( (\bigclock|deci_minute_s\(1)) # (\bigclock|deci_minute_s\(3)) ) ) ) # ( !\bigclock|deci_minute_s\(0) & ( !\bigclock|deci_minute_s\(2) & ( (\bigclock|deci_minute_s\(1)) # 
+-- (\bigclock|deci_minute_s\(3)) ) ) )
+
+-- pragma translate_off
+GENERIC MAP (
+	extended_lut => "off",
+	lut_mask => "0011111100111111001111110011111111111111111111111111001111110011",
+	shared_arith => "off")
+-- pragma translate_on
+PORT MAP (
+	datab => \bigclock|ALT_INV_deci_minute_s\(3),
+	datac => \bigclock|ALT_INV_deci_minute_s\(1),
+	datae => \bigclock|ALT_INV_deci_minute_s\(0),
+	dataf => \bigclock|ALT_INV_deci_minute_s\(2),
+	combout => \bigclock|display2|Mux0~0_combout\);
+
+-- Location: FF_X41_Y6_N49
+\bigclock|minute_s[2]\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	asdata => \bigclock|Add3~9_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	sload => VCC,
 	ena => \bigclock|minute_s[3]~6_combout\,
 	devclrn => ww_devclrn,
 	devpor => ww_devpor,
-	q => \bigclock|minute_s\(3));
+	q => \bigclock|minute_s\(2));
 
--- Location: LABCELL_X39_Y2_N33
+-- Location: FF_X42_Y6_N1
+\bigclock|minute_s[0]~DUPLICATE\ : dffeas
+-- pragma translate_off
+GENERIC MAP (
+	is_wysiwyg => "true",
+	power_up => "low")
+-- pragma translate_on
+PORT MAP (
+	clk => \clk~inputCLKENA0_outclk\,
+	d => \bigclock|Add3~1_sumout\,
+	clrn => \rst_n~inputCLKENA0_outclk\,
+	sclr => \bigclock|deci_minute_s[15]~1_combout\,
+	ena => \bigclock|minute_s[3]~6_combout\,
+	devclrn => ww_devclrn,
+	devpor => ww_devpor,
+	q => \bigclock|minute_s[0]~DUPLICATE_q\);
+
+-- Location: LABCELL_X41_Y6_N57
 \bigclock|display3|Mux6~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display3|Mux6~0_combout\ = ( !\bigclock|minute_s[1]~DUPLICATE_q\ & ( (!\bigclock|minute_s\(3) & (!\bigclock|minute_s\(0) $ (!\bigclock|minute_s\(2)))) ) )
+-- \bigclock|display3|Mux6~0_combout\ = ( \bigclock|minute_s[0]~DUPLICATE_q\ & ( (!\bigclock|minute_s\(1) & (!\bigclock|minute_s\(2) & !\bigclock|minute_s\(3))) ) ) # ( !\bigclock|minute_s[0]~DUPLICATE_q\ & ( (!\bigclock|minute_s\(1) & 
+-- (\bigclock|minute_s\(2) & !\bigclock|minute_s\(3))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0101000010100000000000000000000001010000101000000000000000000000",
+	lut_mask => "0010001000000000001000100000000010001000000000001000100000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s\(0),
-	datac => \bigclock|ALT_INV_minute_s\(3),
-	datad => \bigclock|ALT_INV_minute_s\(2),
-	datae => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
+	dataa => \bigclock|ALT_INV_minute_s\(1),
+	datab => \bigclock|ALT_INV_minute_s\(2),
+	datad => \bigclock|ALT_INV_minute_s\(3),
+	dataf => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
 	combout => \bigclock|display3|Mux6~0_combout\);
 
--- Location: LABCELL_X39_Y1_N3
+-- Location: LABCELL_X41_Y6_N39
 \bigclock|display3|Mux5~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display3|Mux5~0_combout\ = ( \bigclock|minute_s\(0) & ( (\bigclock|minute_s\(2) & !\bigclock|minute_s[1]~DUPLICATE_q\) ) ) # ( !\bigclock|minute_s\(0) & ( (\bigclock|minute_s\(2) & \bigclock|minute_s[1]~DUPLICATE_q\) ) )
+-- \bigclock|display3|Mux5~0_combout\ = ( \bigclock|minute_s[0]~DUPLICATE_q\ & ( (\bigclock|minute_s[2]~DUPLICATE_q\ & !\bigclock|minute_s\(1)) ) ) # ( !\bigclock|minute_s[0]~DUPLICATE_q\ & ( (\bigclock|minute_s[2]~DUPLICATE_q\ & \bigclock|minute_s\(1)) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000001100000011001100000011000000000011000000110011000000110000",
+	lut_mask => "0000000001010101000000000101010101010101000000000101010100000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s\(2),
-	datac => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
-	datae => \bigclock|ALT_INV_minute_s\(0),
+	dataa => \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_minute_s\(1),
+	dataf => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
 	combout => \bigclock|display3|Mux5~0_combout\);
 
--- Location: LABCELL_X39_Y1_N9
+-- Location: LABCELL_X41_Y6_N45
 \bigclock|display3|Mux4~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display3|Mux4~0_combout\ = ( !\bigclock|minute_s\(0) & ( (!\bigclock|minute_s\(2) & \bigclock|minute_s[1]~DUPLICATE_q\) ) )
+-- \bigclock|display3|Mux4~0_combout\ = ( !\bigclock|minute_s[2]~DUPLICATE_q\ & ( (!\bigclock|minute_s[0]~DUPLICATE_q\ & \bigclock|minute_s\(1)) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000110000001100000000000000000000001100000011000000000000000000",
+	lut_mask => "0000000011110000000000001111000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s\(2),
-	datac => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
-	datae => \bigclock|ALT_INV_minute_s\(0),
+	datac => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_minute_s\(1),
+	dataf => \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\,
 	combout => \bigclock|display3|Mux4~0_combout\);
 
--- Location: LABCELL_X39_Y3_N24
+-- Location: LABCELL_X41_Y6_N54
 \bigclock|display3|Mux3~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display3|Mux3~0_combout\ = ( !\bigclock|minute_s\(3) & ( (!\bigclock|minute_s\(0) & (!\bigclock|minute_s[1]~DUPLICATE_q\ & \bigclock|minute_s\(2))) # (\bigclock|minute_s\(0) & (!\bigclock|minute_s[1]~DUPLICATE_q\ $ (\bigclock|minute_s\(2)))) ) )
+-- \bigclock|display3|Mux3~0_combout\ = ( \bigclock|minute_s[0]~DUPLICATE_q\ & ( (!\bigclock|minute_s\(3) & (!\bigclock|minute_s\(1) $ (\bigclock|minute_s\(2)))) ) ) # ( !\bigclock|minute_s[0]~DUPLICATE_q\ & ( (!\bigclock|minute_s\(1) & 
+-- (\bigclock|minute_s\(2) & !\bigclock|minute_s\(3))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0100100101001001000000000000000001001001010010010000000000000000",
+	lut_mask => "0010000000100000001000000010000010010000100100001001000010010000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s\(0),
-	datab => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
-	datac => \bigclock|ALT_INV_minute_s\(2),
-	datae => \bigclock|ALT_INV_minute_s\(3),
+	dataa => \bigclock|ALT_INV_minute_s\(1),
+	datab => \bigclock|ALT_INV_minute_s\(2),
+	datac => \bigclock|ALT_INV_minute_s\(3),
+	dataf => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
 	combout => \bigclock|display3|Mux3~0_combout\);
 
--- Location: LABCELL_X39_Y1_N36
+-- Location: LABCELL_X41_Y6_N3
 \bigclock|display3|Mux2~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display3|Mux2~0_combout\ = ( \bigclock|minute_s\(2) & ( (!\bigclock|minute_s[1]~DUPLICATE_q\) # (\bigclock|minute_s\(0)) ) ) # ( !\bigclock|minute_s\(2) & ( \bigclock|minute_s\(0) ) )
+-- \bigclock|display3|Mux2~0_combout\ = ( \bigclock|minute_s[2]~DUPLICATE_q\ & ( (!\bigclock|minute_s\(1)) # (\bigclock|minute_s[0]~DUPLICATE_q\) ) ) # ( !\bigclock|minute_s[2]~DUPLICATE_q\ & ( \bigclock|minute_s[0]~DUPLICATE_q\ ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000011111111110011001111111100000000111111111100110011111111",
+	lut_mask => "0000111100001111000011110000111111111111000011111111111100001111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_minute_s\(0),
-	datae => \bigclock|ALT_INV_minute_s\(2),
+	datac => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_minute_s\(1),
+	dataf => \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\,
 	combout => \bigclock|display3|Mux2~0_combout\);
 
--- Location: LABCELL_X39_Y1_N30
+-- Location: LABCELL_X41_Y6_N51
 \bigclock|display3|Mux1~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display3|Mux1~0_combout\ = ( \bigclock|minute_s\(2) & ( !\bigclock|minute_s\(3) & ( (\bigclock|minute_s[1]~DUPLICATE_q\ & \bigclock|minute_s\(0)) ) ) ) # ( !\bigclock|minute_s\(2) & ( !\bigclock|minute_s\(3) & ( (\bigclock|minute_s\(0)) # 
--- (\bigclock|minute_s[1]~DUPLICATE_q\) ) ) )
+-- \bigclock|display3|Mux1~0_combout\ = ( !\bigclock|minute_s\(3) & ( (!\bigclock|minute_s[2]~DUPLICATE_q\ & ((\bigclock|minute_s\(1)) # (\bigclock|minute_s[0]~DUPLICATE_q\))) # (\bigclock|minute_s[2]~DUPLICATE_q\ & (\bigclock|minute_s[0]~DUPLICATE_q\ & 
+-- \bigclock|minute_s\(1))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0011001111111111000000000011001100000000000000000000000000000000",
+	lut_mask => "0000101010101111000000000000000000001010101011110000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_minute_s\(0),
-	datae => \bigclock|ALT_INV_minute_s\(2),
-	dataf => \bigclock|ALT_INV_minute_s\(3),
+	dataa => \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_minute_s\(1),
+	datae => \bigclock|ALT_INV_minute_s\(3),
 	combout => \bigclock|display3|Mux1~0_combout\);
 
--- Location: LABCELL_X40_Y1_N51
+-- Location: LABCELL_X41_Y6_N33
 \bigclock|display3|Mux0~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display3|Mux0~0_combout\ = ( \bigclock|minute_s\(2) & ( ((!\bigclock|minute_s[1]~DUPLICATE_q\) # (!\bigclock|minute_s[0]~DUPLICATE_q\)) # (\bigclock|minute_s[3]~DUPLICATE_q\) ) ) # ( !\bigclock|minute_s\(2) & ( 
--- (\bigclock|minute_s[1]~DUPLICATE_q\) # (\bigclock|minute_s[3]~DUPLICATE_q\) ) )
+-- \bigclock|display3|Mux0~0_combout\ = ( \bigclock|minute_s\(3) & ( \bigclock|minute_s[2]~DUPLICATE_q\ ) ) # ( !\bigclock|minute_s\(3) & ( \bigclock|minute_s[2]~DUPLICATE_q\ & ( (!\bigclock|minute_s[0]~DUPLICATE_q\) # (!\bigclock|minute_s\(1)) ) ) ) # ( 
+-- \bigclock|minute_s\(3) & ( !\bigclock|minute_s[2]~DUPLICATE_q\ ) ) # ( !\bigclock|minute_s\(3) & ( !\bigclock|minute_s[2]~DUPLICATE_q\ & ( \bigclock|minute_s\(1) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0101111101011111010111110101111111111111111101011111111111110101",
+	lut_mask => "0000000011111111111111111111111111111111111100001111111111111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_minute_s[3]~DUPLICATE_q\,
-	datac => \bigclock|ALT_INV_minute_s[1]~DUPLICATE_q\,
-	datad => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
-	dataf => \bigclock|ALT_INV_minute_s\(2),
+	datac => \bigclock|ALT_INV_minute_s[0]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_minute_s\(1),
+	datae => \bigclock|ALT_INV_minute_s\(3),
+	dataf => \bigclock|ALT_INV_minute_s[2]~DUPLICATE_q\,
 	combout => \bigclock|display3|Mux0~0_combout\);
 
--- Location: LABCELL_X40_Y4_N36
+-- Location: MLABCELL_X42_Y2_N27
 \bigclock|display4|Mux6~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display4|Mux6~0_combout\ = ( \bigclock|deci_second_s\(0) & ( !\bigclock|deci_second_s[1]~DUPLICATE_q\ & ( (!\bigclock|deci_second_s\(3) & !\bigclock|deci_second_s\(2)) ) ) ) # ( !\bigclock|deci_second_s\(0) & ( 
--- !\bigclock|deci_second_s[1]~DUPLICATE_q\ & ( (!\bigclock|deci_second_s\(3) & \bigclock|deci_second_s\(2)) ) ) )
+-- \bigclock|display4|Mux6~0_combout\ = ( \bigclock|deci_second_s\(0) & ( !\bigclock|deci_second_s\(3) & ( (!\bigclock|deci_second_s\(2) & !\bigclock|deci_second_s\(1)) ) ) ) # ( !\bigclock|deci_second_s\(0) & ( !\bigclock|deci_second_s\(3) & ( 
+-- (\bigclock|deci_second_s\(2) & !\bigclock|deci_second_s\(1)) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000110000001100110000001100000000000000000000000000000000000000",
+	lut_mask => "0101000001010000101000001010000000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s\(3),
-	datac => \bigclock|ALT_INV_deci_second_s\(2),
+	dataa => \bigclock|ALT_INV_deci_second_s\(2),
+	datac => \bigclock|ALT_INV_deci_second_s\(1),
 	datae => \bigclock|ALT_INV_deci_second_s\(0),
-	dataf => \bigclock|ALT_INV_deci_second_s[1]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_deci_second_s\(3),
 	combout => \bigclock|display4|Mux6~0_combout\);
 
--- Location: LABCELL_X39_Y3_N51
+-- Location: MLABCELL_X42_Y1_N0
 \bigclock|display4|Mux5~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display4|Mux5~0_combout\ = (\bigclock|deci_second_s\(2) & (!\bigclock|deci_second_s\(1) $ (!\bigclock|deci_second_s\(0))))
+-- \bigclock|display4|Mux5~0_combout\ = ( \bigclock|deci_second_s\(2) & ( \bigclock|deci_second_s\(1) & ( !\bigclock|deci_second_s\(0) ) ) ) # ( \bigclock|deci_second_s\(2) & ( !\bigclock|deci_second_s\(1) & ( \bigclock|deci_second_s\(0) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0001010000010100000101000001010000010100000101000001010000010100",
+	lut_mask => "0000000000000000001100110011001100000000000000001100110011001100",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(2),
-	datab => \bigclock|ALT_INV_deci_second_s\(1),
-	datac => \bigclock|ALT_INV_deci_second_s\(0),
+	datab => \bigclock|ALT_INV_deci_second_s\(0),
+	datae => \bigclock|ALT_INV_deci_second_s\(2),
+	dataf => \bigclock|ALT_INV_deci_second_s\(1),
 	combout => \bigclock|display4|Mux5~0_combout\);
 
--- Location: LABCELL_X39_Y3_N12
+-- Location: MLABCELL_X42_Y2_N18
 \bigclock|display4|Mux4~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display4|Mux4~0_combout\ = ( \bigclock|deci_second_s\(1) & ( (!\bigclock|deci_second_s\(2) & !\bigclock|deci_second_s\(0)) ) )
+-- \bigclock|display4|Mux4~0_combout\ = ( !\bigclock|deci_second_s\(0) & ( \bigclock|deci_second_s\(1) & ( !\bigclock|deci_second_s\(2) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000010100000101000001010000010100000",
+	lut_mask => "0000000000000000000000000000000011110000111100000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(2),
-	datac => \bigclock|ALT_INV_deci_second_s\(0),
+	datac => \bigclock|ALT_INV_deci_second_s\(2),
+	datae => \bigclock|ALT_INV_deci_second_s\(0),
 	dataf => \bigclock|ALT_INV_deci_second_s\(1),
 	combout => \bigclock|display4|Mux4~0_combout\);
 
--- Location: LABCELL_X39_Y3_N0
+-- Location: LABCELL_X43_Y2_N12
 \bigclock|display4|Mux3~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display4|Mux3~0_combout\ = ( \bigclock|deci_second_s\(2) & ( (!\bigclock|deci_second_s\(3) & (!\bigclock|deci_second_s\(1) $ (\bigclock|deci_second_s\(0)))) ) ) # ( !\bigclock|deci_second_s\(2) & ( (!\bigclock|deci_second_s\(3) & 
--- (!\bigclock|deci_second_s\(1) & \bigclock|deci_second_s\(0))) ) )
+-- \bigclock|display4|Mux3~0_combout\ = ( !\bigclock|deci_second_s\(3) & ( (!\bigclock|deci_second_s\(0) & (!\bigclock|deci_second_s\(1) & \bigclock|deci_second_s\(2))) # (\bigclock|deci_second_s\(0) & (!\bigclock|deci_second_s\(1) $ 
+-- (\bigclock|deci_second_s\(2)))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000100000001000000010000000100010000010100000101000001010000010",
+	lut_mask => "0100100101001001010010010100100100000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(3),
+	dataa => \bigclock|ALT_INV_deci_second_s\(0),
 	datab => \bigclock|ALT_INV_deci_second_s\(1),
-	datac => \bigclock|ALT_INV_deci_second_s\(0),
-	dataf => \bigclock|ALT_INV_deci_second_s\(2),
+	datac => \bigclock|ALT_INV_deci_second_s\(2),
+	dataf => \bigclock|ALT_INV_deci_second_s\(3),
 	combout => \bigclock|display4|Mux3~0_combout\);
 
--- Location: LABCELL_X39_Y3_N48
+-- Location: MLABCELL_X42_Y2_N15
 \bigclock|display4|Mux2~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display4|Mux2~0_combout\ = ( \bigclock|deci_second_s\(0) ) # ( !\bigclock|deci_second_s\(0) & ( (\bigclock|deci_second_s\(2) & !\bigclock|deci_second_s\(1)) ) )
+-- \bigclock|display4|Mux2~0_combout\ = ( \bigclock|deci_second_s\(0) & ( \bigclock|deci_second_s\(1) ) ) # ( \bigclock|deci_second_s\(0) & ( !\bigclock|deci_second_s\(1) ) ) # ( !\bigclock|deci_second_s\(0) & ( !\bigclock|deci_second_s\(1) & ( 
+-- \bigclock|deci_second_s\(2) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0100010001000100010001000100010011111111111111111111111111111111",
+	lut_mask => "0101010101010101111111111111111100000000000000001111111111111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
 	dataa => \bigclock|ALT_INV_deci_second_s\(2),
-	datab => \bigclock|ALT_INV_deci_second_s\(1),
-	dataf => \bigclock|ALT_INV_deci_second_s\(0),
+	datae => \bigclock|ALT_INV_deci_second_s\(0),
+	dataf => \bigclock|ALT_INV_deci_second_s\(1),
 	combout => \bigclock|display4|Mux2~0_combout\);
 
--- Location: LABCELL_X39_Y3_N3
+-- Location: LABCELL_X43_Y2_N6
 \bigclock|display4|Mux1~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display4|Mux1~0_combout\ = (!\bigclock|deci_second_s\(3) & ((!\bigclock|deci_second_s\(1) & (\bigclock|deci_second_s\(0) & !\bigclock|deci_second_s\(2))) # (\bigclock|deci_second_s\(1) & ((!\bigclock|deci_second_s\(2)) # 
--- (\bigclock|deci_second_s\(0))))))
+-- \bigclock|display4|Mux1~0_combout\ = ( !\bigclock|deci_second_s\(3) & ( (!\bigclock|deci_second_s\(0) & (\bigclock|deci_second_s\(1) & !\bigclock|deci_second_s\(2))) # (\bigclock|deci_second_s\(0) & ((!\bigclock|deci_second_s\(2)) # 
+-- (\bigclock|deci_second_s\(1)))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0010101000000010001010100000001000101010000000100010101000000010",
+	lut_mask => "0111000101110001011100010111000100000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_deci_second_s\(3),
+	dataa => \bigclock|ALT_INV_deci_second_s\(0),
 	datab => \bigclock|ALT_INV_deci_second_s\(1),
-	datac => \bigclock|ALT_INV_deci_second_s\(0),
-	datad => \bigclock|ALT_INV_deci_second_s\(2),
+	datac => \bigclock|ALT_INV_deci_second_s\(2),
+	dataf => \bigclock|ALT_INV_deci_second_s\(3),
 	combout => \bigclock|display4|Mux1~0_combout\);
 
--- Location: LABCELL_X40_Y4_N54
+-- Location: LABCELL_X43_Y2_N0
 \bigclock|display4|Mux0~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display4|Mux0~0_combout\ = ( \bigclock|deci_second_s\(3) ) # ( !\bigclock|deci_second_s\(3) & ( (!\bigclock|deci_second_s[1]~DUPLICATE_q\ & (\bigclock|deci_second_s\(2))) # (\bigclock|deci_second_s[1]~DUPLICATE_q\ & 
--- ((!\bigclock|deci_second_s\(2)) # (!\bigclock|deci_second_s\(0)))) ) )
+-- \bigclock|display4|Mux0~0_combout\ = ( \bigclock|deci_second_s\(3) ) # ( !\bigclock|deci_second_s\(3) & ( (!\bigclock|deci_second_s\(1) & ((\bigclock|deci_second_s\(2)))) # (\bigclock|deci_second_s\(1) & ((!\bigclock|deci_second_s\(0)) # 
+-- (!\bigclock|deci_second_s\(2)))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0011111100111100001111110011110011111111111111111111111111111111",
+	lut_mask => "0011111000111110001111100011111011111111111111111111111111111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_deci_second_s[1]~DUPLICATE_q\,
+	dataa => \bigclock|ALT_INV_deci_second_s\(0),
+	datab => \bigclock|ALT_INV_deci_second_s\(1),
 	datac => \bigclock|ALT_INV_deci_second_s\(2),
-	datad => \bigclock|ALT_INV_deci_second_s\(0),
 	dataf => \bigclock|ALT_INV_deci_second_s\(3),
 	combout => \bigclock|display4|Mux0~0_combout\);
 
--- Location: MLABCELL_X37_Y3_N42
+-- Location: LABCELL_X43_Y4_N48
 \bigclock|display5|Mux6~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display5|Mux6~0_combout\ = ( !\bigclock|second_s\(3) & ( \bigclock|second_s\(2) & ( (!\bigclock|second_s\(0) & !\bigclock|second_s\(1)) ) ) ) # ( !\bigclock|second_s\(3) & ( !\bigclock|second_s\(2) & ( (\bigclock|second_s\(0) & 
--- !\bigclock|second_s\(1)) ) ) )
+-- \bigclock|display5|Mux6~0_combout\ = ( \bigclock|second_s\(2) & ( (!\bigclock|second_s[0]~DUPLICATE_q\ & (!\bigclock|second_s[1]~DUPLICATE_q\ & !\bigclock|second_s[3]~DUPLICATE_q\)) ) ) # ( !\bigclock|second_s\(2) & ( (\bigclock|second_s[0]~DUPLICATE_q\ & 
+-- (!\bigclock|second_s[1]~DUPLICATE_q\ & !\bigclock|second_s[3]~DUPLICATE_q\)) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0011000000110000000000000000000011000000110000000000000000000000",
+	lut_mask => "0100010000000000010001000000000010001000000000001000100000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_second_s\(0),
-	datac => \bigclock|ALT_INV_second_s\(1),
-	datae => \bigclock|ALT_INV_second_s\(3),
+	dataa => \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\,
+	datab => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_second_s[3]~DUPLICATE_q\,
 	dataf => \bigclock|ALT_INV_second_s\(2),
 	combout => \bigclock|display5|Mux6~0_combout\);
 
--- Location: LABCELL_X40_Y4_N51
+-- Location: LABCELL_X44_Y4_N48
 \bigclock|display5|Mux5~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display5|Mux5~0_combout\ = ( \bigclock|second_s\(2) & ( !\bigclock|second_s\(1) $ (!\bigclock|second_s\(0)) ) )
+-- \bigclock|display5|Mux5~0_combout\ = ( \bigclock|second_s\(2) & ( !\bigclock|second_s[1]~DUPLICATE_q\ $ (!\bigclock|second_s[0]~DUPLICATE_q\) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000000000000000000000000000000001011010010110100101101001011010",
+	lut_mask => "0000000000000000010110100101101000000000000000000101101001011010",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(1),
-	datac => \bigclock|ALT_INV_second_s\(0),
-	dataf => \bigclock|ALT_INV_second_s\(2),
+	dataa => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_second_s\(2),
 	combout => \bigclock|display5|Mux5~0_combout\);
 
--- Location: LABCELL_X39_Y4_N42
+-- Location: LABCELL_X43_Y4_N51
 \bigclock|display5|Mux4~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display5|Mux4~0_combout\ = ( !\bigclock|second_s\(0) & ( !\bigclock|second_s\(2) & ( \bigclock|second_s\(1) ) ) )
+-- \bigclock|display5|Mux4~0_combout\ = ( !\bigclock|second_s\(2) & ( (!\bigclock|second_s[0]~DUPLICATE_q\ & \bigclock|second_s[1]~DUPLICATE_q\) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000111100001111000000000000000000000000000000000000000000000000",
+	lut_mask => "0000101000001010000010100000101000000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datac => \bigclock|ALT_INV_second_s\(1),
-	datae => \bigclock|ALT_INV_second_s\(0),
+	dataa => \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
 	dataf => \bigclock|ALT_INV_second_s\(2),
 	combout => \bigclock|display5|Mux4~0_combout\);
 
--- Location: LABCELL_X39_Y4_N54
+-- Location: LABCELL_X41_Y5_N54
 \bigclock|display5|Mux3~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display5|Mux3~0_combout\ = ( !\bigclock|second_s\(3) & ( (!\bigclock|second_s\(0) & (\bigclock|second_s\(2) & !\bigclock|second_s\(1))) # (\bigclock|second_s\(0) & (!\bigclock|second_s\(2) $ (\bigclock|second_s\(1)))) ) )
+-- \bigclock|display5|Mux3~0_combout\ = ( !\bigclock|second_s[3]~DUPLICATE_q\ & ( \bigclock|second_s[1]~DUPLICATE_q\ & ( (\bigclock|second_s[2]~DUPLICATE_q\ & \bigclock|second_s[0]~DUPLICATE_q\) ) ) ) # ( !\bigclock|second_s[3]~DUPLICATE_q\ & ( 
+-- !\bigclock|second_s[1]~DUPLICATE_q\ & ( !\bigclock|second_s[2]~DUPLICATE_q\ $ (!\bigclock|second_s[0]~DUPLICATE_q\) ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0110000101100001011000010110000100000000000000000000000000000000",
+	lut_mask => "0011110000111100000000000000000000000011000000110000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(0),
-	datab => \bigclock|ALT_INV_second_s\(2),
-	datac => \bigclock|ALT_INV_second_s\(1),
-	dataf => \bigclock|ALT_INV_second_s\(3),
+	datab => \bigclock|ALT_INV_second_s[2]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_second_s[3]~DUPLICATE_q\,
+	dataf => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
 	combout => \bigclock|display5|Mux3~0_combout\);
 
--- Location: LABCELL_X40_Y4_N57
+-- Location: MLABCELL_X42_Y5_N45
 \bigclock|display5|Mux2~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display5|Mux2~0_combout\ = ( \bigclock|second_s\(2) & ( (!\bigclock|second_s\(1)) # (\bigclock|second_s\(0)) ) ) # ( !\bigclock|second_s\(2) & ( \bigclock|second_s\(0) ) )
+-- \bigclock|display5|Mux2~0_combout\ = ( \bigclock|second_s[0]~DUPLICATE_q\ ) # ( !\bigclock|second_s[0]~DUPLICATE_q\ & ( (!\bigclock|second_s[1]~DUPLICATE_q\ & \bigclock|second_s[2]~DUPLICATE_q\) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0000111100001111000011110000111110101111101011111010111110101111",
+	lut_mask => "0000000010101010111111111111111100000000101010101111111111111111",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(1),
-	datac => \bigclock|ALT_INV_second_s\(0),
-	dataf => \bigclock|ALT_INV_second_s\(2),
+	dataa => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_second_s[2]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\,
 	combout => \bigclock|display5|Mux2~0_combout\);
 
--- Location: MLABCELL_X37_Y3_N36
+-- Location: LABCELL_X41_Y4_N54
 \bigclock|display5|Mux1~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display5|Mux1~0_combout\ = ( !\bigclock|second_s\(3) & ( \bigclock|second_s\(2) & ( (\bigclock|second_s\(0) & \bigclock|second_s\(1)) ) ) ) # ( !\bigclock|second_s\(3) & ( !\bigclock|second_s\(2) & ( (\bigclock|second_s\(1)) # 
--- (\bigclock|second_s\(0)) ) ) )
+-- \bigclock|display5|Mux1~0_combout\ = ( !\bigclock|second_s[3]~DUPLICATE_q\ & ( (!\bigclock|second_s\(2) & ((\bigclock|second_s\(0)) # (\bigclock|second_s[1]~DUPLICATE_q\))) # (\bigclock|second_s\(2) & (\bigclock|second_s[1]~DUPLICATE_q\ & 
+-- \bigclock|second_s\(0))) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0011111100111111000000000000000000000011000000110000000000000000",
+	lut_mask => "0000110011001111000011001100111100000000000000000000000000000000",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	datab => \bigclock|ALT_INV_second_s\(0),
-	datac => \bigclock|ALT_INV_second_s\(1),
-	datae => \bigclock|ALT_INV_second_s\(3),
-	dataf => \bigclock|ALT_INV_second_s\(2),
+	datab => \bigclock|ALT_INV_second_s\(2),
+	datac => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
+	datad => \bigclock|ALT_INV_second_s\(0),
+	dataf => \bigclock|ALT_INV_second_s[3]~DUPLICATE_q\,
 	combout => \bigclock|display5|Mux1~0_combout\);
 
--- Location: LABCELL_X39_Y4_N57
+-- Location: LABCELL_X44_Y4_N54
 \bigclock|display5|Mux0~0\ : cyclonev_lcell_comb
 -- Equation(s):
--- \bigclock|display5|Mux0~0_combout\ = ( \bigclock|second_s\(1) & ( (!\bigclock|second_s\(0)) # ((!\bigclock|second_s\(2)) # (\bigclock|second_s\(3))) ) ) # ( !\bigclock|second_s\(1) & ( (\bigclock|second_s\(3)) # (\bigclock|second_s\(2)) ) )
+-- \bigclock|display5|Mux0~0_combout\ = ( \bigclock|second_s\(2) & ( \bigclock|second_s[1]~DUPLICATE_q\ & ( (!\bigclock|second_s[0]~DUPLICATE_q\) # (\bigclock|second_s[3]~DUPLICATE_q\) ) ) ) # ( !\bigclock|second_s\(2) & ( \bigclock|second_s[1]~DUPLICATE_q\ 
+-- ) ) # ( \bigclock|second_s\(2) & ( !\bigclock|second_s[1]~DUPLICATE_q\ ) ) # ( !\bigclock|second_s\(2) & ( !\bigclock|second_s[1]~DUPLICATE_q\ & ( \bigclock|second_s[3]~DUPLICATE_q\ ) ) )
 
 -- pragma translate_off
 GENERIC MAP (
 	extended_lut => "off",
-	lut_mask => "0011111100111111001111110011111111101111111011111110111111101111",
+	lut_mask => "0101010101010101111111111111111111111111111111111111010111110101",
 	shared_arith => "off")
 -- pragma translate_on
 PORT MAP (
-	dataa => \bigclock|ALT_INV_second_s\(0),
-	datab => \bigclock|ALT_INV_second_s\(2),
-	datac => \bigclock|ALT_INV_second_s\(3),
-	dataf => \bigclock|ALT_INV_second_s\(1),
+	dataa => \bigclock|ALT_INV_second_s[3]~DUPLICATE_q\,
+	datac => \bigclock|ALT_INV_second_s[0]~DUPLICATE_q\,
+	datae => \bigclock|ALT_INV_second_s\(2),
+	dataf => \bigclock|ALT_INV_second_s[1]~DUPLICATE_q\,
 	combout => \bigclock|display5|Mux0~0_combout\);
 
--- Location: LABCELL_X52_Y6_N0
+-- Location: MLABCELL_X34_Y38_N0
 \~QUARTUS_CREATED_GND~I\ : cyclonev_lcell_comb
 -- Equation(s):
 
