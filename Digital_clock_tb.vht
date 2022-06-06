@@ -19,7 +19,7 @@ component Digital_clock is
 end component;
 
 signal clk_s     : std_logic := '0';
-signal rst_n_s   : std_logic := '0';
+signal rst_n_s   : std_logic := '1';
 signal key_n_s   : std_logic := '0';
 signal display_s : hex_t;
 
@@ -30,7 +30,7 @@ uut : Digital_clock port map
         clk     => clk_s,
         rst_n   => rst_n_s, 
         key_n   => key_n_s,
-        hex => display_s
+        hex     => display_s
     );
 
 
@@ -47,7 +47,7 @@ end process;
 test : process
 begin
     wait for 3*CLK_PERIOD;
-    rst_n_s <= '1';
+    rst_n_s <= '0';
     wait for 10*CLK_PERIOD;
     key_n_s <= '1';
     wait for 10*CLK_PERIOD;

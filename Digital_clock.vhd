@@ -56,7 +56,10 @@ Sec_Clock : SlowClock port map
 
 
 -----------------------------------------------------------------
-   state_mach : process (clk, rst_n, key_n, q1, q2) is
+
+
+   state_mach : process (clk, q1, q2, rst_n, key_n) is
+
 
    begin
  
@@ -66,24 +69,24 @@ Sec_Clock : SlowClock port map
          else
 				q1 <= key_n;
 -----------------------------------------------------------------
-				if (key_n = '1' and q1 = '0') then
-					q2 <= '1';
-				else
-					q2 <= '0';
-				end if;
+--				if (key_n = '1' and q1 = '0') then
+--					q2 <= '1';
+--				else
+--					q2 <= '0';
+--				end if;
          
 -----------------------------------------------------------------
             case clk_state_s is
                when off =>
-                  if(q2= '1') then
+                  if(key_n = '1' and q1 = '0') then
                      clk_state_s <= counting;
                   end if;
                when counting =>
-                  if(q2 = '1') then
+                  if(key_n = '1' and q1 = '0') then
                      clk_state_s <= paused;
                   end if;
                when paused =>
-                  if(q2 = '1') then
+                  if(key_n = '1' and q1 = '0') then
                      clk_state_s <= counting;
                   end if;
             end case;
@@ -110,8 +113,7 @@ Sec_Clock : SlowClock port map
 					if (slow_clk_s = '1') then
 						second_s <= second_s + 1;
 					end if;
------------------------------------------------------------------				
-					
+-----------------------------------------------------------------									
 					if(second_s = 9 and slow_clk_s = '1') then
 						second_s <= 0;
 						deci_second_s <= deci_second_s + 1;
