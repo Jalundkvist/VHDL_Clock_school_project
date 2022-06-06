@@ -12,16 +12,14 @@ entity Digital_clock is
    --display : out std_logic_vector(6 downto 0);
    hex     : out hex_t
    );
-	
-   
 end entity;
 
 architecture Behaviour of Digital_clock is
 
 signal second_s      : natural;
 signal deci_second_s : natural;
-signal minute_s       : natural;
-signal deci_minute_s  : natural;
+signal minute_s      : natural;
+signal deci_minute_s : natural;
 signal hour_s        : natural;
 signal deci_hour_s   : natural;
 signal counter_s     : natural;
@@ -29,11 +27,11 @@ signal q1            : std_logic;
 signal q2            : std_logic;
 signal clk_state_s   : clk_state_t := off;
 signal slow_clk_s    : std_logic;
-signal frequency_s   : natural := COUNTER_MAX;
-
-
+signal frequency_s   : natural;
 
 begin
+
+frequency_s <= COUNTER_MAX;
 
 display0 : segment port map 
 (digit => deci_hour_s, output => hex(0));
@@ -55,7 +53,6 @@ display5 : segment port map
 
 Sec_Clock : SlowClock port map
 (clk => clk, reset_n => rst_n, frequency => frequency_s, slow_clk => slow_clk_s);
-
 
 
 -----------------------------------------------------------------
@@ -93,8 +90,9 @@ Sec_Clock : SlowClock port map
 			end if;
 		end if;
 	end process;
-------------------------------------------------------------------
 	
+-----------------------------------------------------------------	
+
    counter24h : process (slow_clk_s) is
    begin
       if(rising_edge(slow_clk_s)) then
@@ -125,7 +123,6 @@ Sec_Clock : SlowClock port map
 						minute_s <= minute_s + 1;
 					end if;
 ----------------------------------------------------------------------------------------------------------------------------------				
-					
 					if(minute_s = 9 and deci_second_s = 5 and second_s = 9 and slow_clk_s = '1') then
 						minute_s <= 0;
 						deci_minute_s <= deci_minute_s + 1; 
@@ -136,7 +133,6 @@ Sec_Clock : SlowClock port map
 						hour_s <= hour_s + 1;
 					end if;
 ----------------------------------------------------------------------------------------------------------------------------------			
-					
 					if(hour_s = 9 and deci_minute_s = 5 and minute_s = 9 and deci_second_s = 5 and second_s = 9 and slow_clk_s = '1') then
 						hour_s <= 0;
 						deci_hour_s <= deci_hour_s + 1;

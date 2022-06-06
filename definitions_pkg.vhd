@@ -1,8 +1,6 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 
-
-
 package definitions_pkg is
 
 	 constant COUNTER_MAX : natural := 5;
@@ -11,10 +9,10 @@ package definitions_pkg is
 	 
 -- constanter för simulering och klocka
     constant CLK_PERIOD : time := 20 ns;
-    constant MAX_TIME   : time := 20 us;
+    constant MAX_TIME   : time := 50 us;
 	 
 -- Array för utsignal till display.
-	 type hex_t is array (0 to 5) of std_logic_vector(6 downto 0);
+	type hex_t is array (0 to 5) of std_logic_vector(6 downto 0);
 	 
 -- Makron för sjusegments displayer.
     constant ZERO:  std_logic_vector(6 downto 0) := "1000000";
@@ -47,8 +45,5 @@ component SlowClock is
       slow_clk  : out std_logic
    );
 end component;
-
-
-
 
 end package;

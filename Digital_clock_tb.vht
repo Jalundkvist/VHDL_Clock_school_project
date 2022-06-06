@@ -14,7 +14,7 @@ component Digital_clock is
    clk   : in std_logic;
    rst_n : in std_logic;
    key_n : in std_logic;
-   hex     : out hex_t
+   hex   : out hex_t
    );
 end component;
 
