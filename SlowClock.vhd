@@ -22,7 +22,7 @@ begin
 	
    process (clk, reset_n) is
    begin
-      if (reset_n = '0') then
+      if (reset_n = '1') then
          slow_clk <= '0';
          counter_s  <=  0;
       elsif rising_edge(clk) then
