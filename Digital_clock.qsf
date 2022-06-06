@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CEBA4F23C7
-set_global_assignment -name TOP_LEVEL_ENTITY Digital_clock
+set_global_assignment -name TOP_LEVEL_ENTITY ClockTop
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:55:36  MAY 31, 2022"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -51,9 +51,6 @@ set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name SMART_RECOMPILE ON
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH Digital_clock_tb -section_id eda_simulation
@@ -67,8 +64,8 @@ set_global_assignment -name VHDL_FILE Digital_clock.vhd
 set_global_assignment -name VHDL_TEST_BENCH_FILE Digital_clock_tb.vht
 set_global_assignment -name VHDL_FILE SlowClock.vhd
 set_location_assignment PIN_M9 -to clk
-set_location_assignment PIN_U13 -to key_n
-set_location_assignment PIN_V13 -to rst_n
+set_location_assignment PIN_U7 -to key_n
+set_location_assignment PIN_W9 -to rst_n
 set_location_assignment PIN_U21 -to hex[0][0]
 set_location_assignment PIN_V21 -to hex[0][1]
 set_location_assignment PIN_W21 -to hex[0][3]
@@ -111,4 +108,8 @@ set_location_assignment PIN_P14 -to hex[5][3]
 set_location_assignment PIN_C1 -to hex[5][4]
 set_location_assignment PIN_C2 -to hex[5][5]
 set_location_assignment PIN_W19 -to hex[5][6]
+set_global_assignment -name VHDL_FILE ClockTop.vhd
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

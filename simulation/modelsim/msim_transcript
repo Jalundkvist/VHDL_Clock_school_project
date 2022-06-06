@@ -12,17 +12,17 @@
 # 
 # vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:13:26 on Jun 06,2022
+# Start time: 14:52:37 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling package definitions_pkg
-# End time: 13:13:26 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:52:37 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:13:26 on Jun 06,2022
+# Start time: 14:52:37 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -30,11 +30,11 @@
 # -- Loading package definitions_pkg
 # -- Compiling entity segment
 # -- Compiling architecture gate of segment
-# End time: 13:13:26 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:52:37 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:13:26 on Jun 06,2022
+# Start time: 14:52:37 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -42,11 +42,11 @@
 # -- Loading package definitions_pkg
 # -- Compiling entity Digital_clock
 # -- Compiling architecture Behaviour of Digital_clock
-# End time: 13:13:26 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:52:37 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:13:26 on Jun 06,2022
+# Start time: 14:52:37 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -54,12 +54,24 @@
 # -- Loading package definitions_pkg
 # -- Compiling entity SlowClock
 # -- Compiling architecture behaviour of SlowClock
-# End time: 13:13:26 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:52:37 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:52:37 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity ClockTop
+# -- Compiling architecture top of ClockTop
+# End time: 14:52:37 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:13:26 on Jun 06,2022
+# Start time: 14:52:37 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -67,12 +79,12 @@
 # -- Loading package definitions_pkg
 # -- Compiling entity Digital_clock_tb
 # -- Compiling architecture TB of Digital_clock_tb
-# End time: 13:13:26 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:52:38 on Jun 06,2022, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # 
 # vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  Digital_clock_tb
 # vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs=""+acc"" Digital_clock_tb 
-# Start time: 13:13:26 on Jun 06,2022
+# Start time: 14:52:38 on Jun 06,2022
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -85,108 +97,31 @@
 # add wave *
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: Dizj  Hostname: DIZJ  ProcessID: 8536
-#           Attempting to use alternate WLF file "./wlft9k7n2t".
+#           Attempting to use alternate WLF file "./wlft0kee16".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft9k7n2t
+#           Using alternate file: ./wlft0kee16
 # view structure
 # .main_pane.structure.interior.cs.body.struct
 # view signals
 # .main_pane.objects.interior.cs.body.tree
 # run -all
 add wave -position end sim:/digital_clock_tb/uut/*
+# checkArgs: WlfValueId has no logfile info.
 restart
 run -all
-vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
-# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:16:00 on Jun 06,2022
-# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package definitions_pkg
-# -- Compiling entity Digital_clock_tb
-# -- Compiling architecture TB of Digital_clock_tb
-# End time: 13:16:00 on Jun 06,2022, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-restart
-# Loading work.digital_clock_tb(tb)
-run -all
-vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:19 on Jun 06,2022
-# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package definitions_pkg
-# -- Compiling entity SlowClock
-# -- Compiling architecture behaviour of SlowClock
-# End time: 13:17:19 on Jun 06,2022, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-restart
-# Loading work.slowclock(behaviour)
-run -all
-vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:33 on Jun 06,2022
-# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package definitions_pkg
-# -- Compiling entity SlowClock
-# -- Compiling architecture behaviour of SlowClock
-# End time: 13:17:33 on Jun 06,2022, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
-# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:35 on Jun 06,2022
-# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package definitions_pkg
-# -- Compiling entity Digital_clock_tb
-# -- Compiling architecture TB of Digital_clock_tb
-# End time: 13:17:35 on Jun 06,2022, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:36 on Jun 06,2022
-# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package definitions_pkg
-# -- Compiling entity segment
-# -- Compiling architecture gate of segment
-# End time: 13:17:36 on Jun 06,2022, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
-# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:38 on Jun 06,2022
-# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
-# -- Loading package STANDARD
-# -- Loading package TEXTIO
-# -- Loading package std_logic_1164
-# -- Loading package definitions_pkg
-# -- Compiling entity Digital_clock
-# -- Compiling architecture Behaviour of Digital_clock
-# End time: 13:17:38 on Jun 06,2022, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:39 on Jun 06,2022
+# Start time: 14:54:12 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
 # -- Compiling package definitions_pkg
-# End time: 13:17:39 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:54:12 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:40 on Jun 06,2022
+# Start time: 14:54:13 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -194,11 +129,11 @@ vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digit
 # -- Loading package definitions_pkg
 # -- Compiling entity Digital_clock
 # -- Compiling architecture Behaviour of Digital_clock
-# End time: 13:17:40 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:54:13 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:42 on Jun 06,2022
+# Start time: 14:54:14 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -206,11 +141,11 @@ vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digit
 # -- Loading package definitions_pkg
 # -- Compiling entity Digital_clock_tb
 # -- Compiling architecture TB of Digital_clock_tb
-# End time: 13:17:42 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:54:14 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:43 on Jun 06,2022
+# Start time: 14:54:16 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -218,11 +153,11 @@ vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segme
 # -- Loading package definitions_pkg
 # -- Compiling entity segment
 # -- Compiling architecture gate of segment
-# End time: 13:17:43 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:54:16 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd}
 # Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 13:17:45 on Jun 06,2022
+# Start time: 14:54:17 on Jun 06,2022
 # vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd 
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
@@ -230,7 +165,31 @@ vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowC
 # -- Loading package definitions_pkg
 # -- Compiling entity SlowClock
 # -- Compiling architecture behaviour of SlowClock
-# End time: 13:17:45 on Jun 06,2022, Elapsed time: 0:00:00
+# End time: 14:54:17 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:54:18 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity ClockTop
+# -- Compiling architecture top of ClockTop
+# End time: 14:54:18 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:54:20 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock_tb
+# -- Compiling architecture TB of Digital_clock_tb
+# End time: 14:54:20 on Jun 06,2022, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 restart
 # Loading work.definitions_pkg
@@ -239,5 +198,183 @@ restart
 # Loading work.segment(gate)
 # Loading work.slowclock(behaviour)
 run -all
-# End time: 13:18:37 on Jun 06,2022, Elapsed time: 0:05:11
-# Errors: 0, Warnings: 2
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:59:06 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock_tb
+# -- Compiling architecture TB of Digital_clock_tb
+# End time: 14:59:06 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:59:07 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock
+# -- Compiling architecture Behaviour of Digital_clock
+# End time: 14:59:07 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:59:08 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package definitions_pkg
+# End time: 14:59:08 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:59:09 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity ClockTop
+# -- Compiling architecture top of ClockTop
+# End time: 14:59:09 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:59:10 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity segment
+# -- Compiling architecture gate of segment
+# End time: 14:59:10 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:59:12 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity SlowClock
+# -- Compiling architecture behaviour of SlowClock
+# End time: 14:59:12 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# Loading work.definitions_pkg
+# Loading work.digital_clock_tb(tb)
+# Loading work.digital_clock(behaviour)
+# Loading work.segment(gate)
+# Loading work.slowclock(behaviour)
+# Warning in wave window restart: (vish-4014) No objects found matching '/digital_clock_tb/uut/q2'. 
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:00:49 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock_tb
+# -- Compiling architecture TB of Digital_clock_tb
+# End time: 15:00:49 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# Loading work.digital_clock_tb(tb)
+run -all
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:04:45 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock
+# -- Compiling architecture Behaviour of Digital_clock
+# End time: 15:04:45 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# Loading work.digital_clock(behaviour)
+run -all
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:06:46 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock_tb
+# -- Compiling architecture TB of Digital_clock_tb
+# End time: 15:06:46 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# Loading work.digital_clock_tb(tb)
+run -all
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:09:27 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock
+# -- Compiling architecture Behaviour of Digital_clock
+# ** Error: C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd(104): near "1": syntax error
+# ** Error: C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd(141): near "if": (vcom-1576) expecting PROCESS.
+# End time: 15:09:27 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 2, Warnings: 0
+# L:/Programmering/Quartus_prime/modelsim_ase/win32aloem/vcom failed.
+restart
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:09:56 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock
+# -- Compiling architecture Behaviour of Digital_clock
+# ** Error: C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd(142): near "process": (vcom-1576) expecting IF.
+# End time: 15:09:56 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
+# L:/Programmering/Quartus_prime/modelsim_ase/win32aloem/vcom failed.
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:10:33 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock
+# -- Compiling architecture Behaviour of Digital_clock
+# End time: 15:10:33 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart
+# Loading work.digital_clock(behaviour)
+run -all
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 15:14:42 on Jun 06,2022
+# vcom -reportprogress 300 -93 -work work C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package definitions_pkg
+# -- Compiling entity Digital_clock
+# -- Compiling architecture Behaviour of Digital_clock
+# End time: 15:14:42 on Jun 06,2022, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+restart

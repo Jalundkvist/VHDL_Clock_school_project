@@ -27,7 +27,7 @@ begin
          counter_s  <=  0;
       elsif rising_edge(clk) then
          counter_s <= counter_s +1;
-         if counter_s = counter_max_s then
+         if counter_s >= counter_max_s then
             slow_clk <= '1';
             counter_s  <=  0;
          else

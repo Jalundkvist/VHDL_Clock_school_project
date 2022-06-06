@@ -8,7 +8,7 @@ use work.definitions_pkg.all;
 entity segment is
     port
     (
-    digit  : in natural range 0 to 9 := 0;
+    digit  : in natural range 0 to 9;
     output : out std_logic_vector ( 6 downto 0)
     );
 end segment;

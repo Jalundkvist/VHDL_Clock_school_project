@@ -56,8 +56,6 @@ begin
     key_n_s <= '1';
     wait for 10*CLK_PERIOD;
     key_n_s <= '0';
-    wait for 10*CLK_PERIOD;
-    key_n_s <= '1';
     wait;
 
 end process;
