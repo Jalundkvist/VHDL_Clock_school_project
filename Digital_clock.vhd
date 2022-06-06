@@ -34,22 +34,22 @@ begin
 frequency_s <= COUNTER_MAX;
 
 display0 : segment port map 
-(digit => deci_hour_s, output => hex(0));
+(digit => deci_hour_s, output => hex(5));
 
 display1 : segment port map
-(digit => hour_s, output => hex(1));
+(digit => hour_s, output => hex(4));
 
 display2 : segment port map 
-(digit => deci_minute_s, output => hex(2));
+(digit => deci_minute_s, output => hex(3));
 
 display3 : segment port map 
-(digit => minute_s, output => hex(3));
+(digit => minute_s, output => hex(2));
 
 display4 : segment port map 
-(digit => deci_second_s, output => hex(4));
+(digit => deci_second_s, output => hex(1));
 
 display5 : segment port map 
-(digit => second_s, output => hex(5));
+(digit => second_s, output => hex(0));
 
 Sec_Clock : SlowClock port map
 (clk => clk, reset_n => rst_n, frequency => frequency_s, slow_clk => slow_clk_s);

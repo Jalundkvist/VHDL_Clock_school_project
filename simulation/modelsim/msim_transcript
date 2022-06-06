@@ -96,3 +96,5 @@
 add wave -position end sim:/digital_clock_tb/uut/*
 restart
 run -all
+# End time: 12:16:37 on Jun 06,2022, Elapsed time: 0:04:31
+# Errors: 0, Warnings: 2
