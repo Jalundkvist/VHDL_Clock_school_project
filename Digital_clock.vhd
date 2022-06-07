@@ -15,39 +15,27 @@ end entity;
 
 architecture Behaviour of Digital_clock is
 
-signal second_s      : natural;
-signal deci_second_s : natural;
-signal minute_s      : natural;
-signal deci_minute_s : natural;
-signal hour_s        : natural;
-signal deci_hour_s   : natural;
-signal counter_s     : natural;
-signal q1            : std_logic;
-signal clk_state_s   : clk_state_t := off;
-signal slow_clk_s    : std_logic;
-signal frequency_s   : natural;
+signal second_s    : natural;
+signal minute_s    : natural;
+signal hour_s      : natural;
+signal counter_s   : natural;
+signal q1          : std_logic;
+signal clk_state_s : clk_state_t := off;
+signal slow_clk_s  : std_logic;
+signal frequency_s : natural;
 
 begin
 
 frequency_s <= COUNTER_MAX;
 
-display0 : segment port map 
-(digit => deci_hour_s, output => hex(5));
 
-display1 : segment port map
-(digit => hour_s, output => hex(4));
+display01 : doublesegment port map 
+(digits => hour_s,   output1 => hex(5), output2 => hex(4));
+display02 : doublesegment port map 
+(digits => minute_s, output1 => hex(3), output2 => hex(2));
+display03 : doublesegment port map 
+(digits => second_s, output1 => hex(1), output2 => hex(0));
 
-display2 : segment port map 
-(digit => deci_minute_s, output => hex(3));
-
-display3 : segment port map 
-(digit => minute_s, output => hex(2));
-
-display4 : segment port map 
-(digit => deci_second_s, output => hex(1));
-
-display5 : segment port map 
-(digit => second_s, output => hex(0));
 
 Sec_Clock : SlowClock port map
 (
@@ -93,46 +81,25 @@ slow_clk => slow_clk_s
 	 
 	   if (rst_n = '0') then
 		   second_s <= 0;
-			deci_second_s <= 0;
+			--deci_second_s <= 0;
 			minute_s <= 0;
-			deci_minute_s <= 0;
+			--deci_minute_s <= 0;
 			hour_s <= 0;
-			deci_hour_s <= 0; 
+			--deci_hour_s <= 0; 
 	   elsif (rising_edge(clk)) then 
 -----------------------------------------------------------------	
 		   if clk_state_s = counting then
 			   if (slow_clk_s = '1') then
-					if(deci_hour_s = 2 and hour_s = 3 and deci_minute_s = 5 and minute_s = 9 and deci_second_s = 5 and second_s = 9) then
-						deci_hour_s <= 0;
+					if(hour_s = 23 and minute_s = 59 and second_s = 59) then
 						hour_s <= 0;
-						deci_minute_s <= 0;
 						minute_s <= 0;
-						deci_second_s <= 0;
-						second_s <= 0;
-					elsif (hour_s = 9 and deci_minute_s = 5 and minute_s = 9 and deci_second_s = 5 and second_s = 9) then
-						deci_hour_s <= deci_hour_s + 1;
-						hour_s <= 0;
-						deci_minute_s <= 0;
-						minute_s <= 0;
-						deci_second_s <= 0;
-						second_s <= 0;
-					elsif (deci_minute_s = 5 and minute_s = 9 and deci_second_s = 5 and second_s = 9) then
+						second_s <= 0;		
+					elsif (minute_s = 59 and second_s = 59) then
 						hour_s <= hour_s + 1;
-						deci_minute_s <= 0;
 						minute_s <= 0;
-						deci_second_s <= 0;
 						second_s <= 0;
-					elsif (minute_s = 9 and deci_second_s = 5 and second_s = 9) then
-						deci_minute_s <= deci_minute_s + 1;
-						minute_s <= 0;
-						deci_second_s <= 0;
-						second_s <= 0;
-					elsif (deci_second_s = 5 and second_s = 9) then
+					elsif (second_s = 59) then
 						minute_s <= minute_s + 1;
-						deci_second_s <= 0;
-						second_s <= 0;
-					elsif (second_s = 9) then
-						deci_second_s <= deci_second_s + 1;
 						second_s <= 0;
 					else 
 				      second_s <= second_s +1;
@@ -141,5 +108,4 @@ slow_clk => slow_clk_s
          end if;   
       end if;
    end process;
-----------------------------------------------------------------------------------------------------------------------------------
 end architecture;

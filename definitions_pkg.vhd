@@ -3,7 +3,7 @@ use IEEE.std_logic_1164.all;
 
 package definitions_pkg is
 
-	 constant COUNTER_MAX : natural := 5000000;
+	 constant COUNTER_MAX : natural := 50000000;
 	 subtype counter_t is natural range 0 to 50000000;
 	 type clk_state_t is (off, counting, paused);
 	 
@@ -54,6 +54,15 @@ component Digital_clock is
     key_n   : in std_logic;
     hex     : out hex_t
     );
- end component;
+end component;
+
+component doublesegment is
+    port
+    (
+       digits  : in natural range 0 to 99;
+       output1 : out std_logic_vector (6 downto 0);
+       output2 : out std_logic_vector (6 downto 0)
+    );
+end component;
 
 end package;
