@@ -8,7 +8,8 @@ entity ClockTop is
     (
     clk     : in std_logic;
     rst_n   : in std_logic;
-    key_n   : in std_logic;
+    key_n   : in std_logic_vector (2 downto 0);
+     switch  : in std_logic;
     hex     : out hex_t
     );
 end entity;
@@ -19,10 +20,11 @@ begin
 
 bigclock : Digital_clock port map
 (
-clk   => clk,
-rst_n => rst_n,
-key_n => key_n,
-hex   => hex
+clk    => clk,
+rst_n  => rst_n,
+key_n  => key_n,
+switch => switch,
+hex    => hex
 );
 
 

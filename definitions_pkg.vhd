@@ -49,10 +49,11 @@ end component;
 component Digital_clock is
     port
     (
-    clk     : in std_logic;
-    rst_n   : in std_logic;
-    key_n   : in std_logic;
-    hex     : out hex_t
+		clk     : in std_logic;
+		rst_n   : in std_logic;
+		key_n   : in std_logic_vector (2 downto 0);
+		switch  : in std_logic; -- UP/DOWN
+		hex     : out hex_t
     );
 end component;
 
