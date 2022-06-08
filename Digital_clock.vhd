@@ -142,9 +142,17 @@ begin
         	elsif clk_state_s = paused then
 				if (switch_s(1) = '1') then                        -- UP ( +h +m)
 				    if(key_n1_s(1) = '0' and q1(1) = '1') then     -- HOUR UP
-				   	   hour_s <= hour_s + 1;
+				   	if(hour_s = 23)
+							hour_s <= 0;
+						else	
+							hour_s <= hour_s + 1;
+						end if;
 				    elsif (key_n2_s(1) = '0' and q1(2) = '1') then -- MIN UP
-					   minute_s <= minute_s + 1;
+					   if(minutes_s = 59)
+							minute_s <= 0;
+						else
+							minute_s <= minute_s + 1;
+						end if;
 				    end if;
 				elsif (switch_s(1) = '0') then 							-- DOWN (-h -m)
 				    if(key_n1_s(1) = '0' and q1(1) = '1') then 		-- HOUR DOWN
