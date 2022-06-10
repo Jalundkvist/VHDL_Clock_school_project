@@ -14,7 +14,7 @@ Quartus Prime 18.1 - För kompilering av VHDL-kod.
 
 ModelSim 10.5b - För simulering av testbänk.
 
-Visual Studio Code - för att kunna koda samtidigt med hjälp av tilläggen "liveshare" från Microsoft och "VHDL" från Pu Zhao.
+Visual Studio Code - För att kunna koda samtidigt och för VHDL syntax användes tilläggen "liveshare" från Microsoft och "VHDL" från Pu Zhao.
 
 #### Funktioner
 Klockan skulle starta på 00:00:00 och den skulle börja räkna vid aktivering av tryckknapp. 
@@ -37,7 +37,9 @@ Konstruktionen fick samtliga efterfrågade funktioner och lite till. Efter mång
 
 
 #### Diskussion
-Uppgiften var på en bra svårighetsgrad. Där vi fick sätta ihop ett större projekt i VHDL för första gången efter en tydlig specifikation. Projektet var väldigt givande och gav en bra insikt i hur man ska gå tillväga och tänka för att konstruera i VHDL. Det som skulle kunna förbättra projeketet är ifall det skulle vara en tydligare genomgång innan projektstart samt lite tips och tricks på hur man skulle kunna konstuera projeketet. Det skulle även vara ett mer givande projekt ifall det skulle läggas mer tid till att utföra projeketet samt vidareutveckla. I början av projektet så kände vi att man vi hade lite för lite förkunskaper för att kunna skapa projektet från tomma intet. Så att minst ett lektionstillfälle skulle erbjudas för att kunna fokusera på projektet men med Erik nära till hands.
+Uppgiften var på en riktigt bra svårighetsgrad. Där vi fick sätta ihop ett större projekt i VHDL för första gången efter en tydlig specifikation och där man fick tänka till extra för att klara VG-delen. Projektet var väldigt givande och gav en bra insikt i hur man ska gå tillväga och tänka för att konstruera i VHDL. Det som skulle kunna förbättra projeketet är ifall det fanns en tydligare genomgång innan projektstart samt lite tips och tricks på hur man skulle kunna konstuera projeketet. 
+
+Det skulle även vara ett mer givande projekt ifall det skulle läggas mer tid till att utföra projeketet samt vidareutveckla. I början av projektet så kände vi att man vi hade lite för lite förkunskaper för att kunna skapa projektet från tomma intet. Men efter många timmar kom vi i mål med något vi känner oss stolta över att vi har lyckats konstruera från specifikation på den tid vi har suttit med det.
 
 #### Funktionstest på FPGA
 [Youtubelänk till DEMO](https://youtu.be/6Pa-1xnfTg0)
