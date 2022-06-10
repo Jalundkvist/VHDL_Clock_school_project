@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(5CEBA4F23) Path("C:/Users/alfat/OneDrive/Documents/GitHub/VHDL_clock/output_files/") File("Digital_clock.sof") MfrSpec(OpMask(1));
+		Device PartName(5CEBA4F23) Path("C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/output_files/") File("Digital_clock.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

@@ -4,21 +4,22 @@ library work;
 use work.definitions_pkg.all;
 
 entity SlowClock is
+	generic
+	(frequency_g : natural := 50000000);
    port
    (
       clk       : in std_logic;   
       reset_n   : in std_logic;   
-      frequency : in counter_t; 
       slow_clk  : out std_logic
    );
 end entity;
 
 architecture behaviour of SlowClock is
-signal counter_s     : counter_t;
-signal counter_max_s : counter_t;
+signal counter_s     : frequency_t;
+signal counter_max_s : frequency_t;
 
 begin
-	counter_max_s <= frequency;
+	counter_max_s <= frequency_g;
 	
    process (clk, reset_n) is
    begin

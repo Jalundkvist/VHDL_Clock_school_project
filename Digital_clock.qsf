@@ -64,7 +64,7 @@ set_global_assignment -name VHDL_FILE Digital_clock.vhd
 set_global_assignment -name VHDL_TEST_BENCH_FILE Digital_clock_tb.vht
 set_global_assignment -name VHDL_FILE SlowClock.vhd
 set_location_assignment PIN_M9 -to clk
-set_location_assignment PIN_M6 -to rst_n
+set_location_assignment PIN_P22 -to rst_n
 set_location_assignment PIN_U21 -to hex[0][0]
 set_location_assignment PIN_V21 -to hex[0][1]
 set_location_assignment PIN_W21 -to hex[0][3]
@@ -113,7 +113,8 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VHDL_FILE doublesegment.vhd
 set_location_assignment PIN_U7 -to key_n[0]
-set_location_assignment PIN_AB12 -to switch
-set_location_assignment PIN_W9 -to key_n[1]
-set_location_assignment PIN_M7 -to key_n[2]
+set_location_assignment PIN_U13 -to switch
+set_location_assignment PIN_M7 -to key_n[1]
+set_location_assignment PIN_W9 -to key_n[2]
+set_location_assignment PIN_AB12 -to switch_mode
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
