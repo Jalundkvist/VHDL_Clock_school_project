@@ -23,7 +23,7 @@ Vid ytterligare aktivering av tryckknapp så ska räknaren pausa och hålla aktu
 Samtliga insignaler ska skyddas mot metastabilitet.
 
 
-![Tillståndsmaskin](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/FSM.PNG)
+![Tillståndsmaskin](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/FSM.PNG?raw=true)
 Figur 1 - Tillståndsmaskin.
 
 #### Vidareutveckling av grundfunktionen
@@ -42,16 +42,16 @@ Uppgiften var på en bra svårighetsgrad. Där vi fick sätta ihop ett större p
 #### Funktionstest på FPGA
 [Youtubelänk till DEMO](https://youtu.be/6Pa-1xnfTg0)
 
-![Toppmodulen](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/topmodule.PNG)
+![Toppmodulen](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/topmodule.PNG?raw=true)
 Figur 2 - Toppmodulen.
 
-![Toppmodul expanderad](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/topmodule_full.PNG)
+![Toppmodul expanderad](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/topmodule_full.PNG?raw=true)
 Figur 3 - Toppmodulen, expanderad.
 
-![SlowClock module](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/SlowClock.PNG)
+![SlowClock module](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/SlowClock.PNG?raw=true)
 Figur 4 - SlowClock modulen.
 
-![7 Segment display module](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/displaymodules.PNG)
+![7 Segment display module](https://github.com/Jalundkvist/VHDL_clock/blob/main/img/displaymodules.PNG?raw=true)
 Figur 5 - Dubbel 7-segments display modul.
 
 
