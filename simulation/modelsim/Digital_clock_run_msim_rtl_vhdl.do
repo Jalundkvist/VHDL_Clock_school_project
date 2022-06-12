@@ -10,10 +10,11 @@ vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segme
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd}
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd}
 vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd}
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/doublesegment.vhd}
 
-vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht}
+vcom -93 -work work {C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop_tb.vht}
 
-vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  Digital_clock_tb
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  ClockTop_tb
 
 add wave *
 view structure

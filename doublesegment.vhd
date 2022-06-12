@@ -3,7 +3,7 @@ use IEEE.std_logic_1164.all;
 
 library work;
 use work.definitions_pkg.all;
-
+-- doublesegment består av två stycken segment moduler
 entity doublesegment is
     port
     (
@@ -28,7 +28,7 @@ begin
       digit  => digit2,
       output => output2
    );
-
+-- Beräkning för att bryta ut tiotal och ental från tal mellan 0-99.
 digit1 <= ((digits - (digits mod 10))/10); -- exempel digits = 52 - 2 = 50/10 = 5
 digit2 <= (digits mod 10);
 

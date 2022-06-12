@@ -35,9 +35,9 @@ package definitions_pkg is
    constant FREQUENCY_32HZ  : frequency_t := 1562500;
    constant FREQUENCY_64HZ  : frequency_t := 781250;
    constant FREQUENCY_128HZ : frequency_t := 390625;
-	constant FREQUENCY_256HZ : frequency_t := 195312;
-	constant FREQUENCY_512HZ : frequency_t := 97656;
-	constant FREQUENCY_1024HZ: frequency_t := 48828;
+   constant FREQUENCY_256HZ : frequency_t := 195312;
+   constant FREQUENCY_512HZ : frequency_t := 97656;
+   constant FREQUENCY_1024HZ: frequency_t := 48828;
     
 -- Komponentdeklarationer:
 component Digital_clock is

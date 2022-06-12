@@ -9,8 +9,8 @@ z2
 cModel Technology
 Z0 dC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/simulation/modelsim
 Eclocktop
-Z1 w1654516995
-Z2 DPx4 work 15 definitions_pkg 0 22 KZa<B60JMzDdBgkQ]=3cF2
+Z1 w1654866475
+Z2 DPx4 work 15 definitions_pkg 0 22 Na[>@@WO[Rlfb9DU@2LzV3
 Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
 R0
@@ -18,13 +18,13 @@ Z5 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd
 Z6 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd
 l0
 L6
-Ve4f@3QIC=[dk;i0HX`2gY3
-!s100 Y[YhG@j:F<nOVOG7_m?kE1
+Vbe1VRoNjW3WC7B7zz4f>83
+!s100 C6Pj><dd[BOo`Oa@NU1L^3
 Z7 OV;C;10.5b;63
 31
-Z8 !s110 1654520349
+Z8 !s110 1655043247
 !i10b 1
-Z9 !s108 1654520349.000000
+Z9 !s108 1655043247.000000
 Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd|
 Z11 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop.vhd|
 !i113 1
@@ -34,11 +34,11 @@ Atop
 R2
 R3
 R4
-DEx4 work 8 clocktop 0 22 e4f@3QIC=[dk;i0HX`2gY3
-l18
-L16
-V`E1920GOn?WaAc18KQlNU1
-!s100 2^NR[]_`10^1@hncKlmYH1
+DEx4 work 8 clocktop 0 22 be1VRoNjW3WC7B7zz4f>83
+l20
+L18
+VRlR]a:EJg`jfULk<NZgWH3
+!s100 YDZL7C^Ez11LDzbdRES?I1
 R7
 31
 R8
@@ -49,58 +49,37 @@ R11
 !i113 1
 R12
 R13
-Pdefinitions_pkg
-R3
-R4
-w1654520025
-R0
-8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd
-FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd
-l0
-L4
-VKZa<B60JMzDdBgkQ]=3cF2
-!s100 5SD6J0TBTK;;1Hk^9:odJ3
-R7
-31
-!s110 1654520348
-!i10b 1
-!s108 1654520348.000000
-!s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd|
-!s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd|
-!i113 1
-R12
-R13
-Edigital_clock
-Z14 w1654521276
+Eclocktop_tb
+Z14 w1655045850
 R2
 R3
 R4
 R0
-Z15 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd
-Z16 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd
+Z15 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop_tb.vht
+Z16 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop_tb.vht
 l0
 L6
-VREEzgi?dKRjGaDoOilVlQ0
-!s100 >nU7=>b4>U9^8_n;Kefb03
+VncM_]1n9f>zMNcHUkUg6>1
+!s100 S[F]ZaN;ZmPc7YfeKTb^b3
 R7
 31
-Z17 !s110 1654521282
+Z17 !s110 1655045854
 !i10b 1
-Z18 !s108 1654521282.000000
-Z19 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd|
-Z20 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd|
+Z18 !s108 1655045854.000000
+Z19 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop_tb.vht|
+Z20 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/ClockTop_tb.vht|
 !i113 1
 R12
 R13
-Abehaviour
+Atb
 R2
 R3
 R4
-Z21 DEx4 work 13 digital_clock 0 22 REEzgi?dKRjGaDoOilVlQ0
-l30
-L16
-VE1hSH^YjT[B;^@j[[bgF62
-!s100 GKHCf^;bmSJi8XY]:R2g92
+Z21 DEx4 work 11 clocktop_tb 0 22 ncM_]1n9f>zMNcHUkUg6>1
+l43
+L9
+VA9F<;<acH[3JPm_TTaNC:0
+!s100 cX^8TgzehiIXEU[;ImQ403
 R7
 31
 R17
@@ -111,37 +90,58 @@ R20
 !i113 1
 R12
 R13
-Edigital_clock_tb
-Z22 w1654520804
+Pdefinitions_pkg
+R3
+R4
+w1654867658
+R0
+8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd
+FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd
+l0
+L4
+VNa[>@@WO[Rlfb9DU@2LzV3
+!s100 RfND9?fLLdGKM5>el02:A0
+R7
+31
+!s110 1655043240
+!i10b 1
+!s108 1655043240.000000
+!s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd|
+!s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/definitions_pkg.vhd|
+!i113 1
+R12
+R13
+Edigital_clock
+Z22 w1654866773
 R2
 R3
 R4
 R0
-Z23 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht
-Z24 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht
+Z23 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd
+Z24 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd
 l0
 L6
-VKEAlZ>GhV_Icf6aX]i^P53
-!s100 SJ7PLU3@jam;@6nZCeT^:1
+Vl4STbVdSROeGiV5JejZ]53
+!s100 6cAClmMReWmE2`IBJm1cZ2
 R7
 31
-Z25 !s110 1654520806
+Z25 !s110 1655043242
 !i10b 1
-Z26 !s108 1654520806.000000
-Z27 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht|
-Z28 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock_tb.vht|
+Z26 !s108 1655043242.000000
+Z27 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd|
+Z28 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/Digital_clock.vhd|
 !i113 1
 R12
 R13
-Atb
+Abehaviour
 R2
 R3
 R4
-DEx4 work 16 digital_clock_tb 0 22 KEAlZ>GhV_Icf6aX]i^P53
-l26
-L9
-VnaTGm`:`>C=5X^4?YMP_]2
-!s100 H;_8T6jC`Vz2gi[g7BX910
+DEx4 work 13 digital_clock 0 22 l4STbVdSROeGiV5JejZ]53
+l48
+L20
+V8=k?0FS7mM7n0haz1W0PN2
+!s100 zUkPG`gGkRzdA>jNRb0V;0
 R7
 31
 R25
@@ -152,25 +152,66 @@ R28
 !i113 1
 R12
 R13
-Esegment
-Z29 w1654514536
+Edoublesegment
+Z29 w1654699463
 R2
 R3
 R4
 R0
-Z30 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd
-Z31 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd
+Z30 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/doublesegment.vhd
+Z31 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/doublesegment.vhd
+l0
+L7
+VNdm;bO2CBc:=XlF3N6_L03
+!s100 7Qg=gl:bgT`fgR57PW@MD1
+R7
+31
+Z32 !s110 1655043243
+!i10b 1
+Z33 !s108 1655043243.000000
+Z34 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/doublesegment.vhd|
+Z35 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/doublesegment.vhd|
+!i113 1
+R12
+R13
+Abehaviour
+R2
+R3
+R4
+DEx4 work 13 doublesegment 0 22 Ndm;bO2CBc:=XlF3N6_L03
+l19
+L16
+V8_gPcAQ`NT8b1hmDhUVDi2
+!s100 jN>PDPD6F3WnT>lL9g_Ld3
+R7
+31
+R32
+!i10b 1
+R33
+R34
+R35
+!i113 1
+R12
+R13
+Esegment
+Z36 w1654854578
+R2
+R3
+R4
+R0
+Z37 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd
+Z38 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd
 l0
 L8
 VAe6a76:3TJiRaO:ON:nnZ0
 !s100 >Kz?g3z<zV@]8oEFhQ=^71
 R7
 31
-Z32 !s110 1654520350
+Z39 !s110 1655043244
 !i10b 1
-Z33 !s108 1654520350.000000
-Z34 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd|
-Z35 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd|
+Z40 !s108 1655043244.000000
+Z41 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd|
+Z42 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/segment.vhd|
 !i113 1
 R12
 R13
@@ -185,33 +226,33 @@ VVQha`70XS5f0@;EO1g^hc3
 !s100 e83S?=iN3_nSWiD:CIoNm2
 R7
 31
-R32
+R39
 !i10b 1
-R33
-R34
-R35
+R40
+R41
+R42
 !i113 1
 R12
 R13
 Eslowclock
-Z36 w1654520042
+Z43 w1654867368
 R2
 R3
 R4
 R0
-Z37 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd
-Z38 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd
+Z44 8C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd
+Z45 FC:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd
 l0
 L6
-V@V=m<57TZ]2mK8GMoY`7c1
-!s100 `[>aoLRJaL7Y=^k01iRnf2
+Vz`2So4aGk6_6g0kDmd4l51
+!s100 ?V<jBN7X?YT@o`?JK`O0D1
 R7
 31
-Z39 !s110 1654520352
+Z46 !s110 1655043246
 !i10b 1
-Z40 !s108 1654520352.000000
-Z41 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd|
-Z42 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd|
+Z47 !s108 1655043246.000000
+Z48 !s90 -reportprogress|300|-93|-work|work|C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd|
+Z49 !s107 C:/Users/Dizj/Documents/GIT/VHDL/Projekt 2/VHDL_clock/SlowClock.vhd|
 !i113 1
 R12
 R13
@@ -219,18 +260,18 @@ Abehaviour
 R2
 R3
 R4
-DEx4 work 9 slowclock 0 22 @V=m<57TZ]2mK8GMoY`7c1
-l20
-L16
-VHPa9]n>[D1<geD>l9S?903
-!s100 Nf0Pk=[^nGCQ_inJ9Pnnz1
+DEx4 work 9 slowclock 0 22 z`2So4aGk6_6g0kDmd4l51
+l21
+L17
+VUfM`i9zH7bL6lk0iL39aN1
+!s100 97UHFTz^zSfHALamfQF[^3
 R7
 31
-R39
+R46
 !i10b 1
-R40
-R41
-R42
+R47
+R48
+R49
 !i113 1
 R12
 R13
