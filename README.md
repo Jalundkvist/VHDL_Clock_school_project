@@ -30,7 +30,7 @@ Först så implementerades funktionalitet för att kunna ställa in mer specifik
 Efter detta hade implementerats så fortsatte utvecklingen med att implementera en timer som skulle kunna ställas in till valfri tid samt att den skulle fungera oberoende av klockan, och klockan skulle vara oberoende av timern. Detta var för att vi tyckte att både klockan och timern skulle kunna funka helt seperat men ändå använda samma tryckknappar/switchar.
 
 #### Resultat
-Konstruktionen fick samtliga efterfrågade funktioner samt några extra funktion som vi tyckte gjorde funktionaliteten på klockan ännu bättre. Det tog mång if och end if så blev det ett spindelnät med multiplexer (Se figur 3) för att nå målet och blev nöjda med hur slut konstruktion blev. Anledningen till att det blev många multiplexer var på grund av konstruktionen som använder sig av sju räknare, (timer-hr-min-sec) (counter-hr-min-sec) och SlowClock. 
+Konstruktionen fick samtliga efterfrågade funktioner samt några extra funktion som vi tyckte gjorde funktionaliteten på klockan ännu bättre. Det tog många if och end if för att nå målet. Sedan så blev det även ett spindelnät med multiplexer (Se figur 3). Men tillslut blev vi nöjda med slut konstruktion. Anledningen till att det blev många multiplexer var på grund av konstruktionen som använder sig av sju räknare, (timer-hr-min-sec) (counter-hr-min-sec) och SlowClock. 
 
 
 
