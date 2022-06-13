@@ -33,6 +33,8 @@ Efter detta hade implementerats så fortsatte utvecklingen med att implementera 
 #### Resultat
 Konstruktionen fick samtliga efterfrågade funktioner samt några extra funktion som vi tyckte gjorde funktionaliteten på klockan ännu bättre. Det tog mång if och end if så blev det ett spindelnät med multiplexer (Se figur 3) för att nå målet och blev nöjda med hur slut konstruktion blev. Anledningen till att det blev många multiplexer var på grund av konstruktionen som använder sig av sju räknare, (timer-hr-min-sec) (counter-hr-min-sec) och SlowClock.  
 
+Under konstruktionens gång så har en testbänk för ModelSim tagits fram. Först var den väldigt simpel för att säkerställa att tillståndsmaskinen fungerade, sedan att alla räknare fungerade. Till sist så färdigställdes den med stimuli från signaler för att få fram alla värden på räknare och utsignaler där samtliga funktioner testades ihop (se figur 7-9).
+
 ![Pin-layout](https://github.com/Jalundkvist/VHDL_Clock_school_project/blob/main/images/pinlayout.png?raw=true)
 
 Figur 2 - Slideswitch- och tryckknappsplacering.
@@ -65,15 +67,24 @@ Det skulle även vara ett mer givande projekt ifall det skulle läggas mer tid t
 [Youtubelänk till DEMO](https://youtu.be/6Pa-1xnfTg0)
 
 ![Toppmodulen](https://github.com/Jalundkvist/VHDL_clock/blob/main/images/toppmodul.PNG?raw=true)
-Figur 2 - Toppmodulen.
+Figur 3 - Toppmodulen.
 
 ![Toppmodul expanderad](https://github.com/Jalundkvist/VHDL_clock/blob/main/images/topmodule_full.PNG?raw=true)
-Figur 3 - Toppmodulen, expanderad.
+Figur 4 - Toppmodulen, expanderad.
 
 ![SlowClock module](https://github.com/Jalundkvist/VHDL_clock/blob/main/images/SlowClock.PNG?raw=true)
-Figur 4 - SlowClock modulen.
+Figur 5 - SlowClock modulen.
 
 ![7 Segment display module](https://github.com/Jalundkvist/VHDL_clock/blob/main/images/displaymodules.PNG?raw=true)
-Figur 5 - Dubbel 7-segments display modul.
+Figur 6 - Dubbel 7-segments display modul.
+
+![ModelSim1](https://github.com/Jalundkvist/VHDL_Clock_school_project/blob/main/images/Modelsim1.png?raw=true)
+Figur 7 - Bild från ModelSim med input stimuli.
+
+![Modelsim2](https://github.com/Jalundkvist/VHDL_Clock_school_project/blob/main/images/ModelSim2.png?raw=true)
+Figur 8 - Bild från ModelSim med input stimuli.
+
+![Modelsim3](https://github.com/Jalundkvist/VHDL_Clock_school_project/blob/main/images/ModelSim3.png?raw=true)
+Figur 9 - Bild från ModelSim vid reset.
 
 
